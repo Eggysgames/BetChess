@@ -5,9 +5,12 @@ React-Chessboard for the UI - https://www.npmjs.com/package/react-chessboard
 
 Chess.js for the engine - https://github.com/jhlywa/chess.js
 
-Stockfish for the AI (In Progress)
+Stockfish for the AI (In Progress) - https://github.com/nmrugg/stockfish.js
+
 Sockets (In Progress)
+
 Payments (In Progress)
+
 
 # Custom Changes
 
