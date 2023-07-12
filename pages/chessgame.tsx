@@ -38,19 +38,22 @@ export default function PlayRandomMoveEngine() {
       }, 200);
 
     }
-  
   }
 
   function makeRandomMove(move:any) {
     const possibleMoves = game.moves();
     if (game.isCheckmate() || game.isDraw() || possibleMoves.length === 0) {
-      console.log(game.isCheckmate()); // returns false
-      console.log(game.isDraw()); // returns false
+      console.log(game.isCheckmate()); 
+      console.log(game.isDraw()); 
       return; // exit if the game is over
     }
 
     const randomIndex = Math.floor(Math.random() * possibleMoves.length);
     makeAMove(possibleMoves[randomIndex]);
+  }
+
+  function AI() {
+    
   }
 
   function onDrop(sourceSquare: string, targetSquare: string) {

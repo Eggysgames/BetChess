@@ -1,13 +1,17 @@
 import React from 'react';
 
-const App = () => {
+
+const index = () => {
+
+
+
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-      <h1 style={{ fontSize: '30px', textDecoration: 'underline' }}>
+    <div className="flex items-center justify-center h-screen">
+      <h1 className="text-3xl underline text-white font-bold">
         <a href="./chessgame">PRESS ME TO PLAY CHESS!</a>
       </h1>
     </div>
   );
 };
 
-export default App;
+export default index;
