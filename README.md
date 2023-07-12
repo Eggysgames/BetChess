@@ -1,4 +1,4 @@
-=== Basic Chess ===
+=== BetChess ===
 
 This project combines 2 repositories into one workable chess engine vs random to get it working in the fastest way possible.
 
@@ -6,6 +6,7 @@ It uses React-Chessboard for the UI - https://www.npmjs.com/package/react-chessb
 
 It uses Chess.js for the engine - https://github.com/jhlywa/chess.js
 
+- Now adding multiplayer
 
 === Custom Changes === 
 
