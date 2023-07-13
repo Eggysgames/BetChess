@@ -15,6 +15,7 @@ Payments (In Progress)
 # Custom Changes
 
 - Change Background Colour to Grey (Done) ///Change in global.css using tailwind or seperate pages bg-slate-500
+- Add an image in background blurred out (In Progress)
 
 # Play
 
