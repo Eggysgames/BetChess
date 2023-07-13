@@ -12,7 +12,7 @@ Sockets (In Progress)
 Payments (In Progress)
 
 
-# Custom Changes
+# Learning Log
 
 - Change Background Colour to Grey (Done) ///Change in global.css using tailwind or seperate pages bg-slate-500
 - Add an image behind text (Done) ///Add the image above the text in the same div to be placed above
