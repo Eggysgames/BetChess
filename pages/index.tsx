@@ -1,17 +1,20 @@
 import React from 'react';
+import Image from 'next/image';
 
-
-const index = () => {
-
-
-
+const Index = () => {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <h1 className="text-3xl underline text-white font-bold">
+    <div className="relative flex items-center justify-center h-screen">
+      <Image
+        src="/StaticChessboard.png"
+        alt="Chessboard"
+        width={700}
+        height={700}
+      />
+      <h1 className="absolute text-3xl underline text-white font-bold z-10">
         <a href="./chessgame">PRESS ME TO PLAY CHESS!</a>
       </h1>
     </div>
   );
 };
 
-export default index;
+export default Index;
