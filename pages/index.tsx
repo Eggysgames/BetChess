@@ -12,11 +12,12 @@ const Index = () => {
         alt="Chessboard"
         width={700}
         height={700}
+        className=""
       />
-      
-      <h1 className="absolute text-3xl underline text-white font-bold">
-        <a href="./chessgame">PRESS ME TO PLAY CHESS!</a>
-      </h1>
+
+      <button className="bg-teal-800/90 hover:bg-teal-950/90 text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg position: absolute font text-2xl">
+        <a href="./chessgame">Play for Money</a>
+      </button>
 
 
 

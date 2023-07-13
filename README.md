@@ -16,6 +16,7 @@ Payments (In Progress)
 
 - Change Background Colour to Grey (Done) ///Change in global.css using tailwind or seperate pages bg-slate-500
 - Add an image behind text (Done) ///Add the image above the text in the same div to be placed above
+- Add Button over image (Done) // Adds a simple button via tailwind button className="bg-teal-800/90
 
 # Play
 
