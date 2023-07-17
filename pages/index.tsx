@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import StyledLink from "../components/StyledLink";
 
 const Index = () => {
   return (
@@ -13,19 +13,8 @@ const Index = () => {
         />
 
         <div className="absolute inset-0 flex items-center flex-col justify-center space-y-3 bg-black bg-opacity-70">
-          <Link
-            className="bg-teal-800/90 hover:bg-teal-950/90 text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg text-2xl"
-            href="/chessgame"
-          >
-            Play for Money
-          </Link>
-
-          <Link
-            className="bg-teal-800/90 hover:bg-teal-950/90 text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg text-2xl"
-            href="/chessgame"
-          >
-            Play for Fun
-          </Link>
+          <StyledLink href="/chessgame">Play for Money</StyledLink>
+          <StyledLink href="/chessgame">Play for Fun</StyledLink>
         </div>
       </section>
     </div>
