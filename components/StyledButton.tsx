@@ -7,11 +7,9 @@ type Props = {
 
 const StyledButton = ({ inserttext, link }: Props) => {
   return (
-    <a href={link}>
-      <button className="bg-teal-800/90 hover:bg-teal-950/90 text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg text-2xl">
-        {inserttext}
-      </button>
-    </a>
+    <Link className="bg-teal-800/90 hover:bg-teal-950/90 text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg text-2xl" href={link}>
+      {inserttext}
+    </Link>
   );
 };
 
