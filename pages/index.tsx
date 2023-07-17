@@ -5,7 +5,7 @@ const Index = () => {
 
 
   return (
-    <div className="relative flex items-center justify-center h-screen">
+    <div className="relative flex items-center justify-center h-screen flex-col">
 
       <Image
         src="/StaticChessboard.png"
@@ -15,11 +15,15 @@ const Index = () => {
         className=""
       />
 
-      <button className="bg-teal-800/90 hover:bg-teal-950/90 text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg position: absolute font text-2xl">
+    
+      <button className="bg-teal-800/90 hover:bg-teal-950/90 text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg position: absolute text-2xl">
         <a href="./chessgame">Play for Money</a>
       </button>
-
-
+    
+    
+      <button className="bg-teal-800/90 hover:bg-teal-950/90 text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg position: absolute text-2xl">
+        <a href="./chessgame">Play for Fun</a>
+      </button>
 
     </div>
   );
