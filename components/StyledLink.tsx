@@ -7,8 +7,7 @@ type Props = LinkProps & {
 
 const StyledLink = (props: Props) => {
   return (
-    <Link
-      className="bg-teal-800/90 hover:bg-teal-950/90 text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg text-2xl"
+    <Link className="bg-teal-800/90 hover:bg-teal-950/90 text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg text-2xl"
       {...props}
     >
       {props.children}
@@ -17,3 +16,4 @@ const StyledLink = (props: Props) => {
 };
 
 export default StyledLink;
+
