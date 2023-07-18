@@ -14,6 +14,8 @@ Payments (In Progress)
 
 # Learning Log
 
+=== Index Page ===
+
 - Change Background Colour to Grey **(Done)** Change `global.css` using tailwind or seperate pages `bg-slate-500`
 - Add an image behind text **(Done)** Add the image above the text in the same div to be placed above
 - Add Button over image **(Done)** Adds a simple button via tailwind `<button className="bg-teal-800/90>`
@@ -30,6 +32,18 @@ Payments (In Progress)
 - Add Title text to right
 - Add text to right
 - Add mini pawn icons
+
+=== Rules Page === 
+
+- Anti-Cheat Text
+- Return Button
+
+=== Login Page === 
+
+- Login Button
+- Register Button
+
+
 
 
 # Play
