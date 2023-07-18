@@ -19,6 +19,9 @@ Payments (In Progress)
 - Add Button over image **(Done)** Adds a simple button via tailwind `<button className="bg-teal-800/90>`
 - Add 2nd Button over image **(Done)** Needed container `relative w-x h-x` and `flex-col` and `absolute inset-0`
 - Seperate Button Components **(Done)** Removed `<Button>` Used `<Link>` and declared type `Props{}` with strings
+- Add Bigger Button top center **(Done)** Dynamic variables for button added `${colour} ${hover} ${textsize}`
+
+
 - Add Settings Icon Top right **(In Progress)**
 
 
