@@ -5,10 +5,9 @@ const Index = () => {
   return (
     <div className="relative flex items-center justify-center h-screen py-16">
 
-
     <section className='relative w-[700px] h-[700px]'>
 
-    
+  
       <div className='text-center -translate-y-10'>
         <StyledButton inserttext="Betting and Cheating Guideline" link="/chessgame" colour='bg-teal-500' hover='hover:bg-teal-700' textsize='text-4xl'/>
       </div>

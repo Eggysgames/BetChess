@@ -22,7 +22,14 @@ Payments (In Progress)
 - Add Bigger Button top center **(Done)** Dynamic variables for button added `${colour} ${hover} ${textsize}`
 
 
-- Add Settings Icon Top right **(In Progress)**
+- Add Settings Icon Top right
+- Add text top left with link
+- Add Chess Icon below that
+- Add signup/Login button below that
+- Add settings icon up top right
+- Add Title text to right
+- Add text to right
+- Add mini pawn icons
 
 
 # Play
