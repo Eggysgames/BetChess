@@ -22,10 +22,9 @@ Payments (In Progress)
 - Add 2nd Button over image **(Done)** Needed container `relative w-x h-x` and `flex-col` and `absolute inset-0`
 - Seperate Button Components **(Done)** Removed `<Button>` Used `<Link>` and declared type `Props{}` with strings
 - Add Bigger Button top center **(Done)** Dynamic variables for button added `${colour} ${hover} ${textsize}`
-
+- Add Text top left with URL **(Done)** Div taken out of root and seperated 
 
 - Add Settings Icon Top right
-- Add text top left with link
 - Add Chess Icon below that
 - Add signup/Login button below that
 - Add settings icon up top right
