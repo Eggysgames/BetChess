@@ -4,16 +4,6 @@ import StyledButton from "./StyledButton";
 const Chessboard = () => {
   return (
     <section className="relative w-[700px] h-[700px]">
-      <div className="text-center -translate-y-10">
-        <StyledButton
-          inserttext="Betting and Cheating Guideline"
-          link="/chessgame"
-          colour="bg-teal-500"
-          hover="hover:bg-teal-700"
-          textsize="text-4xl"
-        />
-      </div>
-
       <Image
         src="/StaticChessboard.png"
         alt="Chessboard"

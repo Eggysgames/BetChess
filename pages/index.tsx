@@ -1,6 +1,7 @@
 import Image from "next/image";
 import BottomBar from "../components/BottomBar";
 import Chessboard from "../components/Chessboard";
+import StyledButton from "../components/StyledButton";
 import TopBar from "../components/TopBar";
 
 const Index = () => {
@@ -22,7 +23,19 @@ const Index = () => {
 
         {/* Middle */}
         <div className="flex flex-grow border border-yellow-500 items-center justify-center">
-          <Chessboard />
+          <div>
+            <div className="text-center mb-6">
+              <StyledButton
+                inserttext="Betting and Cheating Guideline"
+                link="/chessgame"
+                colour="bg-teal-500"
+                hover="hover:bg-teal-700"
+                textsize="text-4xl"
+              />
+            </div>
+
+            <Chessboard />
+          </div>
         </div>
 
         {/* Right Column*/}
