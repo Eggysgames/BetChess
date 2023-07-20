@@ -1,30 +1,35 @@
 import Image from "next/image";
+import BottomBar from "../components/BottomBar";
 import Chessboard from "../components/Chessboard";
+import TopBar from "../components/TopBar";
 
 const Index = () => {
   return (
     <div className="flex flex-col h-screen">
-      {/*Div 1 (left)*/}
+      <TopBar />
 
-      <div className="border border-purple-600 fixed top-48">
-        <div className="text-3xl font-bold border border-purple-100">
-          <h1 className="text-white pl-6 pt-6">betonchess.online</h1>
-          <h1 className="text-white pl-6">betchess.online</h1>
+      <div className="flex-grow flex">
+        {/* Left Column */}
+        <div className="flex items-center justify-end border border-purple-600 w-80">
+          <Image
+            className="border border-red-300"
+            src="/horsedollar.png"
+            alt="HorseIcon"
+            width={200}
+            height={500}
+          />
         </div>
 
-        <Image
-          className="border border-purple-200"
-          src="/horsedollar.png"
-          alt="HorseIcon"
-          width={500}
-          height={500}
-        />
+        {/* Middle */}
+        <div className="flex flex-grow border border-yellow-500 items-center justify-center">
+          <Chessboard />
+        </div>
+
+        {/* Right Column*/}
+        <div className="w-80 border border-purple-600">Right column here</div>
       </div>
 
-      {/*Div 5 (Middle div)*/}
-      <div className="relative flex items-center justify-center flex-grow py-16">
-        <Chessboard />
-      </div>
+      <BottomBar />
     </div>
   );
 };

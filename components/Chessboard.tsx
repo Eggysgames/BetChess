@@ -3,7 +3,7 @@ import StyledButton from "./StyledButton";
 
 const Chessboard = () => {
   return (
-    <section className="relative w-[700px] h-[800px]">
+    <section className="relative w-[700px] h-[700px]">
       <div className="text-center -translate-y-10">
         <StyledButton
           inserttext="Betting and Cheating Guideline"
@@ -21,7 +21,7 @@ const Chessboard = () => {
         height={700}
       />
 
-      <div className="flex flex-col items-center space-y-4 absolute inset-0 justify-center">
+      <div className="flex flex-col items-center space-y-4 absolute inset-0 justify-center pt-[100px]">
         <StyledButton
           inserttext="Play for Money"
           link="/chessgame"
