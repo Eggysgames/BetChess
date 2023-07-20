@@ -23,9 +23,9 @@ Payments (In Progress)
 - Seperate Button Components **(Done)** Removed `<Button>` Used `<Link>` and declared type `Props{}` with strings
 - Add Bigger Button top center **(Done)** Dynamic variables for button added `${colour} ${hover} ${textsize}`
 - Add Text top left with URL **(Done)** Div taken out of root and seperated 
+- Add Horse Image to left of chessboard **(In Progress)**
 
 - Add Settings Icon Top right
-- Add Chess Icon below that
 - Add signup/Login button below that
 - Add settings icon up top right
 - Add Title text to right
