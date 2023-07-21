@@ -57,25 +57,91 @@ const Index = () => {
 
         {/* Right Column*/}
 
-        <div className="flex w-11/12 flex-col text-white text-5xl items-start items-center font-bold mt-48">
-          Play Chess, Win Money.
-          <br />
-          <br />
-          <p className="not-bold-not-underlined font-normal underline-none text-2xl">-Play similar ELO rated opponents</p>
-          <p className="not-bold-not-underlined font-normal underline-none text-2xl">-Odds to Play Higher Rated Players</p>
-          <p className="not-bold-not-underlined font-normal underline-none text-2xl">-Prop Bets</p>
-          <p className="not-bold-not-underlined font-normal underline-none text-2xl">-Tournaments</p>
-          <p className="not-bold-not-underlined font-normal underline-none text-2xl">-Free Rolls</p>
-          <p className="not-bold-not-underlined font-normal underline-none text-2xl">-Strict No-Cheating Policy</p>
-        </div>
+      <div className="flex w-11/12 flex-col text-white text-5xl items-start items-center font-bold mt-48">
+        Play Chess, Win Money.
+        <br />
+        <br />
 
-        <Image
-            className=""
+        <div className="flex items-center">
+          <Image
             src="/pawn.svg"
             alt="PawnIcon"
-            width={300}
-            height={100}
+            width={30}
+            height={30}
+            className="mr-2"
           />
+          <p className="not-bold-not-underlined font-normal underline-none text-2xl">
+            Play similar ELO rated opponents
+          </p>
+        </div>
+
+        <div className="flex items-center">
+          <Image
+            src="/pawn.svg"
+            alt="PawnIcon"
+            width={30}
+            height={30}
+            className="mr-2"
+          />
+        <p className="not-bold-not-underlined font-normal underline-none text-2xl">
+          Odds to Play Higher Rated Players
+        </p>
+      </div>
+
+        <div className="flex items-center">
+          <Image
+            src="/pawn.svg"
+            alt="PawnIcon"
+            width={30}
+            height={30}
+            className="mr-2"
+          />
+          <p className="not-bold-not-underlined font-normal underline-none text-2xl">
+            Prop Bets
+          </p>
+        </div>
+
+        <div className="flex items-center">
+          <Image
+            src="/pawn.svg"
+            alt="PawnIcon"
+            width={30}
+            height={30}
+            className="mr-2"
+          />
+          <p className="not-bold-not-underlined font-normal underline-none text-2xl">
+            Tournaments
+          </p>
+        </div>
+
+        <div className="flex items-center">
+          <Image
+            src="/pawn.svg"
+            alt="PawnIcon"
+            width={30}
+            height={30}
+            className="mr-2"
+          />
+          <p className="not-bold-not-underlined font-normal underline-none text-2xl">
+            Free Rolls
+          </p>
+        </div>
+
+        <div className="flex items-center">
+          <Image
+            src="/pawn.svg"
+            alt="PawnIcon"
+            width={30}
+            height={30}
+            className="mr-2"
+          />
+          <p className="not-bold-not-underlined font-normal underline-none text-2xl">
+            Strict No-Cheating Policy
+          </p>
+        </div>
+      </div>
+
+      
 
       </div>
 
