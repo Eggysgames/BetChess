@@ -69,7 +69,13 @@ const Index = () => {
           <p className="not-bold-not-underlined font-normal underline-none text-2xl">-Strict No-Cheating Policy</p>
         </div>
 
-        
+        <Image
+            className=""
+            src="/pawn.svg"
+            alt="PawnIcon"
+            width={300}
+            height={100}
+          />
 
       </div>
 
