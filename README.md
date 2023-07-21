@@ -28,8 +28,7 @@ Payments (In Progress)
 - Add Signup/Login button below that **(Done)** Added `flex-col` outside div for buttons and some `<br>`'s
 - Add Title text to right **(Done)** Added "Play Chess, Win Money" and a list below it
 - Add mini pawn icons **(Done)** Inserted each mini icon next to each dot point above bottomBar
-
-- Add Settings Icon Top right
+- Add Settings Icon Top right **(Done)** Added into the Topbar a simple top right image.
 
 
 === Rules Page === 
