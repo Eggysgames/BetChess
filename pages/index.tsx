@@ -1,54 +1,81 @@
-import Image from 'next/image';
+import Image from "next/image";
+import BottomBar from "../components/BottomBar";
+import Chessboard from "../components/Chessboard";
 import StyledButton from "../components/StyledButton";
+import TopBar from "../components/TopBar";
 
 const Index = () => {
   return (
+    <div className="flex flex-col h-screen ">
+      <TopBar />
 
-  <div className='flex flex-col h-screen'> 
+      <div className="flex-grow flex">
+        {/* Left Column */}
+        <div className="flex items-center justify-center w-11/12  flex-col">
+          <Image
+            className=""
+            src="/horsedollar.png"
+            alt="HorseIcon"
+            width={500}
+            height={700}
+          />
 
-    {/*Div 1 (left)*/}
+          <StyledButton 
+            inserttext="Sign Up"
+            link="/chessgame"
+            colour="bg-teal-500"
+            hover="hover:bg-teal-700"
+            textsize="text-2xl"
+          />
+          <br></br>
+          <StyledButton
+            inserttext="Log in"
+            link="/chessgame"
+            colour="bg-teal-500"
+            hover="hover:bg-teal-700"
+            textsize="text-2xl"
+          />
 
+        </div>
 
-    <div className='border border-purple-600 fixed top-48'>
+        {/* Middle */}
+        <div className="flex flex-grow  items-center justify-center ">
+          <div>
+            <div className="text-center mb-8">
+              <StyledButton
+                inserttext="Betting and Cheating Guideline"
+                link="/chessgame"
+                colour="bg-teal-500"
+                hover="hover:bg-teal-700"
+                textsize="text-4xl"
+              />
+            </div>
 
-      <div className='text-3xl font-bold border border-purple-100'>
-        <h1 className="text-white pl-6 pt-6">betonchess.online</h1>
-        <h1 className="text-white pl-6">betchess.online</h1>
+            <Chessboard />
+          </div>
+        </div>
+
+        {/* Right Column*/}
+
+        <div className="flex w-11/12 flex-col text-white text-5xl items-start items-center font-bold mt-48">
+          Play Chess, Win Money.
+          <br />
+          <br />
+          <p className="not-bold-not-underlined font-normal underline-none text-2xl">-Play similar ELO rated opponents</p>
+          <p className="not-bold-not-underlined font-normal underline-none text-2xl">-Odds to Play Higher Rated Players</p>
+          <p className="not-bold-not-underlined font-normal underline-none text-2xl">-Prop Bets</p>
+          <p className="not-bold-not-underlined font-normal underline-none text-2xl">-Tournaments</p>
+          <p className="not-bold-not-underlined font-normal underline-none text-2xl">-Free Rolls</p>
+          <p className="not-bold-not-underlined font-normal underline-none text-2xl">-Strict No-Cheating Policy</p>
+        </div>
+
+        
+
       </div>
 
-      <Image className="border border-purple-200"
-        src="/horsedollar.png"
-        alt="HorseIcon"
-        width={500}
-        height={500}
-      />
+      <BottomBar />
+
     </div>
-
-
-    {/*Div 5 (Middle div)*/}
-    <div className="relative flex items-center justify-center flex-grow py-16">
-
-      <section className='relative w-[700px] h-[800px]'>
-
-        <div className='text-center -translate-y-10'>
-          <StyledButton inserttext="Betting and Cheating Guideline" link="/chessgame" colour='bg-teal-500' hover='hover:bg-teal-700' textsize='text-4xl'/>
-        </div>
-
-        <Image
-          src="/StaticChessboard.png"
-          alt="Chessboard"
-          width={700}
-          height={700}
-        />
-
-        <div className="flex flex-col items-center space-y-4 absolute inset-0 justify-center">
-          <StyledButton inserttext="Play for Money" link="/chessgame" colour='bg-teal-800/90' hover='hover:bg-teal-900' textsize='text-2xl'/>
-          <StyledButton inserttext="Play for Fun" link="/chessgame" colour='bg-teal-600/90' hover='hover:bg-teal-900' textsize='text-lg'/>
-        </div>
-      </section>
-    </div>
-
-  </div>
   );
 };
 
