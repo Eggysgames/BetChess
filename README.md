@@ -31,6 +31,7 @@ Payments (In Progress)
 - Add Settings Icon Top right **(Done)** Added into the Topbar a simple top right image.
 
 
+
 === Rules Page === 
 
 - Anti-Cheat Text
@@ -42,6 +43,9 @@ Payments (In Progress)
 - Register Button
 
 
+=== Refactors===
+
+- Added `DefaultButton` component in StyledButton.tsx for simple ones
 
 
 # Play

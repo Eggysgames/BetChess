@@ -1,7 +1,7 @@
 import Image from "next/image";
 import BottomBar from "../components/BottomBar";
 import Chessboard from "../components/Chessboard";
-import StyledButton from "../components/StyledButton";
+import { StyledButton, DefaultButton } from "../components/StyledButton";
 import TopBar from "../components/TopBar";
 
 const Index = () => {
@@ -11,30 +11,17 @@ const Index = () => {
 
       <div className="flex-grow flex">
         {/* Left Column */}
-        <div className="flex items-center justify-center w-11/12  flex-col">
+        <div className="flex items-center justify-center w-11/12  flex-col space-y-5">
           <Image
-            className=""
             src="/horsedollar.png"
             alt="HorseIcon"
             width={500}
             height={700}
           />
 
-          <StyledButton 
-            inserttext="Sign Up"
-            link="/chessgame"
-            colour="bg-teal-500"
-            hover="hover:bg-teal-700"
-            textsize="text-2xl"
-          />
-          <br></br>
-          <StyledButton
-            inserttext="Log in"
-            link="/chessgame"
-            colour="bg-teal-500"
-            hover="hover:bg-teal-700"
-            textsize="text-2xl"
-          />
+          <DefaultButton inserttext="Sign Up" link="/chessgame"/>
+          
+          <DefaultButton inserttext="Log In" link="/chessgame"/>
 
         </div>
 

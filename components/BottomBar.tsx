@@ -1,5 +1,7 @@
 const BottomBar = () => {
-    return <div className="bg-black p-5">Bottom bar</div>;
+    return <div className="bg-black p-8">
+      
+      </div>;
   };
   
   export default BottomBar;

@@ -1,4 +1,9 @@
-import Link, { LinkProps } from "next/link";
+import Link from "next/link";
+
+type BasicProps = {
+  inserttext: string
+  link:string
+}
 
 type Props = {
   inserttext: string
@@ -8,15 +13,24 @@ type Props = {
   textsize:string
 }
 
-const StyledButton = ({ inserttext, link, colour, hover, textsize }: Props) => {
+
+export const DefaultButton = ({inserttext, link}:BasicProps) => {
   return (
-    <Link className={`${colour} ${hover} ${textsize} text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg`} href={link}>
+    <Link className={`bg-teal-500 hover:bg-teal-700 text-2xl inline-block text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg`} href={link}>
       {inserttext}
     </Link>
   );
 };
 
 
+export const StyledButton = ({ inserttext, link, colour, hover, textsize }: Props) => {
+  return (
+    <Link className={`${colour} ${hover} ${textsize} inline-block text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg`} href={link}>
+      {inserttext}
+    </Link>
+  );
+};
 
-export default StyledButton;
+
+export default StyledButton
 
