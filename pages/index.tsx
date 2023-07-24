@@ -44,6 +44,7 @@ const Index = () => {
 
         {/* Right Column*/}
 
+
       <div className="flex w-11/12 flex-col text-white text-5xl items-start items-center font-bold mt-48">
         Play Chess, Win Money.
         <br />
