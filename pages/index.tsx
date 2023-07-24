@@ -6,7 +6,7 @@ import TopBar from "../components/TopBar";
 
 const Index = () => {
   return (
-    <div className="flex flex-col h-screen ">
+    <div className="flex flex-col h-screen">
       <TopBar />
 
       <div className="flex-grow flex">
@@ -26,9 +26,9 @@ const Index = () => {
         </div>
 
         {/* Middle */}
-        <div className="flex flex-grow  items-center justify-center ">
+        <div className="flex flex-grow items-center justify-center ">
           <div>
-            <div className="text-center mb-8">
+            <div className="text-center mb-4 mb-4">
               <StyledButton
                 inserttext="Betting and Cheating Guideline"
                 link="/chessgame"
@@ -45,7 +45,7 @@ const Index = () => {
         {/* Right Column*/}
 
 
-      <div className="flex w-11/12 flex-col text-white text-5xl items-start items-center font-bold mt-48">
+      <div className="flex w-11/12 flex-col text-white text-5xl items-start items-center justify-left font-bold mt-48 p-2">
         Play Chess, Win Money.
         <br />
         <br />

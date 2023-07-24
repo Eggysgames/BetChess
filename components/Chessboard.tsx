@@ -3,7 +3,7 @@ import StyledButton from "./StyledButton";
 
 const Chessboard = () => {
   return (
-    <section className="relative w-[700px] h-[700px]">
+    <section className="relative w-[650px] h-[650px]">
       <Image
         src="/StaticChessboard.png"
         alt="Chessboard"
