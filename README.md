@@ -46,6 +46,8 @@ Payments (In Progress)
 === Refactors===
 
 - Added `DefaultButton` component in StyledButton.tsx for simple ones
+- Added 'items-start' to make pawns on left and wrapped images with p-1 to align
+- Added 'ml-16' to align right text properly
 
 
 # Play
