@@ -45,12 +45,13 @@ const Index = () => {
         {/* Right Column*/}
 
 
-      <div className="flex w-11/12 flex-col text-white text-5xl items-start items-center justify-left font-bold mt-48 p-2">
+      <div className="flex w-11/12 flex-col text-white text-5xl items-start   font-bold mt-48 p-2 text-left ml-16">
         Play Chess, Win Money.
         <br />
         <br />
 
-        <div className="flex items-center">
+        <div className="flex items-start w-full">
+          <div className="p-0.5">
           <Image
             src="/pawn.svg"
             alt="PawnIcon"
@@ -58,12 +59,14 @@ const Index = () => {
             height={30}
             className="mr-2"
           />
-          <p className="not-bold-not-underlined font-normal underline-none text-2xl">
+          </div>
+          <p className="not-bold-not-underlined font-normal underline-none text-2xl w-full">
             Play similar ELO rated opponents
           </p>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-start w-full">
+          <div className="p-0.5">
           <Image
             src="/pawn.svg"
             alt="PawnIcon"
@@ -71,12 +74,14 @@ const Index = () => {
             height={30}
             className="mr-2"
           />
-        <p className="not-bold-not-underlined font-normal underline-none text-2xl">
+          </div>
+        <p className="not-bold-not-underlined font-normal underline-none text-2xl w-full">
           Odds to Play Higher Rated Players
         </p>
       </div>
 
-        <div className="flex items-center">
+      <div className="flex items-start w-full">
+          <div className="p-0.5">
           <Image
             src="/pawn.svg"
             alt="PawnIcon"
@@ -84,12 +89,14 @@ const Index = () => {
             height={30}
             className="mr-2"
           />
-          <p className="not-bold-not-underlined font-normal underline-none text-2xl">
+          </div>
+          <p className="not-bold-not-underlined font-normal underline-none text-2xl w-full">
             Prop Bets
           </p>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-start w-full">
+          <div className="p-0.5">
           <Image
             src="/pawn.svg"
             alt="PawnIcon"
@@ -97,12 +104,14 @@ const Index = () => {
             height={30}
             className="mr-2"
           />
-          <p className="not-bold-not-underlined font-normal underline-none text-2xl">
+          </div>
+          <p className="not-bold-not-underlined font-normal underline-none text-2xl w-full">
             Tournaments
           </p>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-start w-full">
+          <div className="p-0.5">
           <Image
             src="/pawn.svg"
             alt="PawnIcon"
@@ -110,12 +119,14 @@ const Index = () => {
             height={30}
             className="mr-2"
           />
-          <p className="not-bold-not-underlined font-normal underline-none text-2xl">
+          </div>
+          <p className="not-bold-not-underlined font-normal underline-none text-2xl w-full">
             Free Rolls
           </p>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-start w-full">
+          <div className="p-0.5">
           <Image
             src="/pawn.svg"
             alt="PawnIcon"
@@ -123,7 +134,8 @@ const Index = () => {
             height={30}
             className="mr-2"
           />
-          <p className="not-bold-not-underlined font-normal underline-none text-2xl">
+          </div>
+          <p className="not-bold-not-underlined font-normal underline-none text-2xl w-full">
             Strict No-Cheating Policy
           </p>
         </div>
