@@ -3,12 +3,12 @@ import StyledButton from "./StyledButton";
 
 const Chessboard = () => {
   return (
-    <section className="relative w-[650px] h-[650px]">
+    <section className="relative">
       <Image
         src="/StaticChessboard.png"
         alt="Chessboard"
-        width={700}
-        height={700}
+        width={2000}
+        height={2000}
       />
 
       <div className="flex flex-col items-center space-y-4 absolute inset-0 justify-center">
