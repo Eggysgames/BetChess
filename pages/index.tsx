@@ -3,15 +3,16 @@ import BottomBar from "../components/BottomBar";
 import Chessboard from "../components/Chessboard";
 import { StyledButton, DefaultButton } from "../components/StyledButton";
 import TopBar from "../components/TopBar";
+import 'animate.css';
 
 const Index = () => {
   return (
-    <div className="flex flex-col h-screen animate-spin">
+    <div className="flex flex-col h-screen">
       <TopBar />
 
       <div className="flex-grow flex">
         {/* Left Column */}
-        <div className="flex items-center justify-center w-11/12  flex-col space-y-5">
+        <div className="flex items-center justify-center w-11/12  flex-col space-y-5 relative animate__animated animate__bounceInLeft">
           
           <Image
             className="max-w-none w-[400px] sm:max-w-none sm:w-[420px]  2xl:w-full "
@@ -30,9 +31,9 @@ const Index = () => {
         </div>
 
         {/* Middle */}
-        <div className="flex flex-grow items-center justify-center animate-spin">
+        <div className="flex flex-grow items-center justify-center relative animate__animated animate__bounceInLeft">
           <div>
-            <div className="text-center mb-4 mb-4 ">
+            <div className="text-center mb-4 mb-4">
               <StyledButton
                 inserttext="Betting and Cheating Guideline"
                 link="/chessgame"
@@ -49,7 +50,7 @@ const Index = () => {
         {/* Right Column*/}
 
 
-      <div className="flex w-11/12 flex-col text-white text-5xl items-start   font-bold mt-48 p-2 text-left ml-16">
+      <div className="flex w-11/12 flex-col text-white text-5xl items-start   font-bold mt-48 p-2 text-left ml-16 relative animate__animated animate__bounceInLeft">
         Play Chess, Win Money.
         <br />
         <br />

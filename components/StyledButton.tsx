@@ -16,7 +16,7 @@ type Props = {
 
 export const DefaultButton = ({inserttext, link}:BasicProps) => {
   return (
-    <Link className={`bg-teal-500 hover:bg-teal-700 text-2xl inline-block text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg`} href={link}>
+    <Link className={`bg-teal-500 hover:bg-teal-700 hover:rounded-xl transition-all duration-100 ease-linear cursor-pointer text-2xl inline-block text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg`} href={link}>
       {inserttext}
     </Link>
   );
