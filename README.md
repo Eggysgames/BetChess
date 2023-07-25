@@ -50,6 +50,8 @@ Payments (In Progress)
 - Added 'ml-16' to align right text properly
 - Added 'whitespace-nowrap' around left buttons
 - Added 'max-w-none w-[350px] sm:max-w-none sm:w-[350px]  2xl:w-full' around horse image
+- Horse Image set to original Dimensions - `640x480`
+- Horse zooms in (Animation)
 
 # Play
 
