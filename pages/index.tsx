@@ -6,7 +6,7 @@ import TopBar from "../components/TopBar";
 
 const Index = () => {
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen animate-bounce">
       <TopBar />
 
       <div className="flex-grow flex">
@@ -30,7 +30,7 @@ const Index = () => {
         </div>
 
         {/* Middle */}
-        <div className="flex flex-grow items-center justify-center ">
+        <div className="flex flex-grow items-center justify-center animate-bounce">
           <div>
             <div className="text-center mb-4 mb-4">
               <StyledButton
