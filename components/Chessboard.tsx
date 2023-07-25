@@ -11,7 +11,7 @@ const Chessboard = () => {
         height={2000}
       />
 
-      <div className="flex flex-col items-center space-y-4 absolute inset-0 justify-center ">
+      <div className="flex flex-col items-center space-y-4 absolute inset-0 justify-center">
         <StyledButton
           inserttext="Play for Money"
           link="/chessgame"
