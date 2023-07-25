@@ -6,7 +6,7 @@ import TopBar from "../components/TopBar";
 
 const Index = () => {
   return (
-    <div className="flex flex-col h-screen animate-bounce">
+    <div className="flex flex-col h-screen animate-spin">
       <TopBar />
 
       <div className="flex-grow flex">
@@ -22,7 +22,7 @@ const Index = () => {
           />
 
           
-          <div className="flex items-center justify-center w-11/12 flex-col space-y-5 whitespace-nowrap">
+          <div className="flex items-center justify-center w-11/12 flex-col space-y-5 whitespace-nowrap ">
             <DefaultButton inserttext="Sign Up" link="/chessgame"/>
             <DefaultButton inserttext="Log In" link="/chessgame"/>
           </div>
@@ -30,9 +30,9 @@ const Index = () => {
         </div>
 
         {/* Middle */}
-        <div className="flex flex-grow items-center justify-center animate-bounce">
+        <div className="flex flex-grow items-center justify-center animate-spin">
           <div>
-            <div className="text-center mb-4 mb-4">
+            <div className="text-center mb-4 mb-4 ">
               <StyledButton
                 inserttext="Betting and Cheating Guideline"
                 link="/chessgame"
