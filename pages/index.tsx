@@ -12,17 +12,21 @@ const Index = () => {
       <div className="flex-grow flex">
         {/* Left Column */}
         <div className="flex items-center justify-center w-11/12  flex-col space-y-5">
+          
           <Image
+            className="max-w-none w-[350px] sm:max-w-none sm:w-[350px]  2xl:w-full "
             src="/horsedollar.png"
             alt="HorseIcon"
             width={500}
             height={700}
           />
 
-          <DefaultButton inserttext="Sign Up" link="/chessgame"/>
           
-          <DefaultButton inserttext="Log In" link="/chessgame"/>
-
+          <div className="flex items-center justify-center w-11/12 flex-col space-y-5 whitespace-nowrap">
+            <DefaultButton inserttext="Sign Up" link="/chessgame"/>
+            <DefaultButton inserttext="Log In" link="/chessgame"/>
+          </div>
+          
         </div>
 
         {/* Middle */}
