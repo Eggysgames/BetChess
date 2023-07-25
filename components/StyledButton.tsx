@@ -25,7 +25,7 @@ export const DefaultButton = ({inserttext, link}:BasicProps) => {
 
 export const StyledButton = ({ inserttext, link, colour, hover, textsize }: Props) => {
   return (
-    <Link className={`${colour} ${hover} ${textsize} inline-block text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg`} href={link}>
+    <Link className={`${colour} ${hover} ${textsize} whitespace-nowrap inline-block text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg`} href={link}>
       {inserttext}
     </Link>
   );

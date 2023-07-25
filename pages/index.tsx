@@ -14,7 +14,7 @@ const Index = () => {
         <div className="flex items-center justify-center w-11/12  flex-col space-y-5">
           
           <Image
-            className="max-w-none w-[350px] sm:max-w-none sm:w-[350px]  2xl:w-full "
+            className="max-w-none w-[400px] sm:max-w-none sm:w-[420px]  2xl:w-full "
             src="/horsedollar.png"
             alt="HorseIcon"
             width={500}
@@ -38,7 +38,7 @@ const Index = () => {
                 link="/chessgame"
                 colour="bg-teal-500"
                 hover="hover:bg-teal-700"
-                textsize="text-4xl"
+                textsize="text-2xl xl:text-4xl"
               />
             </div>
 
