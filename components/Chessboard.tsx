@@ -3,7 +3,7 @@ import StyledButton from "./StyledButton";
 
 const Chessboard = () => {
   return (
-    <section className="relative animate__animated animate__bounceInLeft">
+    <section className="relative">
       <Image
         src="/StaticChessboard.png"
         alt="Chessboard"
