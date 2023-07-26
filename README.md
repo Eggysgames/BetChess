@@ -33,7 +33,7 @@ Payments (In Progress)
 **=== Cheating Policy Page ===**
 
 - Installed Tailwind Typography Plugin **(Done)** 
-- Set a border, 1drop-shadow-xl1 and used 'mx-auto' to squish it in and inside `px-32` **(Done)** 
+- Set a `border`, `drop-shadow-xl` and used `mx-auto` to squish it in and inside `px-32` **(Done)** 
 - Set Main Text **(Done)**
 - Used `<ul>` and `<li>` for dotted lists
 - Used `<blockquote>` for qouted FAQ
