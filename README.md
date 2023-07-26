@@ -35,9 +35,9 @@ Payments (In Progress)
 - Installed Tailwind Typography Plugin **(Done)** 
 - Set a `border`, `drop-shadow-xl` and used `mx-auto` to squish it in and inside `px-32` **(Done)** 
 - Set Main Text **(Done)**
-- Used `<ul>` and `<li>` for dotted lists
-- Used `<blockquote>` for qouted FAQ
-- Used `<br />` for line breaks
+- Used `<ul>` and `<li>` for dotted lists **(Done)** 
+- Used `<blockquote>` for qouted FAQ **(Done)** 
+- Used `<br />` for line breaks **(Done)** 
 
 **===Register Page===**
 
@@ -45,8 +45,8 @@ Payments (In Progress)
 
 **=== Login Page ===** 
 
-- Login Button
-- Register Button
+- Login Button **(In Progress)**
+- Register Button **(In Progress)**
 
 
 **=== Refactors===**
