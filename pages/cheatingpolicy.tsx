@@ -1,10 +1,14 @@
 import { StyledButton, DefaultButton } from "../components/StyledButton";
+import TopBar from "../components/TopBar";
+import BottomBar from "../components/BottomBar";
 
 const cheatingpolicy = () => {
     return (
 
+      <div>
+      
         <div className="my-10 mx-auto max-w-6xl px-32 py-8 bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 text-left">
-
+            
         <article className="prose prose-2xl text-white max-w-none">
 
         <h1 className="text-white underline">Betting and Cheating Policy</h1>
@@ -58,6 +62,8 @@ const cheatingpolicy = () => {
                 textsize="text-2xl"
               />
 
+      </div>
+      <BottomBar />
       </div>
     ); 
   }

@@ -30,12 +30,14 @@ Payments (In Progress)
 - Add mini pawn icons **(Done)** Inserted each mini icon next to each dot point above bottomBar
 - Add Settings Icon Top right **(Done)** Added into the Topbar a simple top right image.
 
+=== Cheating Policy Page === 
 
-
-=== Rules Page === 
-
-- Anti-Cheat Text
-- Return Button
+- Installed Tailwind Typography Plugin **(Done)** 
+- Set a border, 1drop-shadow-xl1 and used 'mx-auto' to squish it in and inside `px-32` **(Done)** 
+- Set Main Text **(Done)**
+- Used `<ul>` and `<li>` for dotted lists
+- Used `<blockquote>` for qouted FAQ
+- Used `<br />` for line breaks
 
 === Login Page === 
 

@@ -9,7 +9,7 @@ const TopBar = () => {
       </div>
 
       
-      <div className="absolute top-0 right-0 mt-5 mr-5">
+      {/* <div className="absolute top-0 right-0 mt-5 mr-5"> 
         <Image className="opacity-90"
           src="/settingsicon.png"
           alt="SettingsIcon"
@@ -17,6 +17,7 @@ const TopBar = () => {
           height={70}
         />
       </div>
+      */}
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import Image from "next/image";
+import TopBar from "../components/TopBar";
 import BottomBar from "../components/BottomBar";
 import Chessboard from "../components/Chessboard";
 import { StyledButton, DefaultButton } from "../components/StyledButton";
-import TopBar from "../components/TopBar";
 import 'animate.css';
 
 const Index = () => {
