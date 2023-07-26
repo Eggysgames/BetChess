@@ -43,7 +43,7 @@ const cheatingpolicy = () => {
         <blockquote className="text-left text-slate-400">
           <p>Can I beg for my account back?</p>
         </blockquote>
-        <p>Sure. Won't do much though.</p>
+        <p>Sure Wont do much though.</p>
         <blockquote className="text-left text-slate-400">
           <p>Reading this made me uncomfortable and I will report you</p>
         </blockquote>
