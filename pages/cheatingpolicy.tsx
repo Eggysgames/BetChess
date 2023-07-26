@@ -12,7 +12,7 @@ const cheatingpolicy = () => {
         <p>
           Computers and computer-assisted players are not allowed to play. Please do not get assistance from chess engines, databases, or from 
           other players while playing. Also note that making multiple accounts is strongly discouraged and excessive multi-accounting will lead
-          to being banned. You <b>must</b> follow these rules while using this website or it will result in an account ban.
+          to being banned. You <b>must</b> follow these or else your <i>entire family bloodline will be wiped out</i>
         </p>
 
         <p>
@@ -24,26 +24,26 @@ const cheatingpolicy = () => {
         <p>If we conclude cheating has occurred -</p>
 
       <ul>
-        <li>All winnings will be forfeited and distributed to impacted players</li>
-        <li>Your initial deposit will be refunded</li>
-        <li>You will be permanently banned from the site</li>
-        <li>Your name, as well as User ID, will be listed on the Banned Players Page</li>
+        <li>Your family will be hunted down for sport</li>
+        <li>Your face will be posted to every news site as a cheater</li>
+        <li>You will be posted on the wall of shame we use as a dartboard</li>
+        <li>A curse will be cast upon you</li>
       </ul>
         
         
           <p>--- FAQ ----</p>
         <blockquote className="text-left text-slate-400">
-          <p>Can I dispute the ban?</p>
+          <p>Why was my account banned?</p>
         </blockquote>
-        <p>Yes, please submit an email to betchess@support.com</p>
+        <p>Because fuck you thats why</p>
         <blockquote className="text-left text-slate-400">
-          <p>How is cheating detected?</p>
+          <p>Can I do any kind of favours to get it back ;)</p>
         </blockquote>
-        <p>For security purposes we cannot give out this information</p>
+        <p>Only if you are Jessica Alba</p>
         <blockquote className="text-left text-slate-400">
-          <p>Do you use StockFish?</p>
+          <p>Please unban me</p>
         </blockquote>
-        <p>Yes. All moves are run through Stockfish the best chess AI engine made</p>
+        <p>No</p>
         <br /><br />
 
         
