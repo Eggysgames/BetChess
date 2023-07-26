@@ -50,7 +50,7 @@ const Index = () => {
         {/* Right Column*/}
 
 
-      <div className="flex w-11/12 flex-col text-white text-5xl items-start font-bold mt-48 p-2 text-left ml-16">
+      <div className="flex w-11/12 flex-col text-white text-5xl items-start font-bold  mt-48 p-2 text-left ml-16">
         Play Chess, Win Money.
         <br />
         <br />
