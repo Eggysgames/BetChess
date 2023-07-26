@@ -21,17 +21,17 @@ const cheatingpolicy = () => {
         <p>
           if you are suspected of cheating:
           <br /><br />
-          Your account is immediately frozen pending a thorough review.
-          <br />
+          You will be hunted down for sport.
+          <br /><br />
           If we conclude that cheating has occured:
           <br /><br />
-          All winnings will be forfeited and distributed to impacted players.
+          Your entire bank account will be donated to your most hated rival.
           <br /><br />
           Your initial deposit will be refunded.
           <br /><br />
           You will be permanently banned from the site.
           <br /><br />
-          Your name, as well as User ID, will be listed on the Banned Players Page.
+          Your name, as well as User ID will be hung in the wall of shame. SHAME.
           <br /><br />
           
         </p>
@@ -41,9 +41,13 @@ const cheatingpolicy = () => {
         </blockquote>
         <p>Because fuck you thats why.</p>
         <blockquote className="text-left text-slate-400">
-          <p>Can I suck your dick to get my account back?</p>
+          <p>Can I beg for my account back?</p>
         </blockquote>
-        <p>No.</p>
+        <p>Sure. Won't do much though.</p>
+        <blockquote className="text-left text-slate-400">
+          <p>Reading this made me uncomfortable and I will report you</p>
+        </blockquote>
+        <p>Does not matter, I was already fired.</p>
         <br /><br />
 
         
