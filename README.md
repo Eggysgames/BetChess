@@ -14,7 +14,7 @@ Payments (In Progress)
 
 # Learning Log
 
-=== Index Page ===
+**=== Index Page ===**
 
 - Change Background Colour to Grey **(Done)** Change `global.css` using tailwind or seperate pages `bg-slate-500`
 - Add an image behind text **(Done)** Add the image above the text in the same div to be placed above
@@ -30,7 +30,7 @@ Payments (In Progress)
 - Add mini pawn icons **(Done)** Inserted each mini icon next to each dot point above bottomBar
 - Add Settings Icon Top right **(Done)** Added into the Topbar a simple top right image.
 
-=== Cheating Policy Page === 
+**=== Cheating Policy Page ===**
 
 - Installed Tailwind Typography Plugin **(Done)** 
 - Set a border, 1drop-shadow-xl1 and used 'mx-auto' to squish it in and inside `px-32` **(Done)** 
@@ -39,13 +39,17 @@ Payments (In Progress)
 - Used `<blockquote>` for qouted FAQ
 - Used `<br />` for line breaks
 
-=== Login Page === 
+**===Register Page===**
+
+- Input Form **(In Progress)**
+
+**=== Login Page ===** 
 
 - Login Button
 - Register Button
 
 
-=== Refactors===
+**=== Refactors===**
 
 - Added `DefaultButton` component in StyledButton.tsx for simple ones
 - Added 'items-start' to make pawns on left and wrapped images with p-1 to align
