@@ -12,7 +12,7 @@ const cheatingpolicy = () => {
         <p>
           Computers and computer-assisted players are not allowed to play. Please do not get assistance from chess engines, databases, or from 
           other players while playing. Also note that making multiple accounts is strongly discouraged and excessive multi-accounting will lead
-          to being banned. You <b>must</b> follow these rules or else your entire <i>family bloodline</i> will be destroyed forever.
+          to being banned. You <b>must</b> follow these rules while using this website or it will result in an account ban.
         </p>
 
         <p>
