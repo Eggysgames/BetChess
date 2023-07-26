@@ -36,7 +36,7 @@ const Index = () => {
             <div className="text-center mb-4 mb-4">
               <StyledButton
                 inserttext="Betting and Cheating Guideline"
-                link="/chessgame"
+                link="/cheatingpolicy"
                 colour="bg-teal-500"
                 hover="hover:bg-teal-700"
                 textsize="text-2xl xl:text-4xl"

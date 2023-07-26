@@ -1,3 +1,5 @@
+import { StyledButton, DefaultButton } from "../components/StyledButton";
+
 const cheatingpolicy = () => {
     return (
 
@@ -17,43 +19,45 @@ const cheatingpolicy = () => {
           By registering, you agree to be bound by our Terms of Service. Additionally please read our Privacy Policy.
         </p>
 
+        <p><b>If you are suspected of cheating, your account is frozen and will be thoroughly reviewed</b></p>
+
+        <p>If we conclude cheating has occurred -</p>
+
+      <ul>
+        <li>All winnings will be forfeited and distributed to impacted players</li>
+        <li>Your initial deposit will be refunded</li>
+        <li>You will be permanently banned from the site</li>
+        <li>Your name, as well as User ID, will be listed on the Banned Players Page</li>
+      </ul>
         
-        <p>
-          if you are suspected of cheating:
-          <br /><br />
-          You will be hunted down for sport.
-          <br /><br />
-          If we conclude that cheating has occured:
-          <br /><br />
-          Your entire bank account will be donated to your most hated rival.
-          <br /><br />
-          Your initial deposit will be refunded.
-          <br /><br />
-          You will be permanently banned from the site.
-          <br /><br />
-          Your name, as well as User ID will be hung in the wall of shame. SHAME.
-          <br /><br />
-          
-        </p>
-          <p>FAQ</p>
+        
+          <p>--- FAQ ----</p>
         <blockquote className="text-left text-slate-400">
-          <p>Why was my account Banned?</p>
+          <p>Can I dispute the ban?</p>
         </blockquote>
-        <p>Because fuck you thats why.</p>
+        <p>Yes, please submit an email to betchess@support.com</p>
         <blockquote className="text-left text-slate-400">
-          <p>Can I beg for my account back?</p>
+          <p>How is cheating detected?</p>
         </blockquote>
-        <p>Sure Wont do much though.</p>
+        <p>For security purposes we cannot give out this information</p>
         <blockquote className="text-left text-slate-400">
-          <p>Reading this made me uncomfortable and I will report you</p>
+          <p>Do you use StockFish?</p>
         </blockquote>
-        <p>Does not matter, I was already fired.</p>
+        <p>Yes. All moves are run through Stockfish the best chess AI engine made</p>
         <br /><br />
 
         
 
       </article>
       
+      <StyledButton
+                inserttext="Return Home"
+                link="/"
+                colour="bg-teal-500"
+                hover="hover:bg-teal-700"
+                textsize="text-2xl"
+              />
+
       </div>
     ); 
   }
