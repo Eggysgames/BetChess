@@ -43,7 +43,7 @@ Payments (In Progress)
 
 - Used grid to line up inputs `grid grid-cols-3 gap-3` **(Done)** 
 - Input Username, Register using `<input>` **(Done)** 
-- Added hyperlink to CheatingPolicy page `<a href` **(Done)** 
+- Added hyperlink to CheatingPolicy page `<a href>` **(Done)** 
 - Added checkbox with `<input type="checkbox"` **(Done)** 
 
 **=== Login Page ===** 
