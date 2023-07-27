@@ -7,11 +7,11 @@ const cheatingpolicy = () => {
 
       <div>
       
-        <div className="my-10 mx-auto max-w-6xl px-32 py-8 bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 text-left">
+        <div className="my-10 mx-auto max-w-3xl px-32 py-8 bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 text-left">
             
-        <article className="prose prose-2xl text-white max-w-none">
+        <article className="prose prose-md text-white max-w-none">
 
-        <h1 className="text-white underline">Betting and Cheating Policy</h1>
+        <h1 className="text-white underline text-4xl">Betting and Cheating Policy</h1>
 
         <p>
           Computers and computer-assisted players are not allowed to play. Please do not get assistance from chess engines, databases, or from 
