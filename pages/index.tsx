@@ -25,7 +25,7 @@ const Index = () => {
           
           <div className="flex items-center justify-center w-11/12 flex-col space-y-5 whitespace-nowrap">
             <DefaultButton inserttext="Sign Up" link="/register"/>
-            <DefaultButton inserttext="Log In" link="/chessgame"/>
+            <DefaultButton inserttext="Log In" link="/login"/>
           </div>
           
         </div>
