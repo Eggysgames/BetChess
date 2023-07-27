@@ -48,8 +48,16 @@ Payments (In Progress)
 
 **=== Login Page ===** 
 
-- Login Button **(In Progress)**
-- Register Button **(In Progress)**
+- Login Form **(Done)**
+- Basically Same as Register Page **(Done)**
+
+**=== Billing Info Page ===** 
+
+**=== Non Cash Game Select Page ===** 
+
+**=== Cash Game Select Page ===** 
+
+
 
 
 **=== Refactors===**
