@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const TopBar = () => {
   return (
-    <div className="bg-black text-white p-3 relative">
+    <div className="bg-transparent text-white p-3 relative">
       <div className="text-3xl font-bold">
         <h1>betonchess.online</h1>
         <h2>betchess.online</h2>

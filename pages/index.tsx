@@ -12,7 +12,7 @@ const Index = () => {
 
       <div className="flex-grow flex">
         {/* Left Column */}
-        <div className="flex items-center justify-center w-11/12  flex-col space-y-5 animate__animated animate__fadeInLeft">
+        <div className="flex items-center justify-center w-11/12  flex-col space-y-5">
           
           <Image
             className="max-w-none w-[400px] sm:max-w-none sm:w-[420px]  2xl:w-full"

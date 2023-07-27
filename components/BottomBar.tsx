@@ -1,5 +1,5 @@
 const BottomBar = () => {
-    return <div className="bg-black p-8">
+    return <div className="bg-transparent p-8">
       
       </div>;
   };

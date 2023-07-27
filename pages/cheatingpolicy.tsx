@@ -55,12 +55,12 @@ const cheatingpolicy = () => {
       </article>
       
       <StyledButton
-                inserttext="Return Home"
-                link="/"
-                colour="bg-teal-500"
-                hover="hover:bg-teal-700"
-                textsize="text-2xl"
-              />
+          inserttext="Return Home"
+          link="/"
+          colour="bg-teal-500"
+          hover="hover:bg-teal-700"
+          textsize="text-2xl"
+      />
 
       </div>
       <BottomBar />
