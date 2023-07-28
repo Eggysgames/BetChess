@@ -1,6 +1,6 @@
 import {DefaultButton } from "../components/StyledButton";
 
-const register = () => {
+const login = () => {
     return(
         <div className="flex justify-center items-center h-screen">
 
@@ -19,11 +19,8 @@ const register = () => {
                     <input className="w-full px-4 py-2 border rounded text-black text-sm" type="password" placeholder="<Enter Password>" />
                 </div>
 
-                
             </div>
-            
 
-            
             <DefaultButton inserttext="Login" link="/chessgame"/>
 
             </div>
@@ -32,4 +29,4 @@ const register = () => {
 
 }
 
-export default register
+export default login
