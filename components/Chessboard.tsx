@@ -14,7 +14,7 @@ const Chessboard = () => {
       <div className="flex flex-col items-center space-y-4 absolute inset-0 justify-center">
         <StyledButton
           inserttext="Play for Money"
-          link="/chessgame"
+          link="/gameselect"
           colour="bg-teal-800/90"
           hover="hover:bg-teal-900"
           textsize="text-2xl"
