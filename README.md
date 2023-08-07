@@ -51,13 +51,19 @@ Payments (In Progress)
 - Login Form **(Done)**
 - Basically Same as Register Page **(Done)**
 
+**=== Cash Game Select Page ===** 
+
+- Make grid with different games **(Done)**
+- Made 2x2 grid for main layout **(Done)**
+- Text is in 2 left squares, and 3x3 grids in right squares **(Done)**
+- `grid-cols-3 gap-2` Used this for main **(Done)**
+- Learned to use `col-start-2` for forcing layout to certain spot **(Done)**
+
 **=== Billing Info Page ===** 
 
 **=== Non Cash Game Select Page ===** 
 
-**=== Cash Game Select Page ===** 
 
-Make grid with different games
 
 
 **=== Refactors===**

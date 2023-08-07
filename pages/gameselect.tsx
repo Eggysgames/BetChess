@@ -25,9 +25,9 @@ const gameselect = () => {
     
     <div className="text-white mx-auto"> 
 
-    <p className="text-4xl underline text-center mb-5">Betting Guidelines</p>
+    <p className="text-4xl underline text-center mb-4">Betting Guidelines</p>
 
-    <div className="mx-auto  grid grid-cols-3 gap-3">
+    <div className="mx-auto grid grid-cols-3 gap-2">
 
         <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
             <p className="text-4xl">$1.50</p>
@@ -79,11 +79,11 @@ const gameselect = () => {
         <p className="text-2xl">1501+ - Max Bet $20</p>
         <br></br>
         <br></br>
-        <DefaultButton inserttext="Begin Game" link="/register"/>
+        <DefaultButton inserttext="Begin Game" link="/chessgame"/>
     </div>
     
 
-    <div className="mx-auto my-10 grid grid-cols-3 gap-3 col-start-2">
+    <div className="mx-auto my-10 grid grid-cols-3 gap-2 col-start-2">
         
 
         <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
