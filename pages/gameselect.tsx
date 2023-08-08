@@ -1,5 +1,6 @@
 import {DefaultButton, GridButton } from "../components/StyledButton";
 
+
 const gameselect = () => {
     return(
         <div className="flex justify-center items-center h-screen">
@@ -23,11 +24,11 @@ const gameselect = () => {
     </div>    
 </div>
     
-    <div className="text-white mx-auto"> 
+    <div className="text-white px-32"> 
 
-    <p className="text-4xl underline text-center mb-4">Betting Guidelines</p>
+    <p className="text-4xl underline text-center mb-4 ">Select Bet and Game</p>
 
-    <div className="mx-auto grid grid-cols-3 gap-2">
+    <div className="grid grid-cols-3 gap-2">
 
         <GridButton inserttext="$1.50"></GridButton>
 
@@ -65,7 +66,7 @@ const gameselect = () => {
     </div>
     
 
-    <div className="mx-auto my-10 grid grid-cols-3 gap-2 col-start-2">
+    <div className="px-32 my-10 grid grid-cols-3 gap-2 col-start-2">
         
         
         <GridButton inserttext="Blitz" inserttext2="3+2"></GridButton>
@@ -88,11 +89,11 @@ const gameselect = () => {
         
     </div>
 
-    
 
     </div>
         
-        </div>
+</div>
+
     )
 }
 
