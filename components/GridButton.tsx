@@ -11,10 +11,10 @@ const GridButton = ({ line1, line2, selected, onClick }: Props) => {
   return (
     <button
       className={clsx(
-        "text-white space-y-2 text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8",
+        "text-white space-y-2 text-2xl rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8",
         {
           "bg-slate-500": selected,
-          "hover:bg-slate-700": !selected,
+          "hover:bg-slate-700 bg-slate-800": !selected,
         }
       )}
       onClick={onClick}
