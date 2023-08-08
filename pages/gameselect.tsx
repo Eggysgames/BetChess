@@ -1,28 +1,30 @@
+import { useState } from "react";
 import {DefaultButton, GridButton } from "../components/StyledButton";
 
 
-const gameselect = () => {
+const Gameselect = () => {
+
+    const [highlightedButton, setHighlightedButton] = useState('');
+    
     return(
         <div className="flex justify-center items-center h-screen">
 
-            
-<div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-2">
 
- <div className="flex items-center justify-center">
-    <div className="text-white text-center">
-        <p className="text-6xl underline">Betting Guidelines</p>
-        <br></br>
-        <p className="text-xl">Select Betting amount and then select game. <br></br>
-        Note : If you choose wife, she will be immediately kidnapped until end of game.</p>
-        <p className="text-xl">Once a game has begun after the 2nd move, bets are locked in. </p>
-        <p className="text-xl">Make sure you choose carefully before pressing begin game</p>
-        <br></br>
-        <p className="text-xl">We are not liable for angry wives.</p>
-        <br></br>
-        <br></br>
-        
-    </div>    
-</div>
+        <div className="flex items-center justify-center">
+            <div className="text-white text-center">
+            <p className="text-6xl underline">Betting Guidelines</p>
+            <br></br>
+            <p className="text-xl">Select Betting amount and then select game. <br></br>
+            Note : If you choose wife, she will be immediately kidnapped until end of game.</p>
+            <p className="text-xl">Once a game has begun after the 2nd move, bets are locked in. </p>
+            <p className="text-xl">Make sure you choose carefully before pressing begin game</p>
+            <br></br>
+            <p className="text-xl">We are not liable for angry wives.</p>
+            <br></br>
+            <br></br>
+            </div>    
+        </div>
     
     <div className="text-white px-32"> 
 
@@ -30,9 +32,17 @@ const gameselect = () => {
 
     <div className="grid grid-cols-3 gap-2">
 
-        <GridButton inserttext="$1.50"></GridButton>
+    <GridButton
+        inserttext="$1.50"
+        highlighted={highlightedButton === '$1.50'}
+        onClick={() => setHighlightedButton('$1.50')}
+      />
 
-        <GridButton inserttext="$2"></GridButton>
+<GridButton
+        inserttext="$1.50"
+        highlighted={highlightedButton === '$1.50'}
+        onClick={() => setHighlightedButton('$1.50')}
+      />
 
         <GridButton inserttext="$5"></GridButton>
 
@@ -68,7 +78,6 @@ const gameselect = () => {
 
     <div className="px-32 my-10 grid grid-cols-3 gap-2 col-start-2">
         
-        
         <GridButton inserttext="Blitz" inserttext2="3+2"></GridButton>
     
         <GridButton inserttext="Blitz" inserttext2="5+0"></GridButton>
@@ -97,4 +106,4 @@ const gameselect = () => {
     )
 }
 
-export default gameselect
+export default Gameselect

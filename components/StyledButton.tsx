@@ -17,9 +17,13 @@ type StyledProps = {
   textsize:string
 }
 
-export const GridButton = ({inserttext, inserttext2}:GridProps) => {
+export const GridButton = ({ inserttext, inserttext2, highlighted, onClick }: GridProps & { highlighted?: boolean, onClick?: () => void }) => {
+  const buttonClasses = `text-white text-2xl bg-slate-800 rounded-lg ${
+    highlighted ? 'focus:bg-slate-500' : 'focus:bg-slate-700'
+  } hover:bg-slate-700 shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8`;
+
   return (
-    <button className={`text-white text-2xl bg-slate-800 focus:bg-slate-500 rounded-lg hover:bg-slate-700 shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8`}>
+    <button className={buttonClasses} onClick={onClick}>
       <div className="mb-2">{inserttext}</div>
       <div>{inserttext2}</div>
     </button>
