@@ -1,4 +1,4 @@
-import {DefaultButton } from "../components/StyledButton";
+import {DefaultButton, GridButton } from "../components/StyledButton";
 
 const gameselect = () => {
     return(
@@ -29,41 +29,23 @@ const gameselect = () => {
 
     <div className="mx-auto grid grid-cols-3 gap-2">
 
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-4xl">$1.50</p>
-        </div>
+        <GridButton inserttext="$1.50"></GridButton>
 
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-4xl">$2.50</p>
-        </div>
+        <GridButton inserttext="$2.50"></GridButton>
 
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-4xl">$5</p>
-        </div>
+        <GridButton inserttext="$5"></GridButton>
 
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-4xl">$10</p>
-        </div>
+        <GridButton inserttext="$10"></GridButton>
 
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-4xl">$15</p>
-        </div>
+        <GridButton inserttext="$15"></GridButton>
 
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-4xl">$20</p>
-        </div>
+        <GridButton inserttext="$20"></GridButton>
 
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-4xl">Car</p>
-        </div>
+        <GridButton inserttext="Car"></GridButton>
 
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-4xl">Boat</p>
-        </div>
+        <GridButton inserttext="Boat"></GridButton>
 
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-4xl">Wife</p>
-        </div>
+        <GridButton inserttext="Wife"></GridButton>
         
     </div>
     <br></br>
@@ -84,6 +66,7 @@ const gameselect = () => {
     
 
     <div className="mx-auto my-10 grid grid-cols-3 gap-2 col-start-2">
+        
         
 
         <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
