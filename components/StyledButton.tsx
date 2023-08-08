@@ -2,6 +2,7 @@ import Link from "next/link";
 
 type GridProps = {
   inserttext: string
+  inserttext2?: string
 }
 type DefaultProps = {
   inserttext: string
@@ -16,10 +17,11 @@ type StyledProps = {
   textsize:string
 }
 
-export const GridButton = ({inserttext}:GridProps) => {
+export const GridButton = ({inserttext, inserttext2}:GridProps) => {
   return (
-    <button className={`text-white text-3xl bg-slate-800 focus:bg-slate-500 rounded-lg hover:bg-slate-700 shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8`}>
-      {inserttext}
+    <button className={`text-white text-2xl bg-slate-800 focus:bg-slate-500 rounded-lg hover:bg-slate-700 shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8`}>
+      <div className="mb-2">{inserttext}</div>
+      <div>{inserttext2}</div>
     </button>
   );
 };

@@ -31,15 +31,15 @@ const gameselect = () => {
 
         <GridButton inserttext="$1.50"></GridButton>
 
-        <GridButton inserttext="$2.50"></GridButton>
+        <GridButton inserttext="$2"></GridButton>
 
         <GridButton inserttext="$5"></GridButton>
 
         <GridButton inserttext="$10"></GridButton>
 
-        <GridButton inserttext="$15"></GridButton>
-
         <GridButton inserttext="$20"></GridButton>
+
+        <GridButton inserttext="$50"></GridButton>
 
         <GridButton inserttext="Car"></GridButton>
 
@@ -68,51 +68,23 @@ const gameselect = () => {
     <div className="mx-auto my-10 grid grid-cols-3 gap-2 col-start-2">
         
         
+        <GridButton inserttext="Blitz" inserttext2="3+2"></GridButton>
+    
+        <GridButton inserttext="Blitz" inserttext2="5+0"></GridButton>
 
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-2xl">Blitz</p>
-            <p className="text-2xl">3+2</p>
-        </div>
+        <GridButton inserttext="Blitz" inserttext2="5+3"></GridButton>
 
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-2xl">Blitz</p>
-            <p className="text-2xl">5+0</p>
-        </div>
+        <GridButton inserttext="Rapid" inserttext2="10+0"></GridButton>
 
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-2xl">Blitz</p>
-            <p className="text-2xl">5+3</p>
-        </div>
+        <GridButton inserttext="Rapid" inserttext2="10+5"></GridButton>
 
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-2xl">Rapid</p>
-            <p className="text-2xl">10+0</p>
-        </div>
+        <GridButton inserttext="Rapid" inserttext2="15+10"></GridButton>
 
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-2xl">Rapid</p>
-            <p className="text-2xl">10+5</p>
-        </div>
+        <GridButton inserttext="Classical" inserttext2="20+10"></GridButton>
 
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-2xl">Rapid</p>
-            <p className="text-2xl">15+10</p>
-        </div>
+        <GridButton inserttext="Classical" inserttext2="30+0"></GridButton>
 
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-2xl">Classical</p>
-            <p className="text-2xl">20+0</p>
-        </div>
-
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-2xl">Classical</p>
-            <p className="text-2xl">30+0</p>
-        </div>
-
-        <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
-            <p className="text-2xl">Classical</p>
-            <p className="text-2xl">60+0</p>
-        </div>
+        <GridButton inserttext="Classical" inserttext2="60+0"></GridButton>
         
     </div>
 
