@@ -4,7 +4,7 @@ type GridProps = {
   inserttext: string
   inserttext2?: string
   highlighted:boolean
-  onClick:() => void
+  onClick:(text:string) => void
 }
 type DefaultProps = {
   inserttext: string
@@ -24,7 +24,8 @@ export const GridButton = ({ inserttext, inserttext2, highlighted, onClick }: Gr
   const buttonClasses = `${ highlighted ? 'bg-slate-700' : 'bg-slate-800'} text-white text-2xl rounded-lg hover:bg-slate-700 shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8`;
 
   return (
-    <button className={buttonClasses} onClick={onClick}>
+    <button className={buttonClasses} 
+      onClick={() => onClick([inserttext, inserttext2].join(' ').trim())}>
       <div className="mb-2">{inserttext}</div>
       <div>{inserttext2}</div>
     </button>
