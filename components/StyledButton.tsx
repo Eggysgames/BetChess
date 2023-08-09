@@ -3,6 +3,8 @@ import Link from "next/link";
 type GridProps = {
   inserttext: string
   inserttext2?: string
+  highlighted:boolean
+  onClick:() => void
 }
 type DefaultProps = {
   inserttext: string
@@ -17,10 +19,9 @@ type StyledProps = {
   textsize:string
 }
 
-export const GridButton = ({ inserttext, inserttext2, highlighted, onClick }: GridProps & { highlighted?: boolean, onClick?: () => void }) => {
-  const buttonClasses = `text-white text-2xl bg-slate-800 rounded-lg ${
-    highlighted ? 'focus:bg-slate-500' : 'focus:bg-slate-700'
-  } hover:bg-slate-700 shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8`;
+export const GridButton = ({ inserttext, inserttext2, highlighted, onClick }: GridProps) => {
+  
+  const buttonClasses = `${ highlighted ? 'bg-slate-700' : 'bg-slate-800'} text-white text-2xl rounded-lg hover:bg-slate-700 shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8`;
 
   return (
     <button className={buttonClasses} onClick={onClick}>

@@ -5,6 +5,7 @@ import {DefaultButton, GridButton } from "../components/StyledButton";
 const Gameselect = () => {
 
     const [highlightedButton, setHighlightedButton] = useState('');
+    const [highlightedButton2, setHighlightedButton2] = useState('');
     
     return(
         <div className="flex justify-center items-center h-screen">
@@ -32,31 +33,59 @@ const Gameselect = () => {
 
     <div className="grid grid-cols-3 gap-2">
 
+    <GridButton 
+        inserttext="$1.50" 
+        highlighted={highlightedButton === '1'}
+        onClick={() => setHighlightedButton('1')}
+    />
+
     <GridButton
-        inserttext="$1.50"
-        highlighted={highlightedButton === '$1.50'}
-        onClick={() => setHighlightedButton('$1.50')}
-      />
+        inserttext="$2.50"
+        highlighted={highlightedButton === '2'}
+        onClick={() => setHighlightedButton('2')}
+    />
 
-<GridButton
-        inserttext="$1.50"
-        highlighted={highlightedButton === '$1.50'}
-        onClick={() => setHighlightedButton('$1.50')}
-      />
+    <GridButton
+        inserttext="$5"
+        highlighted={highlightedButton === '3'}
+        onClick={() => setHighlightedButton('3')}
+    />
 
-        <GridButton inserttext="$5"></GridButton>
+    <GridButton
+        inserttext="$10"
+        highlighted={highlightedButton === '4'}
+        onClick={() => setHighlightedButton('4')}
+    />
 
-        <GridButton inserttext="$10"></GridButton>
+    <GridButton
+        inserttext="$15"
+        highlighted={highlightedButton === '5'}
+        onClick={() => setHighlightedButton('5')}
+    />
 
-        <GridButton inserttext="$20"></GridButton>
+    <GridButton
+        inserttext="$20"
+        highlighted={highlightedButton === '6'}
+        onClick={() => setHighlightedButton('6')}
+    />
 
-        <GridButton inserttext="$50"></GridButton>
+    <GridButton
+        inserttext="Car"
+        highlighted={highlightedButton === '7'}
+        onClick={() => setHighlightedButton('7')}
+    />
 
-        <GridButton inserttext="Car"></GridButton>
+    <GridButton
+        inserttext="Boat"
+        highlighted={highlightedButton === '8'}
+        onClick={() => setHighlightedButton('8')}
+    />
 
-        <GridButton inserttext="Boat"></GridButton>
-
-        <GridButton inserttext="Wife"></GridButton>
+    <GridButton
+        inserttext="Wife"
+        highlighted={highlightedButton === '9'}
+        onClick={() => setHighlightedButton('9')}
+    />
         
     </div>
     <br></br>
@@ -78,23 +107,68 @@ const Gameselect = () => {
 
     <div className="px-32 my-10 grid grid-cols-3 gap-2 col-start-2">
         
-        <GridButton inserttext="Blitz" inserttext2="3+2"></GridButton>
+    <GridButton
+        inserttext="Blitz"
+        inserttext2="3+2"
+        highlighted={highlightedButton2 === '1'}
+        onClick={() => setHighlightedButton2('1')}
+    />
     
-        <GridButton inserttext="Blitz" inserttext2="5+0"></GridButton>
+    <GridButton
+        inserttext="Blitz"
+        inserttext2="5+0"
+        highlighted={highlightedButton2 === '2'}
+        onClick={() => setHighlightedButton2('2')}
+    />
 
-        <GridButton inserttext="Blitz" inserttext2="5+3"></GridButton>
+    <GridButton
+        inserttext="Blitz"
+        inserttext2="5+3"
+        highlighted={highlightedButton2 === '3'}
+        onClick={() => setHighlightedButton2('3')}
+    />
 
-        <GridButton inserttext="Rapid" inserttext2="10+0"></GridButton>
+    <GridButton
+        inserttext="Rapid"
+        inserttext2="10+0"
+        highlighted={highlightedButton2 === '4'}
+        onClick={() => setHighlightedButton2('4')}
+    />
 
-        <GridButton inserttext="Rapid" inserttext2="10+5"></GridButton>
+    <GridButton
+        inserttext="Rapid"
+        inserttext2="10+5"
+        highlighted={highlightedButton2 === '5'}
+        onClick={() => setHighlightedButton2('5')}
+    />
 
-        <GridButton inserttext="Rapid" inserttext2="15+10"></GridButton>
+    <GridButton
+        inserttext="Rapid"
+        inserttext2="15+10"
+        highlighted={highlightedButton2 === '6'}
+        onClick={() => setHighlightedButton2('6')}
+    />
 
-        <GridButton inserttext="Classical" inserttext2="20+10"></GridButton>
+    <GridButton
+        inserttext="Classical"
+        inserttext2="20+0"
+        highlighted={highlightedButton2 === '7'}
+        onClick={() => setHighlightedButton2('7')}
+    />
 
-        <GridButton inserttext="Classical" inserttext2="30+0"></GridButton>
+    <GridButton
+        inserttext="Classical"
+        inserttext2="30+0"
+        highlighted={highlightedButton2 === '8'}
+        onClick={() => setHighlightedButton2('8')}
+    />
 
-        <GridButton inserttext="Classical" inserttext2="60+0"></GridButton>
+    <GridButton
+        inserttext="Classical"
+        inserttext2="60+0"
+        highlighted={highlightedButton2 === '9'}
+        onClick={() => setHighlightedButton2('9')}
+    />
         
     </div>
 
