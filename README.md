@@ -58,7 +58,8 @@ Payments (In Progress)
 - Text is in 2 left squares, and 3x3 grids in right squares **(Done)**
 - `grid-cols-3 gap-2` Used this for main **(Done)**
 - Learned to use `col-start-2` for forcing layout to certain spot **(Done)**
-- Add Buttons to the selects **(In Progress)**
+- Add Buttons to the selects **(Done)**
+- Make Buttons each selectable **(In Progress)**
 
 **=== Billing Info Page ===** 
 
