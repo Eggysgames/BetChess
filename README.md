@@ -59,7 +59,10 @@ Payments (In Progress)
 - `grid-cols-3 gap-2` Used this for main **(Done)**
 - Learned to use `col-start-2` for forcing layout to certain spot **(Done)**
 - Add Buttons to the selects **(Done)**
-- Make Buttons each selectable **(In Progress)**
+- Make Buttons each selectable **(Done)**
+- Each button inherits its insertText for a usestate `settextholder(text)` **(Done)**
+- Play Game Button only appears if both usestates not null `{highlightedButton !== ""` **(Done)**
+- Change text colour for selected games **(Done)**
 
 **=== Billing Info Page ===** 
 
