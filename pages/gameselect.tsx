@@ -6,8 +6,9 @@ const Gameselect = () => {
 
     const [highlightedButton, setHighlightedButton] = useState('');
     const [highlightedButton2, setHighlightedButton2] = useState('');
-    const [textholder, settextholder] = useState('');
-    const [textholder2, settextholder2] = useState('');
+    const [textholder, settextholder] = useState('<Select a Bet Amount>');
+    const [textholder2, settextholder2] = useState('<Select a Game Mode');
+    
     
     return(
         <div className="flex justify-center items-center h-screen">
@@ -141,7 +142,11 @@ const Gameselect = () => {
 
         <br></br>
         <br></br>
-        <DefaultButton inserttext="Begin Game" link="/chessgame"/>
+
+        {highlightedButton !== "" && highlightedButton2 !== "" &&(
+            <DefaultButton inserttext="Begin Game" link="/chessgame" />
+        )}
+
     </div>
     
 
@@ -238,7 +243,7 @@ const Gameselect = () => {
     />
         
     </div>
-
+          
 
     </div>
         
