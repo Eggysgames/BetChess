@@ -1,8 +1,5 @@
 # BetChess
 
-# Maria
-
-
 React-Chessboard for the UI - https://www.npmjs.com/package/react-chessboard
 
 Chess.js for the engine - https://github.com/jhlywa/chess.js
@@ -78,11 +75,9 @@ Payments (In Progress)
 
 - Adding forms **(In Progress)**
 
-**=== Non Cash Game Select Page ===** 
-
 **=== Backend ===** 
 
-- Starting login setups
+- Starting login setups **(In Progress)**
 
 
 **=== Refactors===**
