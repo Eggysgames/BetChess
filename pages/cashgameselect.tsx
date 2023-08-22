@@ -32,7 +32,7 @@ const Gameselect = () => {
     
     <div className="text-white px-32"> 
 
-    <p className="text-4xl underline text-center mb-4 ">Select Bet and Game</p>
+        <p className="text-4xl underline text-center mb-4 ">Select Bet and Game</p>
 
     <div className="grid grid-cols-3 gap-2">
 
@@ -118,6 +118,7 @@ const Gameselect = () => {
     />
         
     </div>
+    
     <br></br>
     <hr />
     </div>   

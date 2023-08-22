@@ -4,35 +4,50 @@ import {DefaultButton, GridButton } from "../components/StyledButton";
 const Fungameselect = () => {
 
     const [highlightedButton, setHighlightedButton] = useState('');
-    const [highlightedButton2, setHighlightedButton2] = useState('');
-    const [textholder, settextholder] = useState('<Select a Bet Amount>');
-    const [textholder2, settextholder2] = useState('<Select a Game Mode');
+    const [textholder, settextholder] = useState('<Select a Game Mode>');
 
 return (
 
 <div className="flex justify-center items-center h-screen">
 
     <div className="grid grid-cols-2 gap-2">
-        <div className="flex items-center justify-center">
-            <div className="text-white text-center">
-            <p className="text-6xl underline">Play For Fun</p>
-            <br></br>
-            <p className="text-xl">The following game mode is simply casual play with no Elo or Betting.<br></br>
-            You will be paired with any random player</p>
-
-            <br></br>
-            <br></br>
-        </div>    
+        <div>
     </div>
     
     <div className="text-white px-32"> 
-        <p className="text-4xl underline text-center mb-4 ">Select Bet and Game</p>
+
+        <p className="text-4xl underline text-center mb-4 ">Select Game Mode</p>
+        
     </div>
 
-<div className="grid grid-cols-3 gap-2">
+    <div className="flex items-center justify-center ">
+        <div className="text-white text-center">
+            <p className="text-6xl underline">Play For Fun</p>
+            <br></br>
+            <p className="text-xl">The following game mode uses no Elo or Betting.<br></br>
+            You will be paired with a random player.</p>
+            <br></br>
+            <p className="text-xl">Have fun and treat each other with respect!</p>
 
+            <br></br>
+            <br></br>
+
+            <p className="inline-block text-2xl">Selected Game - </p> <p className="text-blue-300 inline-block text-2xl">{textholder}</p>
+            
+            <br></br>
+            <br></br>
+
+            {highlightedButton !== ""  &&(
+                <DefaultButton inserttext="Begin Game" link="/chessgame" />
+            )}
+
+        </div>    
+    </div> 
+<div className="grid grid-cols-3 gap-2 col-start-2">
+    
     <GridButton 
-    inserttext="$1.50" 
+    inserttext="Bullet" 
+    inserttext2="1+0"
     highlighted={highlightedButton === '1'}
     onClick={(text) => {
         setHighlightedButton('1');
@@ -41,7 +56,8 @@ return (
     />
 
     <GridButton 
-    inserttext="$2.50" 
+    inserttext="Bullet" 
+    inserttext2="2+0"
     highlighted={highlightedButton === '2'}
     onClick={(text) => {
         setHighlightedButton('2');
@@ -50,7 +66,8 @@ return (
     />
 
     <GridButton 
-    inserttext="$5" 
+    inserttext="Bullet" 
+    inserttext2="3+0"
     highlighted={highlightedButton === '3'}
     onClick={(text) => {
         setHighlightedButton('3');
@@ -59,7 +76,8 @@ return (
     />
 
 <GridButton 
-    inserttext="$10" 
+    inserttext="Blitz" 
+    inserttext2="3+2"
     highlighted={highlightedButton === '4'}
     onClick={(text) => {
         setHighlightedButton('4');
@@ -68,7 +86,8 @@ return (
 />
 
 <GridButton 
-    inserttext="$5" 
+    inserttext="Blitz" 
+    inserttext2="5+0"
     highlighted={highlightedButton === '5'}
     onClick={(text) => {
         setHighlightedButton('5');
@@ -77,7 +96,8 @@ return (
 />
 
 <GridButton 
-    inserttext="$20" 
+    inserttext="Blitz" 
+    inserttext2="5+3"
     highlighted={highlightedButton === '6'}
     onClick={(text) => {
         setHighlightedButton('6');
@@ -86,7 +106,8 @@ return (
 />
 
 <GridButton 
-    inserttext="Car" 
+    inserttext="Rapid" 
+    inserttext2="10+0"
     highlighted={highlightedButton === '7'}
     onClick={(text) => {
         setHighlightedButton('7');
@@ -95,7 +116,8 @@ return (
 />
 
 <GridButton 
-    inserttext="Boat" 
+    inserttext="Rapid" 
+    inserttext2="10+5"
     highlighted={highlightedButton === '8'}
     onClick={(text) => {
         setHighlightedButton('8');
@@ -104,15 +126,47 @@ return (
 />
 
 <GridButton 
-    inserttext="Wife" 
+    inserttext="Rapid" 
+    inserttext2="15+10"
     highlighted={highlightedButton === '9'}
     onClick={(text) => {
         setHighlightedButton('9');
         settextholder(text)
       }} 
 />
+
+<GridButton 
+    inserttext="Classical" 
+    inserttext2="20+0"
+    highlighted={highlightedButton === '10'}
+    onClick={(text) => {
+        setHighlightedButton('10');
+        settextholder(text)
+      }} 
+/>
+
+<GridButton 
+    inserttext="Classical" 
+    inserttext2="30+0"
+    highlighted={highlightedButton === '11'}
+    onClick={(text) => {
+        setHighlightedButton('11');
+        settextholder(text)
+      }} 
+/>
+
+<GridButton 
+    inserttext="Classical" 
+    inserttext2="60+0"
+    highlighted={highlightedButton === '12'}
+    onClick={(text) => {
+        setHighlightedButton('12');
+        settextholder(text)
+      }} 
+/>
     
 </div>
+
 
     
     </div>
