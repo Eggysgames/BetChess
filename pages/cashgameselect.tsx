@@ -13,7 +13,7 @@ const Gameselect = () => {
     return(
         <div className="flex justify-center items-center h-screen">
 
-        <div className="grid grid-cols-2 gap-2">
+    <div className="grid grid-cols-2 gap-2">
 
         <div className="flex items-center justify-center">
             <div className="text-white text-center">
@@ -27,8 +27,8 @@ const Gameselect = () => {
             <p className="text-xl">We are not liable for angry wives.</p>
             <br></br>
             <br></br>
-            </div>    
-        </div>
+        </div>    
+    </div>
     
     <div className="text-white px-32"> 
 
