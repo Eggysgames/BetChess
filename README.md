@@ -63,12 +63,17 @@ Payments (In Progress)
 - Each button inherits its insertText for a usestate `settextholder(text)` **(Done)**
 - Play Game Button only appears if both usestates not null `{highlightedButton !== ""` **(Done)**
 - Change text colour for selected games **(Done)**
+- Uses React hooks to store the data for the next pages **(Done)**
 
 **=== Billing Info Page ===** 
 
+- Adding forms **(In Progress)**
+
 **=== Non Cash Game Select Page ===** 
 
+**=== Backend ===** 
 
+- Starting login setups
 
 
 **=== Refactors===**
