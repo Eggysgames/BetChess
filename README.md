@@ -65,6 +65,13 @@ Payments (In Progress)
 - Change text colour for selected games **(Done)**
 - Uses React hooks to store the data for the next pages **(Done)**
 
+**=== Fun Game Select Page ===** 
+
+- Only 1 grid **(Done)**
+- Used an Empty `<div>` for top left of a 2x2 grid **(Done)**
+- Can Select game mode and begin game **(Done)**
+- Button only appears if mode selected **(Done)**
+
 **=== Billing Info Page ===** 
 
 - Adding forms **(In Progress)**
