@@ -6,12 +6,18 @@ Chess.js for the engine - https://github.com/jhlywa/chess.js
 
 Stockfish for the AI (In Progress) - https://github.com/nmrugg/stockfish.js
 
+Backend - https://supabase.com/
+
 Sockets (In Progress)
 
 Payments (In Progress)
 
+# Learning Log (BackEnd)
 
-# Learning Log
+- Using Supabase as main backend 3rd party software **(In Progress)**
+- Figure out how the fuck it works **(In Progress)**
+
+# Learning Log (FrontEnd)
 
 **=== Index Page ===**
 
