@@ -23,13 +23,7 @@ export default function App() {
   }, [])
 
   if (!session) {
-    return (
-      <Auth
-        supabaseClient={supabase}
-        appearance={{ theme: ThemeSupa }}
-        options={{ emailRedirectTo: 'https://bet-chess.vercel.app/emailconfirmed' }}
-      />
-    );
+    return <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
   } else {
     return (
       <div>
@@ -38,6 +32,7 @@ export default function App() {
         Sign Out
       </button>
       </div>
-    );
+    //
+    )
   }
 }
