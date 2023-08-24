@@ -83,10 +83,6 @@ Payments (In Progress)
 
 - Adding forms **(In Progress)**
 
-**=== Backend ===** 
-
-- Starting login setups **(In Progress)**
-
 
 **=== Refactors===**
 
