@@ -23,7 +23,7 @@ export default function App() {
   }, [])
 
   if (!session) {
-    return <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
+    return <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} redirectTo={'https://bet-chess.vercel.app/emailconfirmed'} />
   } else {
     return (
       <div>
