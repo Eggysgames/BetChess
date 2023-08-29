@@ -18,6 +18,7 @@ Payments (In Progress)
 - Set up example login under /testing **(Done)**
 - Can Register/Login with email **(Done)**
 - Manage to redirect email auth to /emailconfirmed using `redirectTo=` **(Done)**
+- Start showing the Logged In with username on all pages **(In Progress)**
 
 # Learning Log (FrontEnd)
 
