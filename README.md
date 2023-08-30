@@ -14,8 +14,13 @@ Payments (In Progress)
 
 # Learning Log (BackEnd)
 
-- Using Supabase as main backend 3rd party software **(In Progress)**
-- Figure out how the fuck it works **(In Progress)**
+- Install Supabase for Backend **(Done)**
+- Set up example login under /testing **(Done)**
+- Can Register/Login with email **(Done)**
+- Manage to redirect email auth to /emailconfirmed using `redirectTo=` **(Done)**
+
+- Merge my example login into frontend login/register **(In Progress)**
+- Start showing the Logged In with username on all pages **(In Progress)**
 
 # Learning Log (FrontEnd)
 
@@ -80,10 +85,6 @@ Payments (In Progress)
 **=== Billing Info Page ===** 
 
 - Adding forms **(In Progress)**
-
-**=== Backend ===** 
-
-- Starting login setups **(In Progress)**
 
 
 **=== Refactors===**
