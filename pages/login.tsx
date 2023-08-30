@@ -1,8 +1,7 @@
 import {DefaultButton } from "../components/StyledButton";
 import React, { useState, useEffect } from 'react';
 import { createClient, Session } from '@supabase/supabase-js';
-import { Auth } from '@supabase/auth-ui-react';
-import { ThemeSupa } from '@supabase/auth-ui-shared';
+
 
 const supabase = createClient('https://ttlaembyimpxjuovpmxk.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0bGFlbWJ5aW1weGp1b3ZwbXhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTI3NzA2NTcsImV4cCI6MjAwODM0NjY1N30.f6YXhReklfjQMe6sfVAqjyraiXgzjcH6W-2bOkCn_Sw')
 
@@ -10,7 +9,8 @@ const supabase = createClient('https://ttlaembyimpxjuovpmxk.supabase.co', 'eyJhb
 const Login = () => {
 
     const [session, setSession] = useState<Session | null>(null);
-
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('')
 
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
@@ -30,20 +30,23 @@ const Login = () => {
       const handleLogin = async () => {
         try {
             const { data, error } = await supabase.auth.signInWithPassword({
-                email: 'eggy55555@gmail.com',
-                password: 'testing5',
-              })
-        } catch (error) {
-            console.error(error);
-        }
+              email: email,
+              password: password,
+            });
+
+          } catch (caughtError) {
+            console.error(caughtError);
+          }
     };
 
-    if (session) {
-        // User is logged in, show different content or redirect
+if (session) {
         return (
             <div>
-                {/* Display something for logged-in users */}
-                <p className = "text-white text-xl">Welcome, {session.user?.email}</p>
+                <p className="text-white text-xl">Welcome, {session.user?.email}</p>
+                <button onClick={() => supabase.auth.signOut()} className="text-white">
+                    Sign Out
+                </button>
+
             </div>
         );
     }
@@ -59,12 +62,22 @@ if (!session) {
             <div className="mx-auto my-10 max-w-md grid grid-cols-3 gap-3">
                 <span className="flex items-center justify-end">Username :</span>
                     <div className="col-span-2">
-                    <input className="w-full px-4 py-2 border rounded text-black text-sm" type="text" placeholder="<Enter Username>" />
+                    <input className="w-full px-4 py-2 border rounded text-black text-sm" 
+                    type="text" 
+                    placeholder="<Enter Username>" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    />
                 </div>
 
                 <span className="flex items-center justify-end">Password :</span>
                     <div className="col-span-2">
-                    <input className="w-full px-4 py-2 border rounded text-black text-sm" type="password" placeholder="<Enter Password>" />
+                    <input className="w-full px-4 py-2 border rounded text-black text-sm" 
+                    type="password" 
+                    placeholder="<Enter Password>" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}    
+                    />
                 </div>
 
             </div>
