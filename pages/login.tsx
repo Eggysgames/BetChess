@@ -11,6 +11,7 @@ const Login = () => {
     const [session, setSession] = useState<Session | null>(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
+    const [showError, setShowError] = useState(false);
 
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
@@ -35,7 +36,9 @@ const Login = () => {
             });
     
             if (error) {
-                console.error('Login failed:', (error as any).message);
+                console.error(error.message);
+                
+                setShowError(true);
             }
         } catch (error) {
             console.error('Login failed:', (error as any).message);
@@ -61,7 +64,7 @@ if (!session) {
 
             <p className="underline text-4xl">Login</p>
          
-            <div className="mx-auto my-10 max-w-md grid grid-cols-3 gap-3">
+            <div className="mx-auto my-6 max-w-md grid grid-cols-3 gap-3">
                 <span className="flex items-center justify-end">Email :</span>
                     <div className="col-span-2">
                     <input className="w-full px-4 py-2 border rounded text-black text-sm" 
@@ -84,9 +87,15 @@ if (!session) {
 
             </div>
 
+
+            {showError && <p className="text-amber-600 text-xs">Invalid Username or Password</p>}
+
+           
+            <div className="mt-2">
             <button className="your-button-styles" onClick={handleLogin}>
                 Login
             </button>
+            </div>
 
             </div>
         </div>
