@@ -38,6 +38,15 @@ const Login = () => {
         }
     };
 
+    if (session) {
+        // User is logged in, show different content or redirect
+        return (
+            <div>
+                {/* Display something for logged-in users */}
+                <p className = "text-white text-xl">Welcome, {session.user?.email}</p>
+            </div>
+        );
+    }
       
 if (!session) {
     return(
