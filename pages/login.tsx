@@ -28,16 +28,25 @@ const Login = () => {
 
 
       const handleLogin = async () => {
-        try {
-            const { data, error } = await supabase.auth.signInWithPassword({
-              email: email,
-              password: password,
-            });
+        
+          const { data, error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: password,
+          });
 
-          } catch (caughtError) {
-            console.error(caughtError);
+          console.log(error?.cause)
+      
+          if (error) {
+            if (error.message === 'Request failed with status code 400') {
+              console.log('Incorrect password or username');
+            } else {
+              console.log('An error occurred:', error.message);
+            }
+          } else {
+            // Successful login
           }
-    };
+        
+      };
 
 if (session) {
         return (
@@ -60,11 +69,11 @@ if (!session) {
             <p className="underline text-4xl">Login</p>
          
             <div className="mx-auto my-10 max-w-md grid grid-cols-3 gap-3">
-                <span className="flex items-center justify-end">Username :</span>
+                <span className="flex items-center justify-end">Email :</span>
                     <div className="col-span-2">
                     <input className="w-full px-4 py-2 border rounded text-black text-sm" 
                     type="text" 
-                    placeholder="<Enter Username>" 
+                    placeholder="<Enter Email>" 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     />
@@ -92,5 +101,8 @@ if (!session) {
 }
 
 }
+
+
+
 
 export default Login
