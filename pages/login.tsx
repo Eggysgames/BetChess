@@ -28,24 +28,17 @@ const Login = () => {
 
 
       const handleLogin = async () => {
-        
+        try {
           const { data, error } = await supabase.auth.signInWithPassword({
             email: email,
             password: password,
           });
-
-          console.log(error?.cause)
+          
       
-          if (error) {
-            if (error.message === 'Request failed with status code 400') {
-              console.log('Incorrect password or username');
-            } else {
-              console.log('An error occurred:', error.message);
-            }
-          } else {
-            // Successful login
-          }
-        
+          
+        } catch (error) {
+            console.error('login failed')
+        }
       };
 
 if (session) {
