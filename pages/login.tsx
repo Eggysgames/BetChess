@@ -29,17 +29,18 @@ const Login = () => {
 
       const handleLogin = async () => {
         try {
-          const { data, error } = await supabase.auth.signInWithPassword({
-            email: email,
-            password: password,
-          });
-          
-      
-          
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password,
+            });
+    
+            if (error) {
+                console.error('Login failed:', (error as any).message);
+            }
         } catch (error) {
-            console.error('login failed')
+            console.error('Login failed:', (error as any).message);
         }
-      };
+    };
 
 if (session) {
         return (
@@ -48,7 +49,6 @@ if (session) {
                 <button onClick={() => supabase.auth.signOut()} className="text-white">
                     Sign Out
                 </button>
-
             </div>
         );
     }
