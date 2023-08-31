@@ -1,4 +1,4 @@
-import {DefaultButton, SubmissionButton } from "../components/StyledButton";
+import {SubmissionButton } from "../components/StyledButton";
 import React, { useState, useEffect } from 'react';
 import { createClient, Session } from '@supabase/supabase-js';
 

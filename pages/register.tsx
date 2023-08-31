@@ -1,6 +1,33 @@
+import {SubmissionButton } from "../components/StyledButton";
 import {DefaultButton } from "../components/StyledButton";
+import { createClient, Session } from '@supabase/supabase-js';
+import React, { useState, useEffect } from 'react';
 
-const register = () => {
+const supabase = createClient('https://ttlaembyimpxjuovpmxk.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0bGFlbWJ5aW1weGp1b3ZwbXhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTI3NzA2NTcsImV4cCI6MjAwODM0NjY1N30.f6YXhReklfjQMe6sfVAqjyraiXgzjcH6W-2bOkCn_Sw')
+
+const Register = () => {
+
+    const [session, setSession] = useState<Session | null>(null);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('')
+    const [showError, setShowError] = useState(false);
+
+    const handleRegister = async () => {
+        try {
+            const { data, error } = await supabase.auth.signUp({
+                email: email,
+                password: password,
+            });
+    
+            if (error) {
+                console.error(error.message);
+                setShowError(true);
+            }
+        } catch (error) {
+            console.error('Login failed:', (error as any).message);
+        }
+    };
+
     return(
         <div className="flex justify-center items-center h-screen">
 
@@ -16,12 +43,22 @@ const register = () => {
 
                 <span className="flex items-center justify-end">Password :</span>
                     <div className="col-span-2">
-                    <input className="w-full px-4 py-2 border rounded text-black text-sm" type="password" placeholder="<Enter Password>" />
+                    <input className="w-full px-4 py-2 border rounded text-black text-sm" 
+                    type="password" 
+                    placeholder="<Enter Password>" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    />
                 </div>
 
                 <span className="flex items-center justify-end">Email :</span>
                     <div className="col-span-2">
-                    <input className="w-full px-4 py-2 border rounded text-black text-sm" type="email" placeholder="<Enter Email>" />
+                    <input className="w-full px-4 py-2 border rounded text-black text-sm" 
+                    type="email" 
+                    placeholder="<Enter Email>" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    />
                 </div>
             </div>
             
@@ -52,7 +89,12 @@ const register = () => {
 
             <br></br>
             <br></br>
-            <DefaultButton inserttext="Register" link="/chessgame"/>
+
+            {showError && <p className="text-amber-600 text-xs">Invalid Username or Password</p>}
+
+            <SubmissionButton inserttext="Login" 
+                onClick={handleRegister} 
+            />
 
             </div>
         </div>
@@ -60,4 +102,4 @@ const register = () => {
 
 }
 
-export default register
+export default Register
