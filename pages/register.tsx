@@ -17,7 +17,10 @@ const Register = () => {
             const { data, error } = await supabase.auth.signUp({
                 email: email,
                 password: password,
-            });
+                options: {
+                  emailRedirectTo: 'https://bet-chess.vercel.app/emailconfirmed'
+                }
+              });
     
             if (error) {
                 console.error(error.message);
@@ -92,8 +95,11 @@ const Register = () => {
 
             {showError && <p className="text-amber-600 text-xs">Invalid Username or Password</p>}
 
+            <br></br>
+
             <SubmissionButton inserttext="Login" 
                 onClick={handleRegister} 
+                
             />
 
             </div>
