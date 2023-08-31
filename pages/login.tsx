@@ -1,4 +1,4 @@
-import {DefaultButton } from "../components/StyledButton";
+import {DefaultButton, SubmissionButton } from "../components/StyledButton";
 import React, { useState, useEffect } from 'react';
 import { createClient, Session } from '@supabase/supabase-js';
 
@@ -37,7 +37,6 @@ const Login = () => {
     
             if (error) {
                 console.error(error.message);
-                
                 setShowError(true);
             }
         } catch (error) {
@@ -92,9 +91,13 @@ if (!session) {
 
            
             <div className="mt-2">
-            <button className="your-button-styles" onClick={handleLogin}>
-                Login
-            </button>
+            <div>
+      
+            <SubmissionButton inserttext="Login" 
+                onClick={handleLogin} 
+            />
+
+            </div>
             </div>
 
             </div>

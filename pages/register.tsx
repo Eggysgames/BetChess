@@ -51,7 +51,7 @@ const register = () => {
             <span className="ml-2 text-md">I have read and agree to the Terms of Service</span>
 
             <br></br><br></br>
-            <DefaultButton inserttext="Register" link="/chessgame"/>
+            //<DefaultButton inserttext="Register" link="/chessgame"/>
 
             </div>
         </div>

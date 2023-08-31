@@ -9,6 +9,12 @@ type GridProps = {
 type DefaultProps = {
   inserttext: string
   link:string
+  onClick?: () => void
+}
+
+type SubmissionProps = {
+  inserttext: string
+  onClick?: () => void
 }
 
 type StyledProps = {
@@ -38,6 +44,16 @@ export const DefaultButton = ({inserttext, link}:DefaultProps) => {
     <Link className={`bg-teal-500 hover:bg-teal-700 text-2xl inline-block text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg`} href={link}>
       {inserttext}
     </Link>
+  );
+};
+
+export const SubmissionButton = ({ inserttext, onClick }: SubmissionProps) => {
+  return (
+    <button className={`bg-teal-500 hover:bg-teal-700 text-2xl inline-block text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg`}
+      onClick={onClick} 
+      >
+      {inserttext}
+    </button>
   );
 };
 
