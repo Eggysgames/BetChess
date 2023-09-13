@@ -23,6 +23,8 @@ Payments (In Progress)
   
 - Start showing the Logged In with username on all pages **(In Progress)**
 
+STOP PROCRASTINATING LOL
+
 # Learning Log (FrontEnd)
 
 **=== Index Page ===**
