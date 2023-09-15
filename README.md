@@ -17,10 +17,13 @@ Payments (In Progress)
 - [x] Install Supabase for Backend
 - [x] Set up example login under /testing
 - [x] Can Register/Login with email
+- [x] Merge my backend login into frontend /login
+
+**=== Register Page ===**
+
 - [x] Manage to redirect email auth to /emailconfirmed using `redirectTo=`
-- [x] Merge my backend login into frontend /login 
-- [ ] Add Error message for password not correct
-- [ ] Merge my backend register into frontend /register 
+- [x] Add Error message for password/tickbox/6 characters/email rate limit
+- [x] Verifys if email already exists, if does errors
 - [ ] Start showing the Logged In with username on all pages 
 
 # Learning Log (FrontEnd)
