@@ -1,4 +1,4 @@
-![image](https://github.com/Eggysgames/BetChess/assets/113896751/86ead917-3275-41a8-99ef-320aee80e389)# BetChess
+# BetChess
 
 React-Chessboard for the UI - https://www.npmjs.com/package/react-chessboard
 
@@ -14,16 +14,14 @@ Payments (In Progress)
 
 # Learning Log (BackEnd)
 
-
-- Install Supabase for Backend
+- [x] Install Supabase for Backend
 - [x] Set up example login under /testing
 - [x] Can Register/Login with email
 - [x] Manage to redirect email auth to /emailconfirmed using `redirectTo=`
 - [x] Merge my backend login into frontend /login 
+- [] Add Error message for password not correct
 - [] Merge my backend register into frontend /register 
 - [] Start showing the Logged In with username on all pages 
-
-
 
 # Learning Log (FrontEnd)
 
