@@ -14,7 +14,7 @@ Payments (In Progress)
 
 # Learning Log (BackEnd)
 
-- Install Supabase for Backend [ ]
+- Install Supabase for Backend - [ ]
 - Set up example login under /testing **(Done)**
 - Can Register/Login with email **(Done)**
 - Manage to redirect email auth to /emailconfirmed using `redirectTo=` **(Done)**
