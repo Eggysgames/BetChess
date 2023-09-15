@@ -1,7 +1,6 @@
 import {SubmissionButton } from "../components/StyledButton";
 import { createClient, Session } from '@supabase/supabase-js';
-import { error } from "console";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const supabase = createClient('https://ttlaembyimpxjuovpmxk.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0bGFlbWJ5aW1weGp1b3ZwbXhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTI3NzA2NTcsImV4cCI6MjAwODM0NjY1N30.f6YXhReklfjQMe6sfVAqjyraiXgzjcH6W-2bOkCn_Sw')
 
@@ -13,28 +12,11 @@ const Register = () => {
     const [showError, setShowError] = useState(false);
     const [isChecked, setisChecked] = useState(false);
     const [ErrorString, SetErrorString] = useState("default")
-    const [EmailExists, SetEmailExists] = useState(false)
 
-
-    async function checkEmailExistence(emailToCheck: string) {
-        const { data, error } = await supabase.auth.signUp({
-          email: emailToCheck,
-          password: 'dummy_password', 
-        });
-      
-        if (error) {
-          console.error('Error checking email existence:', error.message);
-        } else if (data && data.user) {
-          // Email already exists in Supabase Authentication
-          console.log('Email exists:', emailToCheck);
-          SetEmailExists(true);
-        } else {
-          // Email does not exist in Supabase Authentication
-          console.log('Email does not exist:', emailToCheck);
-          SetEmailExists(false);
-        }
-      }
-      
+    const handleCheckboxChange = () => {
+        setisChecked(!isChecked);
+        console.log(isChecked);
+    };
 
       const handleRegister = async () => {
         if (isChecked) {
@@ -70,11 +52,6 @@ const Register = () => {
           }
       };
       
-
-    const handleCheckboxChange = () => {
-        setisChecked(!isChecked);
-        console.log(isChecked);
-    };
 
     return(
         <div className="flex justify-center items-center h-screen">
