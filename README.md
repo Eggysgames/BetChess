@@ -20,8 +20,8 @@ Payments (In Progress)
 - [x] Manage to redirect email auth to /emailconfirmed using `redirectTo=`
 - [x] Merge my backend login into frontend /login 
 - [ ] Add Error message for password not correct
-- [] Merge my backend register into frontend /register 
-- [] Start showing the Logged In with username on all pages 
+- [ ] Merge my backend register into frontend /register 
+- [ ] Start showing the Logged In with username on all pages 
 
 # Learning Log (FrontEnd)
 
