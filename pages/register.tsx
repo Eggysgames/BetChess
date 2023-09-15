@@ -46,7 +46,7 @@ const Register = () => {
                     setShowError(true);
               } else {
                 console.log("Successful Register");
-                //window.location.href = '/signupconfirmed';
+                window.location.href = '/signupconfirmed';
               }
             } catch (error) {
               console.error('Login failed:', (error as any).message);
