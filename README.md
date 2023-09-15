@@ -43,49 +43,49 @@ Payments (In Progress)
 
 **=== Cheating Policy Page ===**
 
-- Installed Tailwind Typography Plugin **(Done)** 
-- Set a `border`, `drop-shadow-xl` and used `mx-auto` to squish it in and inside `px-32` **(Done)** 
-- Set Main Text **(Done)**
-- Used `<ul>` and `<li>` for dotted lists **(Done)** 
-- Used `<blockquote>` for qouted FAQ **(Done)** 
-- Used `<br />` for line breaks **(Done)** 
+- [x] Installed Tailwind Typography Plugin 
+- [x] Set a `border`, `drop-shadow-xl` and used `mx-auto` to squish it in and inside `px-32` 
+- [x] Set Main Text **(Done)**
+- [x] Used `<ul>` and `<li>` for dotted lists 
+- [x] Used `<blockquote>` for qouted FAQ  
+- [x] Used `<br />` for line breaks
 
 **===Register Page===**
 
-- Used grid to line up inputs `grid grid-cols-3 gap-3` **(Done)** 
-- Input Username, Register using `<input>` **(Done)** 
-- Added hyperlink to CheatingPolicy page `<a href>` **(Done)** 
-- Added checkbox with `<input type="checkbox"` **(Done)** 
+- [x] Used grid to line up inputs `grid grid-cols-3 gap-3`
+- [x] Input Username, Register using `<input>`  
+- [x] Added hyperlink to CheatingPolicy page `<a href>` 
+- [x] Added checkbox with `<input type="checkbox"`  
 
 **=== Login Page ===** 
 
-- Login Form **(Done)**
-- Basically Same as Register Page **(Done)**
+- [x] Login Form
+- [x] Basically Same as Register Page
 
 **=== Cash Game Select Page ===** 
 
-- Make grid with different games **(Done)**
-- Made 2x2 grid for main layout **(Done)**
-- Text is in 2 left squares, and 3x3 grids in right squares **(Done)**
-- `grid-cols-3 gap-2` Used this for main **(Done)**
-- Learned to use `col-start-2` for forcing layout to certain spot **(Done)**
-- Add Buttons to the selects **(Done)**
-- Make Buttons each selectable **(Done)**
-- Each button inherits its insertText for a usestate `settextholder(text)` **(Done)**
-- Play Game Button only appears if both usestates not null `{highlightedButton !== ""` **(Done)**
-- Change text colour for selected games **(Done)**
-- Uses React hooks to store the data for the next pages **(Done)**
+- [x] Make grid with different games
+- [x] Made 2x2 grid for main layout 
+- [x] Text is in 2 left squares, and 3x3 grids in right squares
+- [x] `grid-cols-3 gap-2` Used this for main 
+- [x] Learned to use `col-start-2` for forcing layout to certain spot 
+- [x] Add Buttons to the selects 
+- [x] Make Buttons each selectable
+- [x] Each button inherits its insertText for a usestate `settextholder(text)` 
+- [x] Play Game Button only appears if both usestates not null `{highlightedButton !== ""`
+- [x] Change text colour for selected games
+- [x] Uses React hooks to store the data for the next pages
 
 **=== Fun Game Select Page ===** 
 
-- Only 1 grid **(Done)**
-- Used an Empty `<div>` for top left of a 2x2 grid **(Done)**
-- Can Select game mode and begin game **(Done)**
-- Button only appears if mode selected **(Done)**
+- [x] Only 1 grid*
+- [x] Used an Empty `<div>` for top left of a 2x2 grid
+- [x] Can Select game mode and begin game*
+- [x] Button only appears if mode selected
 
 **=== Billing Info Page ===** 
 
-- Adding forms **(In Progress)**
+- [ ] Adding forms **(In Progress)**
 
 
 **=== Refactors===**
