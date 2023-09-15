@@ -50,17 +50,16 @@ const Register = () => {
               console.log(data?.user);
           
               if (data?.user?.identities?.length === 0) {
-                console.log("user already exists")
-                SetErrorString("User already exists");
-                setShowError(true);
+                    console.log("user already exists")
+                    SetErrorString("Email already exists");
+                    setShowError(true);
               } else if (error) {
-                console.error(error.message);
-                SetErrorString(error.message);
-                setShowError(true);
+                    console.error(error.message);
+                    SetErrorString(error.message);
+                    setShowError(true);
               } else {
-                // Handle the successful sign-up here, if needed
                 console.log("Success");
-                // window.location.href = '/signupconfirmed';
+                window.location.href = '/signupconfirmed';
               }
             } catch (error) {
               console.error('Login failed:', (error as any).message);
