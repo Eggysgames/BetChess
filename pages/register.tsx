@@ -15,6 +15,7 @@ const Register = () => {
 
     const handleCheckboxChange = () => {
         setisChecked(!isChecked);
+        console.log(isChecked);
     };
 
     const handleRegister = async () => {
@@ -28,15 +29,24 @@ const Register = () => {
                 }
               });
           
-              if (data?.user?.identities?.length === 0) {
+              
+              console.log(data?.user);
+              console.log(data?.user?.identities?.length);
+              console.log(data?.user?.confirmation_sent_at)
+
+              
+              if (data?.user?.identities?.length) {
+                    console.log("User already exists")
                     SetErrorString("Email already exists");
                     setShowError(true);
-              } else if (error) {
+              } 
+              else if (error) {
                     console.error(error.message);
                     SetErrorString(error.message);
                     setShowError(true);
               } else {
-                window.location.href = '/signupconfirmed';
+                console.log("Successful Register");
+                //window.location.href = '/signupconfirmed';
               }
             } catch (error) {
               console.error('Login failed:', (error as any).message);
