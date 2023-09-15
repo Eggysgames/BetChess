@@ -15,6 +15,7 @@ Payments (In Progress)
 # Learning Log (BackEnd)
 
 - [ ] blah
+- [ ] blah
 
 - Install Supabase for Backend - [ ]
 - Set up example login under /testing **(Done)**
