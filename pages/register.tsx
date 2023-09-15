@@ -36,50 +36,41 @@ const Register = () => {
       }
       
 
-    const handleRegister = async () => {
-
-    if (isChecked) {
-
-        if (email !== "") {
-            console.log(email)
-            await checkEmailExistence(email);
-
-            if (EmailExists) {
-                SetErrorString("Email already exists")
-                setShowError(true);
-            }
-        }
-
-        if (!EmailExists) {
+      const handleRegister = async () => {
+        if (isChecked) {
             try {
-                const { data, error } = await supabase.auth.signUp({
-                    email: email,
-                    password: password,
-                    options: {
-                    emailRedirectTo: 'https://bet-chess.vercel.app/emailconfirmed'
-                    }
-                });
-    
-                if (error) {
-                    console.error(error.message);
-                    SetErrorString(error.message)
-                    setShowError(true);
+              const { data, error } = await supabase.auth.signUp({
+                email: email,
+                password: password,
+                options: {
+                  emailRedirectTo: 'https://bet-chess.vercel.app/emailconfirmed'
                 }
-                else {
-                    // Email sign-up successful, redirect to the specified URL
-                    window.location.href = '/signupconfirmed';
-                  }
+              });
+          
+              console.log(data?.user);
+          
+              if (data?.user?.identities?.length === 0) {
+                console.log("user already exists")
+                SetErrorString("User already exists");
+                setShowError(true);
+              } else if (error) {
+                console.error(error.message);
+                SetErrorString(error.message);
+                setShowError(true);
+              } else {
+                // Handle the successful sign-up here, if needed
+                console.log("Success");
+                // window.location.href = '/signupconfirmed';
+              }
             } catch (error) {
-                console.error('Login failed:', (error as any).message);
+              console.error('Login failed:', (error as any).message);
             }
-        }
-        
-    }
-        else {
-            SetErrorString("You need to accept the Terms and Conditions")
+          } else {
+            SetErrorString("You need to accept the Terms and Conditions");
             setShowError(true);
-        }
-    }
+          }
+      };
+      
 
     const handleCheckboxChange = () => {
         setisChecked(!isChecked);
