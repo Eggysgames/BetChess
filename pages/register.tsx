@@ -29,23 +29,21 @@ const Register = () => {
                 }
               });
           
-              
-              console.log(data?.user);
-              console.log(data?.user?.identities?.length);
-              console.log(data?.user?.confirmation_sent_at)
+              //console.log(data?.user);
+              //console.log(data?.user?.identities?.length);
+              //console.log(data?.user?.confirmation_sent_at)
 
-              
-              if (data?.user?.identities?.length) {
-                    console.log("User already exists")
+              if (data?.user?.identities?.length === 0) {
+                    //console.log("User already exists")
                     SetErrorString("Email already exists");
                     setShowError(true);
               } 
               else if (error) {
-                    console.error(error.message);
+                    //console.error(error.message);
                     SetErrorString(error.message);
                     setShowError(true);
               } else {
-                console.log("Successful Register");
+                //console.log("Successful Register");
                 window.location.href = '/signupconfirmed';
               }
             } catch (error) {
