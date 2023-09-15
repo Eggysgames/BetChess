@@ -1,4 +1,4 @@
-# BetChess
+![image](https://github.com/Eggysgames/BetChess/assets/113896751/86ead917-3275-41a8-99ef-320aee80e389)# BetChess
 
 React-Chessboard for the UI - https://www.npmjs.com/package/react-chessboard
 
@@ -13,6 +13,8 @@ Sockets (In Progress)
 Payments (In Progress)
 
 # Learning Log (BackEnd)
+
+- [ ] blah
 
 - Install Supabase for Backend - [ ]
 - Set up example login under /testing **(Done)**
