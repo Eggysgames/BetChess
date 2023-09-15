@@ -15,7 +15,7 @@ Payments (In Progress)
 # Learning Log (BackEnd)
 
 - Install Supabase for Backend **(Done)**
-- - Set up example login under /testing **(Done)**
+- Set up example login under /testing **(Done)**
 - Can Register/Login with email **(Done)**
 - Manage to redirect email auth to /emailconfirmed using `redirectTo=` **(Done)**
 - Merge my backend login into frontend /login **(Done)**
@@ -23,7 +23,7 @@ Payments (In Progress)
   
 - Start showing the Logged In with username on all pages **(In Progress)**
 
-STOP PROCRASTINATING LOL
+
 
 # Learning Log (FrontEnd)
 
