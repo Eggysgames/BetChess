@@ -15,10 +15,9 @@ const Register = () => {
 
     const handleCheckboxChange = () => {
         setisChecked(!isChecked);
-        console.log(isChecked);
     };
 
-      const handleRegister = async () => {
+    const handleRegister = async () => {
         if (isChecked) {
             try {
               const { data, error } = await supabase.auth.signUp({
@@ -29,10 +28,7 @@ const Register = () => {
                 }
               });
           
-              console.log(data?.user);
-          
               if (data?.user?.identities?.length === 0) {
-                    console.log("user already exists")
                     SetErrorString("Email already exists");
                     setShowError(true);
               } else if (error) {
@@ -40,7 +36,6 @@ const Register = () => {
                     SetErrorString(error.message);
                     setShowError(true);
               } else {
-                console.log("Success");
                 window.location.href = '/signupconfirmed';
               }
             } catch (error) {
@@ -49,8 +44,8 @@ const Register = () => {
           } else {
             SetErrorString("You need to accept the Terms and Conditions");
             setShowError(true);
-          }
-      };
+        }
+    };
       
 
     return(
