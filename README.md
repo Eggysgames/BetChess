@@ -14,7 +14,7 @@ Payments (In Progress)
 
 # Learning Log (BackEnd)
 
-- [ ] blah
+- [x] blah
 - [ ] blah
 
 - Install Supabase for Backend - [ ]
