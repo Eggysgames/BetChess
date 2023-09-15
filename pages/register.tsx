@@ -13,9 +13,44 @@ const Register = () => {
     const [showError, setShowError] = useState(false);
     const [isChecked, setisChecked] = useState(false);
     const [ErrorString, SetErrorString] = useState("default")
+    const [EmailExists, SetEmailExists] = useState(false)
+
+
+    async function checkEmailExistence(emailToCheck: string) {
+        const { data, error } = await supabase.auth.signUp({
+          email: emailToCheck,
+          password: 'dummy_password', 
+        });
+      
+        if (error) {
+          console.error('Error checking email existence:', error.message);
+        } else if (data && data.user) {
+          // Email already exists in Supabase Authentication
+          console.log('Email exists:', emailToCheck);
+          SetEmailExists(true);
+        } else {
+          // Email does not exist in Supabase Authentication
+          console.log('Email does not exist:', emailToCheck);
+          SetEmailExists(false);
+        }
+      }
+      
 
     const handleRegister = async () => {
-        if (isChecked) {
+
+    if (isChecked) {
+
+        if (email !== "") {
+            console.log(email)
+            await checkEmailExistence(email);
+
+            if (EmailExists) {
+                SetErrorString("Email already exists")
+                setShowError(true);
+            }
+        }
+
+        if (!EmailExists) {
             try {
                 const { data, error } = await supabase.auth.signUp({
                     email: email,
@@ -38,11 +73,13 @@ const Register = () => {
                 console.error('Login failed:', (error as any).message);
             }
         }
+        
+    }
         else {
             SetErrorString("You need to accept the Terms and Conditions")
             setShowError(true);
         }
-    };
+    }
 
     const handleCheckboxChange = () => {
         setisChecked(!isChecked);
