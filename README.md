@@ -14,77 +14,78 @@ Payments (In Progress)
 
 # Learning Log (BackEnd)
 
-- Install Supabase for Backend **(Done)**
-- Set up example login under /testing **(Done)**
-- Can Register/Login with email **(Done)**
-- Manage to redirect email auth to /emailconfirmed using `redirectTo=` **(Done)**
-
-- Merge my example login into frontend login/register **(In Progress)**
-- Start showing the Logged In with username on all pages **(In Progress)**
+- [x] Install Supabase for Backend
+- [x] Set up example login under /testing
+- [x] Can Register/Login with email
+- [x] Manage to redirect email auth to /emailconfirmed using `redirectTo=`
+- [x] Merge my backend login into frontend /login 
+- [ ] Add Error message for password not correct
+- [ ] Merge my backend register into frontend /register 
+- [ ] Start showing the Logged In with username on all pages 
 
 # Learning Log (FrontEnd)
 
 **=== Index Page ===**
 
-- Change Background Colour to Grey **(Done)** Change `global.css` using tailwind or seperate pages `bg-slate-500`
-- Add an image behind text **(Done)** Add the image above the text in the same div to be placed above
-- Add Button over image **(Done)** Adds a simple button via tailwind `<button className="bg-teal-800/90>`
-- Add 2nd Button over image **(Done)** Needed container `relative w-x h-x` and `flex-col` and `absolute inset-0`
-- Seperate Button Components **(Done)** Removed `<Button>` Used `<Link>` and declared type `Props{}` with strings
-- Add Bigger Button top center **(Done)** Dynamic variables for button added `${colour} ${hover} ${textsize}`
-- Add Text top left with URL **(Done)** Div taken out of root and seperated 
-- Layout Update by Marty **(Done)** Split into comps, added `flex-grow`and split into two border bars and 3 flexs
-- Add Horse Image to left of chessboard **(Done)** `w-11/12` to set size to bring it in
-- Add Signup/Login button below that **(Done)** Added `flex-col` outside div for buttons and some `<br>`'s
-- Add Title text to right **(Done)** Added "Play Chess, Win Money" and a list below it
-- Add mini pawn icons **(Done)** Inserted each mini icon next to each dot point above bottomBar
-- Add Settings Icon Top right **(Done)** Added into the Topbar a simple top right image.
+- [x] Change Background Colour to Grey. Change `global.css` using tailwind or seperate pages `bg-slate-500`
+- [x] Add an image behind text. Add the image above the text in the same div to be placed above
+- [x] Add Button over image. Adds a simple button via tailwind `<button className="bg-teal-800/90>`
+- [x] Add 2nd Button over image. Needed container `relative w-x h-x` and `flex-col` and `absolute inset-0`
+- [x] Seperate Button Components. Removed `<Button>` Used `<Link>` and declared type `Props{}` with strings
+- [x] Add Bigger Button top center. Dynamic variables for button added `${colour} ${hover} ${textsize}`
+- [x] Add Text top left with URL. Div taken out of root and seperated 
+- [x] Layout Update by Marty. Split into comps, added `flex-grow`and split into two border bars and 3 flexs
+- [x] Add Horse Image to left of chessboard. `w-11/12` to set size to bring it in
+- [x] Add Signup/Login button below that. Added `flex-col` outside div for buttons and some `<br>`'s
+- [x] Add Title text to right. Added "Play Chess, Win Money" and a list below it
+- [x] Add mini pawn icons. Inserted each mini icon next to each dot point above bottomBar
+- [x] Add Settings Icon Top right. Added into the Topbar a simple top right image.
 
 **=== Cheating Policy Page ===**
 
-- Installed Tailwind Typography Plugin **(Done)** 
-- Set a `border`, `drop-shadow-xl` and used `mx-auto` to squish it in and inside `px-32` **(Done)** 
-- Set Main Text **(Done)**
-- Used `<ul>` and `<li>` for dotted lists **(Done)** 
-- Used `<blockquote>` for qouted FAQ **(Done)** 
-- Used `<br />` for line breaks **(Done)** 
+- [x] Installed Tailwind Typography Plugin 
+- [x] Set a `border`, `drop-shadow-xl` and used `mx-auto` to squish it in and inside `px-32` 
+- [x] Set Main Text **(Done)**
+- [x] Used `<ul>` and `<li>` for dotted lists 
+- [x] Used `<blockquote>` for qouted FAQ  
+- [x] Used `<br />` for line breaks
 
 **===Register Page===**
 
-- Used grid to line up inputs `grid grid-cols-3 gap-3` **(Done)** 
-- Input Username, Register using `<input>` **(Done)** 
-- Added hyperlink to CheatingPolicy page `<a href>` **(Done)** 
-- Added checkbox with `<input type="checkbox"` **(Done)** 
+- [x] Used grid to line up inputs `grid grid-cols-3 gap-3`
+- [x] Input Username, Register using `<input>`  
+- [x] Added hyperlink to CheatingPolicy page `<a href>` 
+- [x] Added checkbox with `<input type="checkbox"`  
 
 **=== Login Page ===** 
 
-- Login Form **(Done)**
-- Basically Same as Register Page **(Done)**
+- [x] Login Form
+- [x] Basically Same as Register Page
 
 **=== Cash Game Select Page ===** 
 
-- Make grid with different games **(Done)**
-- Made 2x2 grid for main layout **(Done)**
-- Text is in 2 left squares, and 3x3 grids in right squares **(Done)**
-- `grid-cols-3 gap-2` Used this for main **(Done)**
-- Learned to use `col-start-2` for forcing layout to certain spot **(Done)**
-- Add Buttons to the selects **(Done)**
-- Make Buttons each selectable **(Done)**
-- Each button inherits its insertText for a usestate `settextholder(text)` **(Done)**
-- Play Game Button only appears if both usestates not null `{highlightedButton !== ""` **(Done)**
-- Change text colour for selected games **(Done)**
-- Uses React hooks to store the data for the next pages **(Done)**
+- [x] Make grid with different games
+- [x] Made 2x2 grid for main layout 
+- [x] Text is in 2 left squares, and 3x3 grids in right squares
+- [x] `grid-cols-3 gap-2` Used this for main 
+- [x] Learned to use `col-start-2` for forcing layout to certain spot 
+- [x] Add Buttons to the selects 
+- [x] Make Buttons each selectable
+- [x] Each button inherits its insertText for a usestate `settextholder(text)` 
+- [x] Play Game Button only appears if both usestates not null `{highlightedButton !== ""`
+- [x] Change text colour for selected games
+- [x] Uses React hooks to store the data for the next pages
 
 **=== Fun Game Select Page ===** 
 
-- Only 1 grid **(Done)**
-- Used an Empty `<div>` for top left of a 2x2 grid **(Done)**
-- Can Select game mode and begin game **(Done)**
-- Button only appears if mode selected **(Done)**
+- [x] Only 1 grid*
+- [x] Used an Empty `<div>` for top left of a 2x2 grid
+- [x] Can Select game mode and begin game*
+- [x] Button only appears if mode selected
 
 **=== Billing Info Page ===** 
 
-- Adding forms **(In Progress)**
+- [ ] Adding forms **(In Progress)**
 
 
 **=== Refactors===**
