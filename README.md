@@ -24,7 +24,7 @@ Payments (In Progress)
 - [x] Manage to redirect email auth to /emailconfirmed using `redirectTo=`
 - [x] Add Error message for password/tickbox/6 characters/email rate limit
 - [x] Verifys if email already exists, if does errors
-- [ ] Start showing the Logged In with username on all pages 
+- [ ] Start showing the Logged In with username on all pages
 
 # Learning Log (FrontEnd)
 
@@ -36,7 +36,7 @@ Payments (In Progress)
 - [x] Add 2nd Button over image. Needed container `relative w-x h-x` and `flex-col` and `absolute inset-0`
 - [x] Seperate Button Components. Removed `<Button>` Used `<Link>` and declared type `Props{}` with strings
 - [x] Add Bigger Button top center. Dynamic variables for button added `${colour} ${hover} ${textsize}`
-- [x] Add Text top left with URL. Div taken out of root and seperated 
+- [x] Add Text top left with URL. Div taken out of root and seperated
 - [x] Layout Update by Marty. Split into comps, added `flex-grow`and split into two border bars and 3 flexs
 - [x] Add Horse Image to left of chessboard. `w-11/12` to set size to bring it in
 - [x] Add Signup/Login button below that. Added `flex-col` outside div for buttons and some `<br>`'s
@@ -46,50 +46,49 @@ Payments (In Progress)
 
 **=== Cheating Policy Page ===**
 
-- [x] Installed Tailwind Typography Plugin 
-- [x] Set a `border`, `drop-shadow-xl` and used `mx-auto` to squish it in and inside `px-32` 
+- [x] Installed Tailwind Typography Plugin
+- [x] Set a `border`, `drop-shadow-xl` and used `mx-auto` to squish it in and inside `px-32`
 - [x] Set Main Text **(Done)**
-- [x] Used `<ul>` and `<li>` for dotted lists 
-- [x] Used `<blockquote>` for qouted FAQ  
+- [x] Used `<ul>` and `<li>` for dotted lists
+- [x] Used `<blockquote>` for qouted FAQ
 - [x] Used `<br />` for line breaks
 
 **===Register Page===**
 
 - [x] Used grid to line up inputs `grid grid-cols-3 gap-3`
-- [x] Input Username, Register using `<input>`  
-- [x] Added hyperlink to CheatingPolicy page `<a href>` 
-- [x] Added checkbox with `<input type="checkbox"`  
+- [x] Input Username, Register using `<input>`
+- [x] Added hyperlink to CheatingPolicy page `<a href>`
+- [x] Added checkbox with `<input type="checkbox"`
 
-**=== Login Page ===** 
+**=== Login Page ===**
 
 - [x] Login Form
 - [x] Basically Same as Register Page
 
-**=== Cash Game Select Page ===** 
+**=== Cash Game Select Page ===**
 
 - [x] Make grid with different games
-- [x] Made 2x2 grid for main layout 
+- [x] Made 2x2 grid for main layout
 - [x] Text is in 2 left squares, and 3x3 grids in right squares
-- [x] `grid-cols-3 gap-2` Used this for main 
-- [x] Learned to use `col-start-2` for forcing layout to certain spot 
-- [x] Add Buttons to the selects 
+- [x] `grid-cols-3 gap-2` Used this for main
+- [x] Learned to use `col-start-2` for forcing layout to certain spot
+- [x] Add Buttons to the selects
 - [x] Make Buttons each selectable
-- [x] Each button inherits its insertText for a usestate `settextholder(text)` 
+- [x] Each button inherits its insertText for a usestate `settextholder(text)`
 - [x] Play Game Button only appears if both usestates not null `{highlightedButton !== ""`
 - [x] Change text colour for selected games
 - [x] Uses React hooks to store the data for the next pages
 
-**=== Fun Game Select Page ===** 
+**=== Fun Game Select Page ===**
 
-- [x] Only 1 grid*
+- [x] Only 1 grid\*
 - [x] Used an Empty `<div>` for top left of a 2x2 grid
-- [x] Can Select game mode and begin game*
+- [x] Can Select game mode and begin game\*
 - [x] Button only appears if mode selected
 
-**=== Billing Info Page ===** 
+**=== Billing Info Page ===**
 
 - [ ] Adding forms **(In Progress)**
-
 
 **=== Refactors===**
 
@@ -97,11 +96,10 @@ Payments (In Progress)
 - Added 'items-start' to make pawns on left and wrapped images with p-1 to align
 - Added 'ml-16' to align right text properly
 - Added 'whitespace-nowrap' around left buttons
-- Added 'max-w-none w-[350px] sm:max-w-none sm:w-[350px]  2xl:w-full' around horse image
+- Added 'max-w-none w-[350px] sm:max-w-none sm:w-[350px] 2xl:w-full' around horse image
 - Horse Image set to original Dimensions - `640x480`
 - Horse zooms in (Animation)
 
 # Play
 
 Open up localhost:3000
-

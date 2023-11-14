@@ -1,30 +1,27 @@
 import { useState } from "react";
-import { Chess} from "chess.js";
+import { Chess } from "chess.js";
 import { Chessboard } from "react-chessboard";
 
 export default function PlayRandomMoveEngine() {
-  
   const [game, setGame] = useState(new Chess());
 
   let mover = false;
 
   function makeAMove(move: any) {
-
     if (!game.isDraw()) {
-    try {
-      game.move(move);
-      if (mover == false) {
-        setTimeout(makeRandomMove, 200);
-        mover = true;
+      try {
+        game.move(move);
+        if (mover == false) {
+          setTimeout(makeRandomMove, 200);
+          mover = true;
+        }
+      } catch {
+        console.log("Invalid Move");
       }
-    }
-    catch {
-      console.log("Invalid Move");
-    }
 
-    const newGame = new Chess(game.fen());
-    setGame(newGame);
-  }
+      const newGame = new Chess(game.fen());
+      setGame(newGame);
+    }
 
     if (game.isCheckmate()) {
       setTimeout(() => {
@@ -36,15 +33,14 @@ export default function PlayRandomMoveEngine() {
       setTimeout(() => {
         window.alert("Draw");
       }, 200);
-
     }
   }
 
-  function makeRandomMove(move:any) {
+  function makeRandomMove(move: any) {
     const possibleMoves = game.moves();
     if (game.isCheckmate() || game.isDraw() || possibleMoves.length === 0) {
-      console.log(game.isCheckmate()); 
-      console.log(game.isDraw()); 
+      console.log(game.isCheckmate());
+      console.log(game.isDraw());
       return; // exit if the game is over
     }
 
@@ -52,9 +48,7 @@ export default function PlayRandomMoveEngine() {
     makeAMove(possibleMoves[randomIndex]);
   }
 
-  function AI() {
-    
-  }
+  function AI() {}
 
   function onDrop(sourceSquare: string, targetSquare: string) {
     const move = makeAMove({
@@ -63,20 +57,35 @@ export default function PlayRandomMoveEngine() {
       promotion: "q", // always promote to a queen for simplicity
     });
 
-    
     // illegal move
     if (move === null) {
       return false;
     }
-    
+
     return true;
-    
   }
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <div style={{ width: '800px', height: '800px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <div style={{ fontSize: '32px', fontWeight: 'bold', margin: 'auto' }}>Eggy&apos;s Chessboard</div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <div
+        style={{
+          width: "800px",
+          height: "800px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <div style={{ fontSize: "32px", fontWeight: "bold", margin: "auto" }}>
+          Eggy&apos;s Chessboard
+        </div>
         <Chessboard
           position={game.fen()}
           onPieceDrop={onDrop}
@@ -85,6 +94,4 @@ export default function PlayRandomMoveEngine() {
       </div>
     </div>
   );
-  
-  
 }

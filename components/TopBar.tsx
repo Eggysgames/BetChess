@@ -8,7 +8,6 @@ const TopBar = () => {
         <h2>betchess.online</h2>
       </div>
 
-      
       {/* <div className="absolute top-0 right-0 mt-5 mr-5"> 
         <Image className="opacity-90"
           src="/settingsicon.png"
