@@ -2,6 +2,7 @@ import { SubmissionButton } from "../components/StyledButton";
 import React, { useState, useEffect } from "react";
 import { createClient, Session } from "@supabase/supabase-js";
 import { useRouter } from "next/router";
+import Topnav from "@/components/topnav";
 
 const supabase = createClient(
   "https://ttlaembyimpxjuovpmxk.supabase.co",
@@ -48,7 +49,6 @@ const Login = () => {
     }
   };
 
-
   if (session) {
     router.push("/");
     return (
@@ -69,6 +69,7 @@ const Login = () => {
   if (!session) {
     return (
       <div className="flex justify-center items-center h-screen">
+        <Topnav />
         <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
           <p className="underline text-4xl">Login</p>
 

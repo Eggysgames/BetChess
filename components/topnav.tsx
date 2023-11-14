@@ -37,7 +37,7 @@ const Topnav = () => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    localStorage.removeItem("authToken"); // Remove the authentication token from local storage
+    localStorage.removeItem("authToken");
     setSession(null);
     router.reload();
   };
@@ -55,8 +55,8 @@ const Topnav = () => {
               height={60}
             />
 
-            <div className="flex items-center justify-center mx-auto font-bold">
-              <ul className="flex text-black">
+            <div className="flex items-center justify-center mx-auto font-bold ">
+              <ul className="flex text-black mr-44">
                 <Image
                   className="items-left justify-left lg:hidden"
                   src="/eggysgameslogo.png"
@@ -123,20 +123,22 @@ const Topnav = () => {
               </ul>
             </div>
             {session ? (
-              <div className="text-white flex items-center justify-right mr-8 w-100">
+              <div className="text-white  mr-8 absolute top-[20px] right-0 transform translate-x-0/2">
                 <span className="mr-4 ">
                   Logged in as{" "}
-                  <span className="underline">{session.user?.email}</span>
+                  <span className="underline text-sky-300">
+                    {session.user?.email}
+                  </span>
                 </span>
                 <button
                   onClick={handleLogout}
-                  className="text-white hover:underline"
+                  className="text-white hover:underline text-red-400"
                 >
                   Sign Out
                 </button>
               </div>
             ) : (
-              <div className="text-white flex items-center justify-right mr-8">
+              <div className="text-white mr-8 absolute ml-[1700px] mt-[20px]">
                 <span className="">You are Logged Out!</span>
               </div>
             )}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Chess } from "chess.js";
 import { Chessboard } from "react-chessboard";
+import Topnav from "@/components/topnav";
 
 export default function PlayRandomMoveEngine() {
   const [game, setGame] = useState(new Chess());
@@ -66,31 +67,34 @@ export default function PlayRandomMoveEngine() {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-      }}
-    >
+    <div>
+      <Topnav />
       <div
         style={{
-          width: "800px",
-          height: "800px",
           display: "flex",
-          flexDirection: "column",
+          justifyContent: "center",
           alignItems: "center",
+          height: "100vh",
         }}
       >
-        <div style={{ fontSize: "32px", fontWeight: "bold", margin: "auto" }}>
-          Eggy&apos;s Chessboard
+        <div
+          style={{
+            width: "800px",
+            height: "800px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ fontSize: "32px", fontWeight: "bold", margin: "auto" }}>
+            Play Game
+          </div>
+          <Chessboard
+            position={game.fen()}
+            onPieceDrop={onDrop}
+            areArrowsAllowed={true}
+          />
         </div>
-        <Chessboard
-          position={game.fen()}
-          onPieceDrop={onDrop}
-          areArrowsAllowed={true}
-        />
       </div>
     </div>
   );
