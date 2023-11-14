@@ -132,7 +132,7 @@ const Topnav = () => {
                 </span>
                 <button
                   onClick={handleLogout}
-                  className="text-white hover:underline text-rose-400"
+                  className="hover:underline text-rose-400"
                 >
                   Sign Out
                 </button>
