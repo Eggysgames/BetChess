@@ -3,6 +3,8 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createClient, Session } from "@supabase/supabase-js";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+
 import {
   faEgg,
   faGamepad,
@@ -18,6 +20,8 @@ const supabase = createClient(
 
 const Topnav = () => {
   const [session, setSession] = useState<Session | null>(null);
+  const router = useRouter();
+
   useEffect(() => {
     const fetchData = async () => {
       const { data: sessionData, error } = await supabase.auth.getSession();
@@ -32,9 +36,12 @@ const Topnav = () => {
   }, []);
 
   const handleLogout = async () => {
-    supabase.auth.signOut();
+    await supabase.auth.signOut();
+    localStorage.removeItem("authToken"); // Remove the authentication token from local storage
     setSession(null);
+    router.reload();
   };
+
   return (
     <div>
       <header className="bg-gray-700 text-white lg:p-1 fixed w-full top-0 z-10 opacity-100 shadow-md">
@@ -49,7 +56,7 @@ const Topnav = () => {
             />
 
             <div className="flex items-center justify-center mx-auto font-bold">
-              <ul className="flex text-black ml-40">
+              <ul className="flex text-black">
                 <Image
                   className="items-left justify-left lg:hidden"
                   src="/eggysgameslogo.png"
