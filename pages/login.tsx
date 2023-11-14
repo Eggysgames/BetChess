@@ -1,6 +1,7 @@
 import { SubmissionButton } from "../components/StyledButton";
 import React, { useState, useEffect } from "react";
 import { createClient, Session } from "@supabase/supabase-js";
+import { useRouter } from "next/router";
 
 const supabase = createClient(
   "https://ttlaembyimpxjuovpmxk.supabase.co",
@@ -12,6 +13,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showError, setShowError] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -37,6 +39,9 @@ const Login = () => {
       if (error) {
         console.error(error.message);
         setShowError(true);
+      } else {
+        // If login is successful, redirect to "/"
+        router.push("/");
       }
     } catch (error) {
       console.error("Login failed:", (error as any).message);
@@ -44,14 +49,6 @@ const Login = () => {
   };
 
   if (session) {
-    return (
-      <div>
-        <p className="text-white text-xl">Welcome, {session.user?.email}</p>
-        <button onClick={() => supabase.auth.signOut()} className="text-white">
-          Sign Out
-        </button>
-      </div>
-    );
   }
 
   if (!session) {
