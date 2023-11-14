@@ -6,6 +6,7 @@ import { StyledButton, DefaultButton } from "../components/StyledButton";
 import "animate.css";
 import React, { useState, useEffect } from "react";
 import { createClient, Session } from "@supabase/supabase-js";
+import Topnav from "@/components/topnav";
 
 const supabase = createClient(
   "https://ttlaembyimpxjuovpmxk.supabase.co",
@@ -34,19 +35,9 @@ const Index = () => {
   };
 
   return (
-    <div>
-      {session ? (
-        <div className="text-white">
-          YOU ARE LOGGED IN{" "}
-          <button onClick={handleLogout} className="text-white">
-            Sign Out
-          </button>
-        </div>
-      ) : (
-        <div className="text-white">YOU FAIL</div>
-      )}
+    <div className="mt-16">
+      <Topnav />
 
-      {/* Left Column */}
       <div className="flex flex-col h-screen">
         <TopBar />
 
@@ -61,10 +52,14 @@ const Index = () => {
               height={480}
             />
 
-            <div className="flex items-center justify-center w-11/12 flex-col space-y-5 whitespace-nowrap">
-              <DefaultButton inserttext="Sign Up" link="/register" />
-              <DefaultButton inserttext="Log In" link="/login" />
-            </div>
+            {session ? (
+              <div className="flex items-center justify-center w-11/12 flex-col space-y-5 whitespace-nowrap"></div>
+            ) : (
+              <div className="flex items-center justify-center w-11/12 flex-col space-y-5 whitespace-nowrap">
+                <DefaultButton inserttext="Log In" link="/login" />
+                <DefaultButton inserttext="Register" link="/register" />
+              </div>
+            )}
           </div>
 
           {/* Middle */}
