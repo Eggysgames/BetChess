@@ -57,7 +57,7 @@ const Topnav = () => {
             />
           </div>
 
-          <div className="flex">
+          <div className="flex mx-auto">
             <Link href="/">
               <div className="hover:bg-gray-500 p-2 rounded-lg text-white">
                 <div className="inline-block p-0  lg:mr-2 text-sm lg:text-lg lg:p-2 ml-2 lg:ml-0">
