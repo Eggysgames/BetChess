@@ -120,9 +120,11 @@ const Topnav = () => {
                       width={40}
                       height={40}
                     />
-                    <span className="underline text-sky-300 mr-4">
-                      {session.user?.email}
-                    </span>
+                    <Link href="/profile">
+                      <span className="hover:underline text-sky-300 mr-4">
+                        {session.user?.email}
+                      </span>
+                    </Link>
                     <button
                       onClick={handleLogout}
                       className="hover:underline text-rose-400"
