@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createClient, Session } from "@supabase/supabase-js";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { StyledButton, DefaultButton } from "../components/StyledButton";
 
 import {
-  faEgg,
   faGamepad,
   faUser,
   faBook,
@@ -45,8 +45,8 @@ const Topnav = () => {
   return (
     <div>
       <header className="bg-gray-700 text-white lg:p-1 fixed w-full top-0 z-10 opacity-100 shadow-md">
-        <div className="mx-auto">
-          <nav className="lg:flex">
+        <div className="flex items-center justify-between mx-auto font-bold lg:grid lg:grid-cols-3 ">
+          <div className="flex">
             <Image
               className="items-left justify-center object-fill hidden lg:block ml-8"
               src="/pawn.svg"
@@ -54,76 +54,61 @@ const Topnav = () => {
               width={60}
               height={60}
             />
+          </div>
 
-            <div className="flex items-center justify-center mx-auto font-bold ">
-              <ul className="flex text-black mr-44">
-                <Image
-                  className="items-left justify-left lg:hidden"
-                  src="/eggysgameslogo.png"
-                  alt="Logo"
-                  width={50}
-                  height={50}
-                />
+          <div className="flex">
+            <Link href="/">
+              <div className="hover:bg-gray-500 p-2 rounded-lg text-white">
+                <div className="inline-block p-0  lg:mr-2 text-sm lg:text-lg lg:p-2 ml-2 lg:ml-0">
+                  <FontAwesomeIcon
+                    className="ml-1 w-8 mr-1 lg:ml-0"
+                    icon={faChess}
+                  />
+                  Home
+                </div>
+              </div>
+            </Link>
 
-                <li>
-                  <Link href="/">
-                    <div className="hover:bg-gray-500 p-2 rounded-lg text-white">
-                      <div className="inline-block p-0  lg:mr-2 text-sm lg:text-lg lg:p-2 ml-2 lg:ml-0">
-                        <FontAwesomeIcon
-                          className="ml-1 w-8 mr-1 lg:ml-0"
-                          icon={faChess}
-                        />
-                        Home
-                      </div>
-                    </div>
-                  </Link>
-                </li>
+            <Link href="/cashgameselect">
+              <div className="hover:bg-gray-500 p-2 rounded-lg text-white">
+                <div className="inline-block p-0 lg:mr-2 text-sm lg:text-lg lg:p-2 ml-2 lg:ml-0">
+                  <FontAwesomeIcon
+                    className="ml-2 w-8 mr-1 lg:ml-0"
+                    icon={faGamepad}
+                  />
+                  Play
+                </div>
+              </div>
+            </Link>
 
-                <li>
-                  <Link href="/cashgameselect">
-                    <div className="hover:bg-gray-500 p-2 rounded-lg text-white">
-                      <div className="inline-block p-0 lg:mr-2 text-sm lg:text-lg lg:p-2 ml-2 lg:ml-0">
-                        <FontAwesomeIcon
-                          className="ml-2 w-8 mr-1 lg:ml-0"
-                          icon={faGamepad}
-                        />
-                        Play
-                      </div>
-                    </div>
-                  </Link>
-                </li>
+            <Link href="/cheatingpolicy">
+              <div className="hover:bg-gray-500 p-2 rounded-lg text-white">
+                <div className="inline-block p-0 lg:mr-2 text-sm lg:text-lg lg:p-2 ml-2 lg:ml-0">
+                  <FontAwesomeIcon
+                    className="ml-2 w-8 mr-1 lg:ml-0"
+                    icon={faBook}
+                  />
+                  Rules
+                </div>
+              </div>
+            </Link>
 
-                <li>
-                  <Link href="/cheatingpolicy">
-                    <div className="hover:bg-gray-500 p-2 rounded-lg text-white">
-                      <div className="inline-block p-0 lg:mr-2 text-sm lg:text-lg lg:p-2 ml-2 lg:ml-0">
-                        <FontAwesomeIcon
-                          className="ml-2 w-8 mr-1 lg:ml-0"
-                          icon={faBook}
-                        />
-                        Rules
-                      </div>
-                    </div>
-                  </Link>
-                </li>
+            <Link href="/profile">
+              <div className="hover:bg-gray-500 p-2 rounded-lg text-white">
+                <div className="inline-block p-0 lg:mr-2 text-sm lg:text-lg lg:p-2 ml-2 lg:ml-0">
+                  <FontAwesomeIcon
+                    className="ml-1 w-8 mr-1 lg:ml-0"
+                    icon={faUser}
+                  />
+                  Profile
+                </div>
+              </div>
+            </Link>
+          </div>
 
-                <li>
-                  <Link href="/profile">
-                    <div className="hover:bg-gray-500 p-2 rounded-lg text-white">
-                      <div className="inline-block p-0 lg:mr-2 text-sm lg:text-lg lg:p-2 ml-2 lg:ml-0">
-                        <FontAwesomeIcon
-                          className="ml-1 w-8 mr-1 lg:ml-0"
-                          icon={faUser}
-                        />
-                        Profile
-                      </div>
-                    </div>
-                  </Link>
-                </li>
-              </ul>
-            </div>
+          <div>
             {session ? (
-              <div className="text-white  mr-8 absolute top-[20px] right-0 transform translate-x-0/2">
+              <div className="text-white mr-16 flex justify-end">
                 <span className="mr-4 ">
                   Logged in as{" "}
                   <span className="underline text-sky-300">
@@ -138,11 +123,17 @@ const Topnav = () => {
                 </button>
               </div>
             ) : (
-              <div className="text-white mr-8 absolute ml-[1700px] mt-[20px]">
-                <span className="">You are Logged Out!</span>
+              <div className="text-white flex items-center justify-end mr-16">
+                <span className="mr-4">You are Logged Out!</span>
+                <span className="mr-4">
+                  <DefaultButton inserttext="Register" link="/register" />
+                </span>
+                <span className="mr-4">
+                  <DefaultButton inserttext="Log In" link="/login" />
+                </span>
               </div>
             )}
-          </nav>
+          </div>
         </div>
       </header>
     </div>
