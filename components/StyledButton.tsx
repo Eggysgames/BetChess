@@ -49,7 +49,7 @@ export const GridButton = ({
 export const DefaultButton = ({ inserttext, link }: DefaultProps) => {
   return (
     <Link
-      className={`bg-teal-500 hover:bg-teal-700 text-xl inline-block text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg`}
+      className={`bg-teal-500 hover:bg-teal-700 text-md inline-block text-white font-bold py-2 px-6 rounded-full border-none drop-shadow-lg`}
       href={link}
     >
       {inserttext}

@@ -21,18 +21,19 @@ const supabase = createClient(
 const Topnav = () => {
   const [session, setSession] = useState<Session | null>(null);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchData = async () => {
+    const { data: sessionData, error } = await supabase.auth.getSession();
+    if (error) {
+      console.error("Error fetching session:", error.message);
+    } else {
+      setSession(sessionData?.session || null);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const { data: sessionData, error } = await supabase.auth.getSession();
-      if (error) {
-        console.error("Error fetching session:", error.message);
-      } else {
-        setSession(sessionData?.session || null);
-      }
-    };
-
-    fetchData();
+    fetchData().then(() => setIsLoading(false)); // Set loading to false when data is fetched
   }, []);
 
   const handleLogout = async () => {
@@ -107,30 +108,39 @@ const Topnav = () => {
           </div>
 
           <div>
-            {session ? (
-              <div className="text-white mr-16 flex justify-end">
-                <span className="mr-4 ">
-                  Logged in as{" "}
-                  <span className="underline text-sky-300">
-                    {session.user?.email}
-                  </span>
-                </span>
-                <button
-                  onClick={handleLogout}
-                  className="hover:underline text-rose-400"
-                >
-                  Sign Out
-                </button>
-              </div>
-            ) : (
-              <div className="text-white flex items-center justify-end mr-16">
-                <span className="mr-4">You are Logged Out!</span>
-                <span className="mr-4">
-                  <DefaultButton inserttext="Register" link="/register" />
-                </span>
-                <span className="mr-4">
-                  <DefaultButton inserttext="Log In" link="/login" />
-                </span>
+            {!isLoading && (
+              <div className="text-white mr-16 flex justify-end dropshadow">
+                {session ? (
+                  <div className="mr-4">
+                    Logged in as :{" "}
+                    <Image
+                      className="inline-block ml-1 mr-1"
+                      src="/defaulticon.png"
+                      alt="Logo"
+                      width={40}
+                      height={40}
+                    />
+                    <span className="underline text-sky-300 mr-4">
+                      {session.user?.email}
+                    </span>
+                    <button
+                      onClick={handleLogout}
+                      className="hover:underline text-rose-400"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-center">
+                    <span className="mr-4">You are Logged Out!</span>
+                    <span className="mr-4">
+                      <DefaultButton inserttext="Register" link="/register" />
+                    </span>
+                    <span className="mr-4">
+                      <DefaultButton inserttext="Log In" link="/login" />
+                    </span>
+                  </div>
+                )}
               </div>
             )}
           </div>
