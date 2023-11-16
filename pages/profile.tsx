@@ -1,5 +1,3 @@
-import { StyledButton, DefaultButton } from "../components/StyledButton";
-import TopBar from "../components/TopBar";
 import BottomBar from "../components/BottomBar";
 import Topnav from "@/components/topnav";
 import { createClient, Session } from "@supabase/supabase-js";
@@ -16,6 +14,35 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null); // Ref to file input
   const [profileImage, setProfileImage] = useState("/defaulticon.png");
+  const [userProfile, setUserProfile] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data, error } = await supabase.from("user_profile").insert([
+          {
+            id: "550e8400-e29b-41d4-a716-446655440000",
+            username: "JohnDoe",
+            profilepic: "johndoe@example.com",
+
+            // ... other profile data
+          },
+        ]);
+
+        if (error) {
+          console.error("Error inserting data:", error.message);
+          return;
+        }
+
+        // Handle successful data insertion if needed
+        console.log("Data inserted:", data);
+      } catch (error) {
+        console.error("Error fetching session:");
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const fetchData = async () => {
     const { data: sessionData, error } = await supabase.auth.getSession();
@@ -33,6 +60,7 @@ const Profile = () => {
   const handleImageUpload = async () => {
     try {
       const file = fileInputRef.current?.files?.[0]; // Access the file from the input
+
       if (!file) {
         console.error("No file selected.");
         return;
@@ -41,14 +69,7 @@ const Profile = () => {
       const fileExtension = file.name.split(".").pop(); // Get the file extension
       const uniqueFilename = `${Date.now()}.${fileExtension}`;
 
-      // Check if a user is authenticated
-      if (!session) {
-        console.error("User is not authenticated.");
-        // Handle authentication here, redirect to login, or display a message to the user
-        return;
-      }
-
-      // Use the Supabase client to upload the file to the storage bucket
+      // Supabase API for Upload
       const { data, error } = await supabase.storage
         .from("chessimages")
         .upload(uniqueFilename, file, {
@@ -57,7 +78,7 @@ const Profile = () => {
         });
 
       if (data) {
-        const imagePath = data.path; // Assuming 'path' holds only the filename
+        const imagePath = data.path;
         const imageUrl = `https://ttlaembyimpxjuovpmxk.supabase.co/storage/v1/object/public/chessimages/${imagePath}`;
         setProfileImage(imageUrl);
         console.log(imageUrl);
@@ -67,8 +88,6 @@ const Profile = () => {
         console.error("Error uploading image:", error.message);
         return;
       }
-
-      console.log("Image uploaded successfully:", data);
     } catch (error) {
       console.error("Error handling image upload:", error);
     }
@@ -92,8 +111,8 @@ const Profile = () => {
           onChange={handleImageUpload} // Trigger upload when the file is selected
         />
         ;
-        <div className="flex flex-col items-center shadow-lg rounded-3xl bg-slate-800 mb-5 h-[950px] mt-32 w-3/5 px-5 mx-auto">
-          <div className="text-white text-2xl text-center mt-8 shadow-lg rounded-3xl bg-slate-700 px-16">
+        <div className="flex flex-col items-center shadow-lg rounded-3xl bg-slate-800 mb-5 h-[1150px] mt-32 w-3/5 px-5 mx-auto">
+          <div className="text-white text-2xl text-center mt-12 shadow-lg rounded-3xl bg-slate-700 px-16">
             <div onClick={handleImageClick}>
               <Image
                 className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8"

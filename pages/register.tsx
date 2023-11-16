@@ -1,6 +1,6 @@
 import { SubmissionButton } from "../components/StyledButton";
 import { createClient, Session } from "@supabase/supabase-js";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Topnav from "@/components/topnav";
 
 const supabase = createClient(
@@ -46,6 +46,13 @@ const Register = () => {
           setShowError(true);
         } else {
           //console.log("Successful Register");
+
+          const userID = data.user?.id;
+
+          console.log("ID" + userID);
+
+          insertUserProfile(userID);
+
           window.location.href = "/signupconfirmed";
         }
       } catch (error) {
@@ -54,6 +61,29 @@ const Register = () => {
     } else {
       SetErrorString("You need to accept the Terms and Conditions");
       setShowError(true);
+    }
+  };
+
+  const insertUserProfile = async (userID: any) => {
+    try {
+      const { data, error } = await supabase.from("user_profile").insert([
+        {
+          id: userID,
+          username: "JohnDoe",
+          profilepic: "johndoe@example.com",
+          // ... other profile data
+        },
+      ]);
+
+      if (error) {
+        console.error("Error inserting data:", error.message);
+        return;
+      }
+
+      // Handle successful data insertion if needed
+      console.log("Data inserted:", data);
+    } catch (error) {
+      console.error("Error inserting data:");
     }
   };
 
