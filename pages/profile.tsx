@@ -16,8 +16,6 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null); // Ref to file input
   const [profileImage, setProfileImage] = useState("/defaulticon.png");
-  const imageholder =
-    "https://ttlaembyimpxjuovpmxk.supabase.co/storage/v1/object/public/chessimages/334705036_5807658799361669_8987150292277667301_n.jpg";
 
   const fetchData = async () => {
     const { data: sessionData, error } = await supabase.auth.getSession();
@@ -98,7 +96,7 @@ const Profile = () => {
           <div className="text-white text-2xl text-center mt-8 shadow-lg rounded-3xl bg-slate-700 px-16">
             <div onClick={handleImageClick}>
               <Image
-                className="inline-block ml-1 mr-3 hover:opacity-40"
+                className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8"
                 src={profileImage}
                 alt="Logo"
                 width={130}
