@@ -15,6 +15,9 @@ const Profile = () => {
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null); // Ref to file input
+  const [profileImage, setProfileImage] = useState("/defaulticon.png");
+  const imageholder =
+    "https://ttlaembyimpxjuovpmxk.supabase.co/storage/v1/object/public/chessimages/334705036_5807658799361669_8987150292277667301_n.jpg";
 
   const fetchData = async () => {
     const { data: sessionData, error } = await supabase.auth.getSession();
@@ -37,6 +40,9 @@ const Profile = () => {
         return;
       }
 
+      const fileExtension = file.name.split(".").pop(); // Get the file extension
+      const uniqueFilename = `${Date.now()}.${fileExtension}`;
+
       // Check if a user is authenticated
       if (!session) {
         console.error("User is not authenticated.");
@@ -47,10 +53,17 @@ const Profile = () => {
       // Use the Supabase client to upload the file to the storage bucket
       const { data, error } = await supabase.storage
         .from("chessimages")
-        .upload("folder/filename.png", file, {
+        .upload(uniqueFilename, file, {
           cacheControl: "3600",
           upsert: false,
         });
+
+      if (data) {
+        const imagePath = data.path; // Assuming 'path' holds only the filename
+        const imageUrl = `https://ttlaembyimpxjuovpmxk.supabase.co/storage/v1/object/public/chessimages/${imagePath}`;
+        setProfileImage(imageUrl);
+        console.log(imageUrl);
+      }
 
       if (error) {
         console.error("Error uploading image:", error.message);
@@ -73,7 +86,6 @@ const Profile = () => {
     return (
       <div>
         <Topnav />
-        
         <input
           type="file"
           id="fileInput"
@@ -87,7 +99,7 @@ const Profile = () => {
             <div onClick={handleImageClick}>
               <Image
                 className="inline-block ml-1 mr-3 hover:opacity-40"
-                src="/defaulticon.png"
+                src={profileImage}
                 alt="Logo"
                 width={130}
                 height={130}
