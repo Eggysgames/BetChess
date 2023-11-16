@@ -3,7 +3,7 @@ import TopBar from "../components/TopBar";
 import BottomBar from "../components/BottomBar";
 import Topnav from "@/components/topnav";
 import { createClient, Session } from "@supabase/supabase-js";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
 const supabase = createClient(
@@ -14,6 +14,7 @@ const supabase = createClient(
 const Profile = () => {
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const fileInputRef = useRef<HTMLInputElement>(null); // Ref to file input
 
   const fetchData = async () => {
     const { data: sessionData, error } = await supabase.auth.getSession();
@@ -25,23 +26,73 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    fetchData().then(() => setIsLoading(false)); // Set loading to false when data is fetched
+    fetchData().then(() => setIsLoading(false));
   }, []);
+
+  const handleImageUpload = async () => {
+    try {
+      const file = fileInputRef.current?.files?.[0]; // Access the file from the input
+      if (!file) {
+        console.error("No file selected.");
+        return;
+      }
+
+      // Check if a user is authenticated
+      if (!session) {
+        console.error("User is not authenticated.");
+        // Handle authentication here, redirect to login, or display a message to the user
+        return;
+      }
+
+      // Use the Supabase client to upload the file to the storage bucket
+      const { data, error } = await supabase.storage
+        .from("chessimages")
+        .upload("folder/filename.png", file, {
+          cacheControl: "3600",
+          upsert: false,
+        });
+
+      if (error) {
+        console.error("Error uploading image:", error.message);
+        return;
+      }
+
+      console.log("Image uploaded successfully:", data);
+    } catch (error) {
+      console.error("Error handling image upload:", error);
+    }
+  };
+
+  const handleImageClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click(); // Trigger the file input click
+    }
+  };
 
   if (session) {
     return (
       <div>
         <Topnav />
-
-        <div className="flex flex-col items-center shadow-lg rounded-3xl bg-slate-800 mb-5 h-[950px] mt-32 w-2/5 px-5 mx-auto">
+        
+        <input
+          type="file"
+          id="fileInput"
+          ref={fileInputRef} // Ensure the ref is attached
+          style={{ display: "none" }} // Hide the input element
+          onChange={handleImageUpload} // Trigger upload when the file is selected
+        />
+        ;
+        <div className="flex flex-col items-center shadow-lg rounded-3xl bg-slate-800 mb-5 h-[950px] mt-32 w-3/5 px-5 mx-auto">
           <div className="text-white text-2xl text-center mt-8 shadow-lg rounded-3xl bg-slate-700 px-16">
-            <Image
-              className="inline-block ml-1 mr-3"
-              src="/defaulticon.png"
-              alt="Logo"
-              width={130}
-              height={130}
-            />
+            <div onClick={handleImageClick}>
+              <Image
+                className="inline-block ml-1 mr-3 hover:opacity-40"
+                src="/defaulticon.png"
+                alt="Logo"
+                width={130}
+                height={130}
+              />
+            </div>
 
             {session && (
               <div className="text-white text-2xl text-center mt-2 font-bold inline-block mt-16 mt-4">
@@ -181,7 +232,6 @@ const Profile = () => {
             <div className="mt-8 underline text-sky-400">More Games</div>
           </div>
         </div>
-
         <BottomBar />
       </div>
     );
