@@ -97,9 +97,8 @@ const Profile = () => {
           <div className="text-white text-2xl text-center mt-12 shadow-lg rounded-3xl bg-slate-700 px-16">
             <div onClick={handleImageClick}>
               {isUploading ? (
-                // Replace 'loading.png' with your spinner or loading animation
                 <Image
-                  className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin"
+                  className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin h-28 w-28"
                   src="loading.png"
                   alt="Loading"
                   width={130}
@@ -108,7 +107,7 @@ const Profile = () => {
                 />
               ) : profileImage ? (
                 <Image
-                  className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8"
+                  className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8 h-28 w-28"
                   src={profileImage}
                   alt="Logo"
                   width={130}
@@ -117,7 +116,7 @@ const Profile = () => {
                 />
               ) : (
                 <Image
-                  className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin"
+                  className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin h-28 w-28"
                   src="loading.png"
                   alt="Loading"
                   width={130}
