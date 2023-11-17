@@ -14,6 +14,7 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [profileImage, setProfileImage] = useState("/defaulticon.png");
+  const [isImageLoading, setIsImageLoading] = useState(true);
 
   const fetchSession = async () => {
     const { data: sessionData } = await supabase.auth.getSession();
@@ -72,6 +73,10 @@ const Profile = () => {
     }
   };
 
+  const handleImageLoad = () => {
+    setIsImageLoading(false); // Triggered when the image has finished loading
+  };
+
   useEffect(() => {
     SetImage();
     fetchSession().then(() => setIsLoading(false));
@@ -92,12 +97,16 @@ const Profile = () => {
         <div className="flex flex-col items-center shadow-lg rounded-3xl bg-slate-800 mb-5 h-[1150px] mt-32 w-3/5 px-5 mx-auto">
           <div className="text-white text-2xl text-center mt-12 shadow-lg rounded-3xl bg-slate-700 px-16">
             <div onClick={handleImageClick}>
+              {<div className="spinner">Loading...</div>}
               <Image
-                className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8"
+                className={`inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8 ${
+                  isImageLoading ? "hidden" : ""
+                }`}
                 src={profileImage}
                 alt="Logo"
                 width={130}
                 height={130}
+                onLoad={handleImageLoad} // Corrected to use the handleImageLoad function
               />
             </div>
 
