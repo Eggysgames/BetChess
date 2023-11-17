@@ -42,13 +42,13 @@ const Profile = () => {
 
   const handleImageUpload = async () => {
     const id = (await supabase.auth.getUser()).data.user?.id;
-    const file = fileInputRef.current?.files?.[0]; // Access the file from the input
+    const file = fileInputRef.current?.files?.[0];
 
     if (!file) {
       return;
     }
 
-    const fileExtension = file.name.split(".").pop(); // Get the file extension
+    const fileExtension = file.name.split(".").pop();
     const uniqueFilename = `${Date.now()}.${fileExtension}`;
 
     const { data } = await supabase.storage
@@ -68,7 +68,7 @@ const Profile = () => {
 
   const handleImageClick = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.click(); // Trigger the file input click
+      fileInputRef.current.click();
     }
   };
 
