@@ -14,117 +14,55 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null); // Ref to file input
   const [profileImage, setProfileImage] = useState("/defaulticon.png");
-  const [userProfile, setUserProfile] = useState<any>(null);
+
+  const fetchSession = async () => {
+    const { data: sessionData } = await supabase.auth.getSession();
+    setSession(sessionData?.session || null);
+  };
 
   const SetImage = async () => {
-    try {
-      const userID = (await supabase.auth.getUser()).data.user?.id;
+    const userID = (await supabase.auth.getUser()).data.user?.id;
+    const { data } = await supabase
+      .from("user_profile")
+      .select("profilepic")
+      .eq("id", userID);
 
-      const { data, error } = await supabase
-        .from("user_profile")
-        .select("profilepic")
-        .eq("id", userID);
-
-      if (error) {
-        console.error("Error fetching data:", error.message);
-        return;
-      }
-
-      const profilePicURL = data[0].profilepic; // Assuming you want the first profile picture in the array
-      setProfileImage(profilePicURL);
-
-      if (data) {
-        console.log("Retrieved data:", data);
-      }
-    } catch (error) {
-      console.error("Error fetching data:");
-    }
+    const profilePicURL = data![0].profilepic;
+    setProfileImage(profilePicURL);
   };
-
-  useEffect(() => {
-    SetImage();
-  }, []);
-
-  const fetchData = async () => {
-    const { data: sessionData, error } = await supabase.auth.getSession();
-
-    const user = await supabase.auth.getUser();
-    const id = (await supabase.auth.getUser()).data.user?.id;
-
-    console.log(id);
-    console.log(user);
-
-    if (error) {
-      console.error("Error fetching session:", error.message);
-    } else {
-      setSession(sessionData?.session || null);
-    }
-  };
-
-  useEffect(() => {
-    fetchData().then(() => setIsLoading(false));
-  }, []);
 
   const insertProfilepic = async (userID: any, profilePicURL: string) => {
-    try {
-      const { data, error } = await supabase.from("user_profile").upsert([
-        {
-          id: userID,
-          profilepic: profilePicURL,
-        },
-      ]);
-
-      if (error) {
-        console.error("Error inserting data:", error.message);
-        return;
-      }
-      console.log("Data inserted:", data);
-    } catch (error) {
-      console.error("Error inserting data:", error);
-    }
+    await supabase.from("user_profile").upsert([
+      {
+        id: userID,
+        profilepic: profilePicURL,
+      },
+    ]);
   };
 
   const handleImageUpload = async () => {
-    try {
-      const id = (await supabase.auth.getUser()).data.user?.id;
-      const file = fileInputRef.current?.files?.[0]; // Access the file from the input
+    const id = (await supabase.auth.getUser()).data.user?.id;
+    const file = fileInputRef.current?.files?.[0]; // Access the file from the input
 
-      if (!file) {
-        console.error("No file selected.");
-        return;
-      }
+    if (!file) {
+      return;
+    }
 
-      const fileExtension = file.name.split(".").pop(); // Get the file extension
-      const uniqueFilename = `${Date.now()}.${fileExtension}`;
+    const fileExtension = file.name.split(".").pop(); // Get the file extension
+    const uniqueFilename = `${Date.now()}.${fileExtension}`;
 
-      // Supabase API for Upload
-      const { data, error } = await supabase.storage
-        .from("chessimages")
-        .upload(uniqueFilename, file, {
-          cacheControl: "3600",
-          upsert: false,
-        });
+    const { data } = await supabase.storage
+      .from("chessimages")
+      .upload(uniqueFilename, file, {
+        cacheControl: "3600",
+        upsert: false,
+      });
 
-      if (data) {
-        const imagePath = data.path;
-        const imageUrl = `https://ttlaembyimpxjuovpmxk.supabase.co/storage/v1/object/public/chessimages/${imagePath}`;
-        setProfileImage(imageUrl);
-
-        const user = supabase.auth;
-
-        if (user) {
-          await insertProfilepic(id, imageUrl);
-        }
-
-        console.log(imageUrl);
-      }
-
-      if (error) {
-        console.error("Error uploading image:", error.message);
-        return;
-      }
-    } catch (error) {
-      console.error("Error handling image upload:", error);
+    if (data) {
+      const imagePath = data.path;
+      const imageUrl = `https://ttlaembyimpxjuovpmxk.supabase.co/storage/v1/object/public/chessimages/${imagePath}`;
+      setProfileImage(imageUrl);
+      await insertProfilepic(id, imageUrl);
     }
   };
 
@@ -134,6 +72,11 @@ const Profile = () => {
     }
   };
 
+  useEffect(() => {
+    SetImage();
+    fetchSession().then(() => setIsLoading(false));
+  }, []);
+
   if (session) {
     return (
       <div>
@@ -141,9 +84,9 @@ const Profile = () => {
         <input
           type="file"
           id="fileInput"
-          ref={fileInputRef} // Ensure the ref is attached
-          style={{ display: "none" }} // Hide the input element
-          onChange={handleImageUpload} // Trigger upload when the file is selected
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={handleImageUpload}
         />
         ;
         <div className="flex flex-col items-center shadow-lg rounded-3xl bg-slate-800 mb-5 h-[1150px] mt-32 w-3/5 px-5 mx-auto">
