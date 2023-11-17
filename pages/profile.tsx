@@ -12,7 +12,7 @@ const supabase = createClient(
 const Profile = () => {
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const fileInputRef = useRef<HTMLInputElement>(null); // Ref to file input
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [profileImage, setProfileImage] = useState("/defaulticon.png");
 
   const fetchSession = async () => {
@@ -240,6 +240,14 @@ const Profile = () => {
           </div>
         </div>
         <BottomBar />
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div>
+        <div>Loading......</div>
       </div>
     );
   }
