@@ -11,6 +11,7 @@ const supabase = createClient(
 const Register = () => {
   const [session, setSession] = useState<Session | null>(null);
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showError, setShowError] = useState(false);
   const [isChecked, setisChecked] = useState(false);
@@ -32,27 +33,15 @@ const Register = () => {
           },
         });
 
-        //console.log(data?.user);
-        //console.log(data?.user?.identities?.length);
-        //console.log(data?.user?.confirmation_sent_at)
-
         if (data?.user?.identities?.length === 0) {
-          //console.log("User already exists")
           SetErrorString("Email already exists");
           setShowError(true);
         } else if (error) {
-          //console.error(error.message);
           SetErrorString(error.message);
           setShowError(true);
         } else {
-          //console.log("Successful Register");
-
           const userID = data.user?.id;
-
-          console.log("ID" + userID);
-
           insertUserProfile(userID);
-
           window.location.href = "/signupconfirmed";
         }
       } catch (error) {
@@ -69,9 +58,8 @@ const Register = () => {
       const { data, error } = await supabase.from("user_profile").insert([
         {
           id: userID,
-          username: "JohnDoe",
-          profilepic: "johndoe@example.com",
-          // ... other profile data
+          username: username,
+          profilepic: "/defaulticon.png",
         },
       ]);
 
@@ -79,8 +67,6 @@ const Register = () => {
         console.error("Error inserting data:", error.message);
         return;
       }
-
-      // Handle successful data insertion if needed
       console.log("Data inserted:", data);
     } catch (error) {
       console.error("Error inserting data:");
@@ -100,6 +86,8 @@ const Register = () => {
               className="w-full px-4 py-2 border rounded text-black text-sm"
               type="text"
               placeholder="<Enter Username>"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 

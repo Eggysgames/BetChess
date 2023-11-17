@@ -16,36 +16,41 @@ const Profile = () => {
   const [profileImage, setProfileImage] = useState("/defaulticon.png");
   const [userProfile, setUserProfile] = useState<any>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data, error } = await supabase.from("user_profile").insert([
-          {
-            id: "550e8400-e29b-41d4-a716-446655440000",
-            username: "JohnDoe",
-            profilepic: "johndoe@example.com",
+  const SetImage = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("user_profile")
+        .select("profilepic");
 
-            // ... other profile data
-          },
-        ]);
-
-        if (error) {
-          console.error("Error inserting data:", error.message);
-          return;
-        }
-
-        // Handle successful data insertion if needed
-        console.log("Data inserted:", data);
-      } catch (error) {
-        console.error("Error fetching session:");
+      if (error) {
+        console.error("Error fetching data:", error.message);
+        return;
       }
-    };
 
-    fetchData();
+      const profilePicURL = data[0].profilepic; // Assuming you want the first profile picture in the array
+      setProfileImage(profilePicURL);
+
+      if (data) {
+        console.log("Retrieved data:", data);
+      }
+    } catch (error) {
+      console.error("Error fetching data:");
+    }
+  };
+
+  useEffect(() => {
+    SetImage();
   }, []);
 
   const fetchData = async () => {
     const { data: sessionData, error } = await supabase.auth.getSession();
+
+    const user = await supabase.auth.getUser();
+    const id = (await supabase.auth.getUser()).data.user?.id;
+
+    console.log(id);
+    console.log(user);
+
     if (error) {
       console.error("Error fetching session:", error.message);
     } else {
@@ -57,8 +62,28 @@ const Profile = () => {
     fetchData().then(() => setIsLoading(false));
   }, []);
 
+  const insertProfilepic = async (userID: any, profilePicURL: string) => {
+    try {
+      const { data, error } = await supabase.from("user_profile").upsert([
+        {
+          id: userID,
+          profilepic: profilePicURL,
+        },
+      ]);
+
+      if (error) {
+        console.error("Error inserting data:", error.message);
+        return;
+      }
+      console.log("Data inserted:", data);
+    } catch (error) {
+      console.error("Error inserting data:", error);
+    }
+  };
+
   const handleImageUpload = async () => {
     try {
+      const id = (await supabase.auth.getUser()).data.user?.id;
       const file = fileInputRef.current?.files?.[0]; // Access the file from the input
 
       if (!file) {
@@ -81,6 +106,13 @@ const Profile = () => {
         const imagePath = data.path;
         const imageUrl = `https://ttlaembyimpxjuovpmxk.supabase.co/storage/v1/object/public/chessimages/${imagePath}`;
         setProfileImage(imageUrl);
+
+        const user = supabase.auth;
+
+        if (user) {
+          await insertProfilepic(id, imageUrl);
+        }
+
         console.log(imageUrl);
       }
 
