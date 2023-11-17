@@ -107,7 +107,7 @@ const Profile = () => {
                 />
               ) : profileImage ? (
                 <Image
-                  className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8 h-28 w-28"
+                  className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8 h-28 w-28 border-#FFAABB"
                   src={profileImage}
                   alt="Logo"
                   width={130}
