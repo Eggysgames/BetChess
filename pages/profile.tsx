@@ -108,8 +108,8 @@ const Profile = () => {
                 />
               ) : (
                 <Image
-                  className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8"
-                  src="catload.gif"
+                  className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin"
+                  src="loading.png"
                   alt="Logo"
                   width={130}
                   height={130}
