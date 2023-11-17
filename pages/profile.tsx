@@ -15,6 +15,7 @@ const Profile = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [profileImage, setProfileImage] = useState("");
   const [isImageLoading, setIsImageLoading] = useState(true);
+  const [isUploading, setIsUploading] = useState(false);
 
   const fetchSession = async () => {
     const { data: sessionData } = await supabase.auth.getSession();
@@ -42,6 +43,7 @@ const Profile = () => {
   };
 
   const handleImageUpload = async () => {
+    setIsUploading(true);
     const id = (await supabase.auth.getUser()).data.user?.id;
     const file = fileInputRef.current?.files?.[0];
 
@@ -64,6 +66,7 @@ const Profile = () => {
       const imageUrl = `https://ttlaembyimpxjuovpmxk.supabase.co/storage/v1/object/public/chessimages/${imagePath}`;
       setProfileImage(imageUrl);
       await insertProfilepic(id, imageUrl);
+      setIsUploading(false);
     }
   };
 
@@ -71,10 +74,6 @@ const Profile = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
-  };
-
-  const handleImageLoad = () => {
-    setIsImageLoading(false); // Triggered when the image has finished loading
   };
 
   useEffect(() => {
@@ -97,7 +96,17 @@ const Profile = () => {
         <div className="flex flex-col items-center shadow-lg rounded-3xl bg-slate-800 mb-5 h-[1150px] mt-32 w-3/5 px-5 mx-auto">
           <div className="text-white text-2xl text-center mt-12 shadow-lg rounded-3xl bg-slate-700 px-16">
             <div onClick={handleImageClick}>
-              {profileImage ? (
+              {isUploading ? (
+                // Replace 'loading.png' with your spinner or loading animation
+                <Image
+                  className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin"
+                  src="loading.png"
+                  alt="Loading"
+                  width={130}
+                  height={130}
+                  unoptimized={true}
+                />
+              ) : profileImage ? (
                 <Image
                   className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8"
                   src={profileImage}
@@ -110,7 +119,7 @@ const Profile = () => {
                 <Image
                   className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin"
                   src="loading.png"
-                  alt="Logo"
+                  alt="Loading"
                   width={130}
                   height={130}
                   unoptimized={true}
