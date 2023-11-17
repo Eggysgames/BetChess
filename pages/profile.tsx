@@ -98,7 +98,7 @@ const Profile = () => {
             <div onClick={handleImageClick}>
               {isUploading ? (
                 <Image
-                  className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin h-28 w-28 mr-8"
+                  className="inline-block  mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin h-28 w-28 mr-8"
                   src="loading.png"
                   alt="Loading"
                   width={130}
@@ -116,7 +116,7 @@ const Profile = () => {
                 />
               ) : (
                 <Image
-                  className="inline-block ml-1 mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin h-28 w-28 mr-8"
+                  className="inline-block  mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin h-28 w-28 mr-8"
                   src="loading.png"
                   alt="Loading"
                   width={130}
