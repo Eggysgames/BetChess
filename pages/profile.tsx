@@ -18,9 +18,12 @@ const Profile = () => {
 
   const SetImage = async () => {
     try {
+      const userID = (await supabase.auth.getUser()).data.user?.id;
+
       const { data, error } = await supabase
         .from("user_profile")
-        .select("profilepic");
+        .select("profilepic")
+        .eq("id", userID);
 
       if (error) {
         console.error("Error fetching data:", error.message);
