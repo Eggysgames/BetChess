@@ -14,7 +14,6 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [profileImage, setProfileImage] = useState("");
-  const [isImageLoading, setIsImageLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
 
   const fetchSession = async () => {
@@ -98,7 +97,7 @@ const Profile = () => {
             <div onClick={handleImageClick}>
               {isUploading ? (
                 <Image
-                  className="inline-block  mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin h-28 w-28 mr-8"
+                  className="inline-block mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin h-28 w-28 mr-8"
                   src="loading.png"
                   alt="Loading"
                   width={130}
@@ -106,17 +105,24 @@ const Profile = () => {
                   unoptimized={true}
                 />
               ) : profileImage ? (
-                <Image
-                  className="inline-block hover:opacity-40 rounded-3xl mt-8 h-28 w-28 mr-8"
-                  src={profileImage}
-                  alt="Logo"
-                  width={130}
-                  height={130}
-                  unoptimized={true}
-                />
+                <div className="relative">
+                  <div className="group inline-block relative">
+                    <Image
+                      className="rounded-3xl mt-8 h-28 w-28 mr-8"
+                      src={profileImage}
+                      alt="Logo"
+                      width={130}
+                      height={130}
+                      unoptimized={true}
+                    />
+                    <span className="opacity-0 absolute bottom-1 left-2 bg-black text-white text-xs py-1 px-2 rounded-md transition-opacity duration-300 pointer-events-none select-none group-hover:opacity-80">
+                      Change Picture
+                    </span>
+                  </div>
+                </div>
               ) : (
                 <Image
-                  className="inline-block  mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin h-28 w-28 mr-8"
+                  className="inline-block mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin h-28 w-28 mr-8"
                   src="loading.png"
                   alt="Loading"
                   width={130}
@@ -134,15 +140,25 @@ const Profile = () => {
                 </span>
                 <div className="text-[13px] mb-2 flex flex-col items-start ml-4 mt-4">
                   <div>
-                    &gt; Elo - <span className="text-sky-300">870</span>
+                    &gt; Elo - <span className="text-sky-300">1200</span>
                   </div>
                   <div>
-                    &gt; Last Online -{" "}
-                    <span className="text-sky-300">15th Nov 2023</span>
+                    <span>&gt; Last Online - </span>
+                    <span className="text-sky-300">
+                      {session.user && session.user.last_sign_in_at && (
+                        <span>
+                          {new Date(
+                            session.user.last_sign_in_at,
+                          ).toLocaleString()}
+                        </span>
+                      )}
+                    </span>
                   </div>
                   <div>
                     &gt; Joined -{" "}
-                    <span className="text-sky-300">15th Jan 2023</span>
+                    <span className="text-sky-300">
+                      {new Date(session.user.created_at).toLocaleDateString()}
+                    </span>
                   </div>
                 </div>
               </div>
