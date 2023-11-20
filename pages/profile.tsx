@@ -15,7 +15,7 @@ const Profile = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [profileImage, setProfileImage] = useState("");
   const [isUploading, setIsUploading] = useState(false);
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("____");
 
   const fetchSession = async () => {
     const { data: sessionData } = await supabase.auth.getSession();

@@ -42,7 +42,7 @@ const Login = () => {
         setShowError(true);
       } else {
         // If login is successful, redirect to "/"
-        router.push("/");
+        router.reload();
       }
     } catch (error) {
       console.error("Login failed:", (error as any).message);
