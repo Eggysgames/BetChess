@@ -22,6 +22,7 @@ const Topnav = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [profileImage, setProfileImage] = useState("");
+  const [username, setUsername] = useState("");
 
   const fetchSession = async () => {
     const { data: sessionData } = await supabase.auth.getSession();
@@ -52,7 +53,21 @@ const Topnav = () => {
     }
   };
 
+  const GrabUsername = async () => {
+    const userID = (await supabase.auth.getUser()).data.user?.id;
+    const { data } = await supabase
+      .from("user_profile")
+      .select("username")
+      .eq("id", userID);
+
+    if (data && data.length > 0 && data[0].username) {
+      const username = data[0].username;
+      setUsername(username);
+    }
+  };
+
   useEffect(() => {
+    GrabUsername();
     SetImage();
   }, []);
 
@@ -145,8 +160,8 @@ const Topnav = () => {
                       />
                     )}
                     <Link href="/profile">
-                      <span className="hover:underline text-sky-300 mr-4">
-                        {session.user?.email}
+                      <span className="hover:underline text-sky-300 mr-4 ml-1">
+                        {username}
                       </span>
                     </Link>
                     <button
