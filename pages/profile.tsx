@@ -85,7 +85,6 @@ const Profile = () => {
   if (session) {
     return (
       <div>
-        <Topnav />
         <input
           type="file"
           id="fileInput"

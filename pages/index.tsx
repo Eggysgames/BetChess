@@ -27,8 +27,6 @@ const Index = () => {
 
   return (
     <div className="mt-16">
-      <Topnav />
-
       <div className="flex flex-col h-screen">
         <TopBar />
 

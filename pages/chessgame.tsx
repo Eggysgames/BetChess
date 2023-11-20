@@ -68,7 +68,6 @@ export default function PlayRandomMoveEngine() {
 
   return (
     <div>
-      <Topnav />
       <div
         style={{
           display: "flex",

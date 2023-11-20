@@ -75,7 +75,6 @@ const Register = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <Topnav />
       <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
         <p className="underline text-4xl">Registration</p>
 
