@@ -126,13 +126,24 @@ const Topnav = () => {
                 {session ? (
                   <div className="mr-4">
                     Logged in as :{" "}
-                    <Image
-                      className="inline-block ml-1 mr-1 rounded-3xl"
-                      src={profileImage}
-                      alt="Logo"
-                      width={40}
-                      height={40}
-                    />
+                    {profileImage ? (
+                      <Image
+                        className="inline-block ml-1 mr-1 rounded-3xl"
+                        src={profileImage}
+                        alt="Logo"
+                        width={40}
+                        height={40}
+                      />
+                    ) : (
+                      <Image
+                        className="inline-block ml-1 mr-1 rounded-3xl animate-spin"
+                        src="loading.png"
+                        alt="Loading"
+                        width={40}
+                        height={40}
+                        unoptimized={true}
+                      />
+                    )}
                     <Link href="/profile">
                       <span className="hover:underline text-sky-300 mr-4">
                         {session.user?.email}
