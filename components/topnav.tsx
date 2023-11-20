@@ -5,7 +5,6 @@ import { createClient, Session } from "@supabase/supabase-js";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { StyledButton, DefaultButton } from "../components/StyledButton";
-
 import {
   faGamepad,
   faUser,
@@ -22,18 +21,15 @@ const Topnav = () => {
   const [session, setSession] = useState<Session | null>(null);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
+  const [profileImage, setProfileImage] = useState("");
 
-  const fetchData = async () => {
-    const { data: sessionData, error } = await supabase.auth.getSession();
-    if (error) {
-      console.error("Error fetching session:", error.message);
-    } else {
-      setSession(sessionData?.session || null);
-    }
+  const fetchSession = async () => {
+    const { data: sessionData } = await supabase.auth.getSession();
+    setSession(sessionData?.session || null);
   };
 
   useEffect(() => {
-    fetchData().then(() => setIsLoading(false)); // Set loading to false when data is fetched
+    fetchSession().then(() => setIsLoading(false));
   }, []);
 
   const handleLogout = async () => {
@@ -42,6 +38,23 @@ const Topnav = () => {
     setSession(null);
     router.reload();
   };
+
+  const SetImage = async () => {
+    const userID = (await supabase.auth.getUser()).data.user?.id;
+    const { data } = await supabase
+      .from("user_profile")
+      .select("profilepic")
+      .eq("id", userID);
+
+    if (data && data.length > 0 && data[0].profilepic) {
+      const profilePicURL = data[0].profilepic;
+      setProfileImage(profilePicURL);
+    }
+  };
+
+  useEffect(() => {
+    SetImage();
+  }, []);
 
   return (
     <div>
@@ -114,8 +127,8 @@ const Topnav = () => {
                   <div className="mr-4">
                     Logged in as :{" "}
                     <Image
-                      className="inline-block ml-1 mr-1"
-                      src="/defaulticon.png"
+                      className="inline-block ml-1 mr-1 rounded-3xl"
+                      src={profileImage}
                       alt="Logo"
                       width={40}
                       height={40}

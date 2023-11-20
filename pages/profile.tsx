@@ -28,8 +28,10 @@ const Profile = () => {
       .select("profilepic")
       .eq("id", userID);
 
-    const profilePicURL = data![0].profilepic;
-    setProfileImage(profilePicURL);
+    if (data && data.length > 0 && data[0].profilepic) {
+      const profilePicURL = data[0].profilepic;
+      setProfileImage(profilePicURL);
+    }
   };
 
   const insertProfilepic = async (userID: any, profilePicURL: string) => {

@@ -16,23 +16,14 @@ const supabase = createClient(
 const Index = () => {
   const [session, setSession] = useState<Session | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data: sessionData, error } = await supabase.auth.getSession();
-      if (error) {
-        console.error("Error fetching session:", error.message);
-      } else {
-        setSession(sessionData?.session || null);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const handleLogout = async () => {
-    supabase.auth.signOut();
-    setSession(null);
+  const fetchSession = async () => {
+    const { data: sessionData } = await supabase.auth.getSession();
+    setSession(sessionData?.session || null);
   };
+
+  useEffect(() => {
+    fetchSession();
+  }, []);
 
   return (
     <div className="mt-16">
