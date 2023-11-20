@@ -15,6 +15,7 @@ const Profile = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [profileImage, setProfileImage] = useState("");
   const [isUploading, setIsUploading] = useState(false);
+  const [username, setUsername] = useState("");
 
   const fetchSession = async () => {
     const { data: sessionData } = await supabase.auth.getSession();
@@ -77,7 +78,21 @@ const Profile = () => {
     }
   };
 
+  const GrabUsername = async () => {
+    const userID = (await supabase.auth.getUser()).data.user?.id;
+    const { data } = await supabase
+      .from("user_profile")
+      .select("username")
+      .eq("id", userID);
+
+    if (data && data.length > 0 && data[0].username) {
+      const username = data[0].username;
+      setUsername(username);
+    }
+  };
+
   useEffect(() => {
+    GrabUsername();
     SetImage();
     fetchSession().then(() => setIsLoading(false));
   }, []);
@@ -134,11 +149,9 @@ const Profile = () => {
             </div>
 
             {session && (
-              <div className="text-white text-2xl text-center mt-2 font-bold inline-block mt-16 mt-4">
+              <div className="text-white text-2xl mt-2 font-bold inline-block mt-16 mt-4">
                 Profile of -{" "}
-                <span className="text-sky-300">
-                  {session.user?.email || "Guest"}
-                </span>
+                <span className="text-sky-300 text-left mr-16">{username}</span>
                 <div className="text-[13px] mb-2 flex flex-col items-start ml-4 mt-4">
                   <div>
                     &gt; Elo - <span className="text-sky-300">1200</span>
