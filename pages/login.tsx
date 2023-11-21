@@ -2,7 +2,7 @@ import { SubmissionButton } from "../components/StyledButton";
 import React, { useState, useEffect } from "react";
 import { createClient, Session } from "@supabase/supabase-js";
 import { useRouter } from "next/router";
-import Topnav from "@/components/topnav";
+
 
 const supabase = createClient(
   "https://ttlaembyimpxjuovpmxk.supabase.co",
@@ -41,7 +41,6 @@ const Login = () => {
         console.error(error.message);
         setShowError(true);
       } else {
-        // If login is successful, redirect to "/"
         router.reload();
       }
     } catch (error) {

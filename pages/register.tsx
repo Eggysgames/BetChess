@@ -1,7 +1,7 @@
 import { SubmissionButton } from "../components/StyledButton";
 import { createClient, Session } from "@supabase/supabase-js";
 import React, { useState, useEffect } from "react";
-import Topnav from "@/components/topnav";
+
 
 const supabase = createClient(
   "https://ttlaembyimpxjuovpmxk.supabase.co",
@@ -101,18 +101,14 @@ const Register = () => {
         .select("id")
         .ilike("username", checkUsername);
 
-      console.log("Data from Supabase:", data);
-
       if (error) {
         console.error("Error checking username:", error.message);
         return { exists: false, error: error.message };
       }
 
       if (data && data.length > 0) {
-        console.log("exists!");
         return { exists: true, error: null };
       } else {
-        console.log("Does not exist!");
         return { exists: false, error: null };
       }
     } catch (error) {
