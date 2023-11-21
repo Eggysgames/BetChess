@@ -23,6 +23,14 @@ const Register = () => {
   };
 
   const handleRegister = async () => {
+    const usernameExists = await checkUsernameAvailability(username);
+
+    if (usernameExists?.exists) {
+      SetErrorString("Username already exists");
+      setShowError(true);
+      return;
+    }
+
     if (isChecked) {
       try {
         const { data, error } = await supabase.auth.signUp({
@@ -72,6 +80,49 @@ const Register = () => {
       console.error("Error inserting data:");
     }
   };
+
+  const GrabUsername = async () => {
+    const userID = (await supabase.auth.getUser()).data.user?.id;
+    const { data } = await supabase
+      .from("user_profile")
+      .select("username")
+      .eq("id", userID);
+
+    if (data && data.length > 0 && data[0].username) {
+      const username = data[0].username;
+      setUsername(username);
+    }
+  };
+
+  const checkUsernameAvailability = async (checkUsername: any) => {
+    try {
+      const { data, error } = await supabase
+        .from("user_profile")
+        .select("id")
+        .ilike("username", checkUsername);
+
+      console.log("Data from Supabase:", data);
+
+      if (error) {
+        console.error("Error checking username:", error.message);
+        return { exists: false, error: error.message };
+      }
+
+      if (data && data.length > 0) {
+        console.log("exists!");
+        return { exists: true, error: null };
+      } else {
+        console.log("Does not exist!");
+        return { exists: false, error: null };
+      }
+    } catch (error) {
+      console.error("Error checking username:");
+    }
+  };
+
+  useEffect(() => {
+    GrabUsername();
+  }, []);
 
   return (
     <div className="flex justify-center items-center h-screen">

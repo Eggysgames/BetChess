@@ -3,6 +3,7 @@ import Topnav from "@/components/topnav";
 import { createClient, Session } from "@supabase/supabase-js";
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const supabase = createClient(
   "https://ttlaembyimpxjuovpmxk.supabase.co",
@@ -11,6 +12,7 @@ const supabase = createClient(
 
 const Profile = () => {
   const [session, setSession] = useState<Session | null>(null);
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [profileImage, setProfileImage] = useState("");
@@ -69,6 +71,7 @@ const Profile = () => {
       setProfileImage(imageUrl);
       await insertProfilepic(id, imageUrl);
       setIsUploading(false);
+      router.reload();
     }
   };
 
