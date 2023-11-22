@@ -17,8 +17,6 @@ const Userprofile = () => {
   const [userID, setuserID] = useState("");
   const [createdat, setCreatedAt] = useState("");
 
-  const isSlugAvailable = typeof slug === "string" && slug !== "";
-
   console.log(slug);
 
   const GeUserIDByUsername = useCallback(
@@ -64,16 +62,10 @@ const Userprofile = () => {
   );
 
   useEffect(() => {
-    if (isSlugAvailable) {
-      GetCreatedAt(slug);
-      GeUserIDByUsername(slug);
-      GetProfilepicByUsername(slug);
-    }
+    GetCreatedAt(slug);
+    GeUserIDByUsername(slug);
+    GetProfilepicByUsername(slug);
   }, [GeUserIDByUsername, GetProfilepicByUsername, slug, GetCreatedAt]);
-
-  if (!isSlugAvailable) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div>
