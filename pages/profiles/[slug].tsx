@@ -11,11 +11,13 @@ const supabase = createClient(
 
 const Userprofile = () => {
   const router = useRouter();
+  const { slug } = router.query;
   const [profileImage, setProfileImage] = useState("");
   const [username, setUsername] = useState("");
   const [userID, setuserID] = useState("");
   const [createdat, setCreatedAt] = useState("");
-  const [slug, setSlug] = useState("");
+
+  const isSlugAvailable = typeof slug === "string" && slug !== "";
 
   console.log(slug);
 
@@ -62,21 +64,16 @@ const Userprofile = () => {
   );
 
   useEffect(() => {
-    GetCreatedAt(slug);
-    GeUserIDByUsername(slug);
-    GetProfilepicByUsername(slug);
+    if (isSlugAvailable) {
+      GetCreatedAt(slug);
+      GeUserIDByUsername(slug);
+      GetProfilepicByUsername(slug);
+    }
   }, [GeUserIDByUsername, GetProfilepicByUsername, slug, GetCreatedAt]);
 
-  useEffect(() => {
-    // Update the slug state when the router query changes
-    if (router.query && router.query.slug) {
-      const slugValue = Array.isArray(router.query.slug)
-        ? router.query.slug.join("/") // Join segments to form a single string
-        : router.query.slug; // Use as is if it's a single segment
-
-      setSlug(slugValue);
-    }
-  }, [router.query]);
+  if (!isSlugAvailable) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
