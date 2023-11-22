@@ -24,7 +24,7 @@ const Userprofile = () => {
       const { data } = await supabase
         .from("user_profile")
         .select("id")
-        .eq("username", username);
+        .ilike("username", username);
 
       if (data && data.length > 0) {
         setuserID(data[0].id);
@@ -38,7 +38,7 @@ const Userprofile = () => {
       const { data } = await supabase
         .from("user_profile")
         .select("profilepic")
-        .eq("username", username);
+        .ilike("username", username);
 
       if (data && data.length > 0) {
         setProfileImage(data[0].profilepic);
@@ -52,7 +52,7 @@ const Userprofile = () => {
       const { data } = await supabase
         .from("user_profile")
         .select("created_at")
-        .eq("username", username);
+        .ilike("username", username);
 
       if (data && data.length > 0) {
         setCreatedAt(data[0].created_at);
