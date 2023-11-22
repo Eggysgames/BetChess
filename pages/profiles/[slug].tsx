@@ -60,9 +60,9 @@ const Userprofile = () => {
   );
 
   useEffect(() => {
-    GetCreatedAt(slug);
-    GeUserIDByUsername(slug);
-    GetProfilepicByUsername(slug);
+    GetCreatedAt("Eggy");
+    GeUserIDByUsername("Eggy");
+    GetProfilepicByUsername("Eggy");
   }, [GeUserIDByUsername, GetProfilepicByUsername, slug, GetCreatedAt]);
 
   return (
