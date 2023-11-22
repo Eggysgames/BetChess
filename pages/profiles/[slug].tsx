@@ -17,11 +17,6 @@ const Userprofile = () => {
   const [userID, setuserID] = useState("");
   const [createdat, setCreatedAt] = useState("");
 
-  const fetchSession = async () => {
-    const { data: sessionData } = await supabase.auth.getUser();
-    setSession(sessionData?.session || null);
-  };
-
   const GeUserIDByUsername = useCallback(
     async (username: any) => {
       const { data } = await supabase
