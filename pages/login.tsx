@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { createClient, Session } from "@supabase/supabase-js";
 import { useRouter } from "next/router";
 
-
 const supabase = createClient(
   "https://ttlaembyimpxjuovpmxk.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0bGFlbWJ5aW1weGp1b3ZwbXhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTI3NzA2NTcsImV4cCI6MjAwODM0NjY1N30.f6YXhReklfjQMe6sfVAqjyraiXgzjcH6W-2bOkCn_Sw",
@@ -30,6 +29,43 @@ const Login = () => {
     return () => subscription.unsubscribe();
   }, []);
 
+  const updateLastLogin = async (userID: any) => {
+    try {
+      const currentDateTime = new Date().toISOString();
+
+      // Check if the user exists in user_profile
+      const { data: existingUser, error: userError } = await supabase
+        .from("user_profile")
+        .select("*")
+        .eq("id", userID)
+        .single();
+
+      if (userError) {
+        console.error("Error fetching user:", userError.message);
+        return;
+      }
+
+      if (existingUser) {
+        // User exists, update the last_login field
+        const { data: updateData, error: updateError } = await supabase
+          .from("user_profile")
+          .update({ last_login: currentDateTime })
+          .eq("id", userID);
+
+        if (updateError) {
+          console.error("Error updating last login:", updateError.message);
+          return;
+        }
+
+        console.log("Last login updated:", updateData);
+      } else {
+        console.error("User not found in user_profile");
+      }
+    } catch (error) {
+      console.error("Error updating last login:");
+    }
+  };
+
   const handleLogin = async () => {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -41,6 +77,11 @@ const Login = () => {
         console.error(error.message);
         setShowError(true);
       } else {
+        const userID = data?.user?.id;
+        console.log(userID);
+        if (userID) {
+          updateLastLogin(userID);
+        }
         router.reload();
       }
     } catch (error) {

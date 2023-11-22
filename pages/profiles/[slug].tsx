@@ -16,6 +16,7 @@ const Userprofile = () => {
   const [username, setUsername] = useState("");
   const [userID, setuserID] = useState("");
   const [createdat, setCreatedAt] = useState("");
+  const [lastlogin, setLastLogin] = useState("");
   const [loading, setLoading] = useState(true);
   const capitalizedSlug =
     typeof slug === "string"
@@ -64,11 +65,26 @@ const Userprofile = () => {
     [setCreatedAt],
   );
 
+  const GetLastLogin = useCallback(
+    async (username: any) => {
+      const { data } = await supabase
+        .from("user_profile")
+        .select("last_login")
+        .ilike("username", username);
+
+      if (data && data.length > 0) {
+        setLastLogin(data[0].last_login);
+      }
+    },
+    [setLastLogin],
+  );
+
   useEffect(() => {
     const fetchData = async () => {
       if (slug) {
         setLoading(true);
         await GetCreatedAt(slug);
+        await GetLastLogin(slug);
         await GeUserIDByUsername(slug);
         await GetProfilepicByUsername(slug);
         setLoading(false);
@@ -76,7 +92,13 @@ const Userprofile = () => {
     };
 
     fetchData();
-  }, [GeUserIDByUsername, GetProfilepicByUsername, slug, GetCreatedAt]);
+  }, [
+    GeUserIDByUsername,
+    GetProfilepicByUsername,
+    slug,
+    GetCreatedAt,
+    GetLastLogin,
+  ]);
 
   if (userID) {
     return (
@@ -94,9 +116,6 @@ const Userprofile = () => {
                     height={130}
                     unoptimized={true}
                   />
-                  <span className="opacity-0 absolute bottom-1 left-2 bg-black text-white text-xs py-1 px-2 rounded-md transition-opacity duration-300 pointer-events-none select-none group-hover:opacity-80">
-                    Change Picture
-                  </span>
                 </div>
               </div>
             ) : (
@@ -121,7 +140,9 @@ const Userprofile = () => {
                 </div>
                 <div>
                   <span>&gt; Last Online - </span>
-                  <span className="text-sky-300"></span>
+                  <span className="text-sky-300">
+                    {new Date(lastlogin).toLocaleString()}
+                  </span>
                 </div>
                 <div>
                   &gt; Joined -{" "}

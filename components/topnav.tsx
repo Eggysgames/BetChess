@@ -152,7 +152,7 @@ const Topnav = () => {
                     ) : (
                       <Image
                         className="inline-block ml-1 mr-1 rounded-3xl animate-spin"
-                        src="loading.png"
+                        src="/loading.png"
                         alt="Loading"
                         width={40}
                         height={40}
