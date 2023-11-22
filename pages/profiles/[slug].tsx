@@ -17,7 +17,7 @@ const Userprofile = () => {
   const [userID, setuserID] = useState("");
   const [createdat, setCreatedAt] = useState("");
 
-  console.log(slug);
+  //console.log(slug);
 
   const GeUserIDByUsername = useCallback(
     async (username: any) => {
