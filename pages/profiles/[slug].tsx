@@ -67,11 +67,11 @@ const Userprofile = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (slug) {
-        setLoading(true); // Set loading to true before fetching data
+        setLoading(true);
         await GetCreatedAt(slug);
         await GeUserIDByUsername(slug);
         await GetProfilepicByUsername(slug);
-        setLoading(false); // Set loading to false after data is fetched
+        setLoading(false);
       }
     };
 
