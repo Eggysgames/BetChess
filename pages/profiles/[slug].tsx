@@ -17,6 +17,8 @@ const Userprofile = () => {
   const [userID, setuserID] = useState("");
   const [createdat, setCreatedAt] = useState("");
 
+  console.log(slug);
+
   const GeUserIDByUsername = useCallback(
     async (username: any) => {
       const { data } = await supabase
@@ -60,9 +62,9 @@ const Userprofile = () => {
   );
 
   useEffect(() => {
-    GetCreatedAt("Eggy");
-    GeUserIDByUsername("Eggy");
-    GetProfilepicByUsername("Eggy");
+    GetCreatedAt(slug);
+    GeUserIDByUsername(slug);
+    GetProfilepicByUsername(slug);
   }, [GeUserIDByUsername, GetProfilepicByUsername, slug, GetCreatedAt]);
 
   return (
