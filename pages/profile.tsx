@@ -11,10 +11,10 @@ const supabase = createClient(
 );
 
 const Profile = () => {
-  const [session, setSession] = useState<Session | null>(null);
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [session, setSession] = useState<Session | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [profileImage, setProfileImage] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [username, setUsername] = useState("____");
@@ -142,7 +142,7 @@ const Profile = () => {
               ) : (
                 <Image
                   className="inline-block mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin h-28 w-28 mr-8"
-                  src="loading.png"
+                  src="/loading.png"
                   alt="Loading"
                   width={130}
                   height={130}

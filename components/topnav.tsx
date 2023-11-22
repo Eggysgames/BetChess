@@ -159,7 +159,7 @@ const Topnav = () => {
                         unoptimized={true}
                       />
                     )}
-                    <Link href="/profile">
+                    <Link href={`/profiles/${username}`}>
                       <span className="hover:underline text-sky-300 mr-4 ml-1">
                         {username}
                       </span>

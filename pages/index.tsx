@@ -6,7 +6,6 @@ import { StyledButton, DefaultButton } from "../components/StyledButton";
 import "animate.css";
 import React, { useState, useEffect } from "react";
 import { createClient, Session } from "@supabase/supabase-js";
-import Topnav from "@/components/topnav";
 
 const supabase = createClient(
   "https://ttlaembyimpxjuovpmxk.supabase.co",
