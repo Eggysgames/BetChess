@@ -74,7 +74,7 @@ const Topnav = () => {
   return (
     <div>
       <header className="bg-gray-700 text-white lg:p-1 fixed w-full top-0 z-10 opacity-100 shadow-md">
-        <div className="flex items-center justify-between mx-auto font-bold lg:grid lg:grid-cols-3 ">
+        <div className="flex items-center justify-between mx-auto font-bold grid lg:grid-cols-3 ">
           <div className="flex">
             <Image
               className="items-left justify-center object-fill hidden lg:block ml-8"
@@ -137,9 +137,9 @@ const Topnav = () => {
 
           <div>
             {!isLoading && (
-              <div className="text-white mr-16 flex justify-end dropshadow">
+              <div className="text-white mr-16 flex justify-end dropshadow mb-1 lg:mb-0">
                 {session ? (
-                  <div className="mr-4">
+                  <div className="lg:mr-4">
                     Logged in as :{" "}
                     {profileImage ? (
                       <Image
@@ -172,8 +172,8 @@ const Topnav = () => {
                     </button>
                   </div>
                 ) : (
-                  <div className="flex items-center">
-                    <span className="mr-4">You are Logged Out!</span>
+                  <div className="flex items-center text-sm ml-4 lg:ml-0 lg:text-base mb-2 lg:mb-0">
+                    <span className="mr-4">Logged Out :</span>
                     <span className="mr-4">
                       <DefaultButton inserttext="Register" link="/register" />
                     </span>
