@@ -20,7 +20,7 @@ Payments (In Progress)
 - [x] Mobile Support
 - [x] Custom 404 Page
 
-# Learning Log (BackEnd)
+# BackEnd
 
 - [x] Install Supabase for Backend
 - [x] Set up example login under /testing
@@ -34,7 +34,7 @@ Payments (In Progress)
 - [x] Verifys if email already exists, if does errors
 - [x] Start showing the Logged In with username on all pages
 
-# Learning Log (FrontEnd)
+# FrontEnd
 
 **=== Index Page ===**
 
