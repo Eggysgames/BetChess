@@ -109,7 +109,7 @@ const Login = () => {
   if (!session) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="text-white lg:text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto lg:w-full lg:max-w-md text-center lg:p-8 p-2 px-4 lg:px-8">
+        <div className="text-white lg:text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto lg:w-full lg:max-w-md text-center lg:p-8 p-2 px-2 lg:px-8">
           <p className="underline text-4xl">Login</p>
 
           <div className="mx-auto my-6 max-w-md grid grid-cols-3 gap-3">
