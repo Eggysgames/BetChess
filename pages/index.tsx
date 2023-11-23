@@ -33,7 +33,7 @@ const Index = () => {
           {/* Left Column */}
           <div className="flex items-center justify-center w-11/12  flex-col space-y-5">
             <Image
-              className="max-w-none w-[400px] sm:max-w-none sm:w-[420px] 2xl:w-full hidden lg:block"
+              className="max-w-none lg:w-[400px] sm:max-w-none sm:w-[420px] 2xl:w-full lg:block w-[140px] ml-8 lg:ml-0"
               src="/horsedollar.png"
               alt="HorseIcon"
               width={640}
@@ -41,10 +41,12 @@ const Index = () => {
             />
 
             {session ? (
-              <div className="flex items-center justify-center w-11/12 flex-col space-y-5 whitespace-nowrap"></div>
+              <div className="lg:flex lg:items-center lg:justify-center lg:w-11/12 flex-col lg:whitespace-nowrap"></div>
             ) : (
-              <div className="flex items-center justify-center w-11/12 flex-col space-y-5 whitespace-nowrap">
-                <DefaultButton inserttext="Log In" link="/login" />
+              <div className="lg:ml-0 flex items-center justify-center lg:w-11/12 lg:flex-col lg:space-y-5 lg:whitespace-nowrap">
+                <div className="ml-8 mr-1 lg:mr-0 lg:ml-0">
+                  <DefaultButton inserttext="Log In" link="/login" />
+                </div>
                 <DefaultButton inserttext="Register" link="/register" />
               </div>
             )}
@@ -53,7 +55,7 @@ const Index = () => {
           {/* Middle */}
           <div className="flex flex-grow items-center justify-center ">
             <div>
-              <div className="text-center mb-4 mb-4 mt-16 lg:mt-0">
+              <div className="text-center mb-4 mb-4 lg:mt-16 mt-4 lg:mt-0">
                 <StyledButton
                   inserttext="Betting and Cheating Guideline"
                   link="/cheatingpolicy"
