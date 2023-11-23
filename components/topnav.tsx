@@ -174,10 +174,10 @@ const Topnav = () => {
                 ) : (
                   <div className="flex items-center text-sm ml-4 lg:ml-0 lg:text-base mb-2 lg:mb-0">
                     <span className="mr-4">Logged Out :</span>
-                    <span className="mr-4">
+                    <span className="mr-2">
                       <DefaultButton inserttext="Register" link="/register" />
                     </span>
-                    <span className="mr-4">
+                    <span className="">
                       <DefaultButton inserttext="Log In" link="/login" />
                     </span>
                   </div>
