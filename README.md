@@ -12,7 +12,15 @@ Sockets (In Progress)
 
 Payments (In Progress)
 
-# Learning Log (BackEnd)
+# Latest Log
+
+- [x] New Nav Bar Added
+- [x] Profiles Page
+- [x] Seperate profiles for each player in profiles/
+- [x] Mobile Support
+- [x] Custom 404 Page
+
+# BackEnd
 
 - [x] Install Supabase for Backend
 - [x] Set up example login under /testing
@@ -24,9 +32,9 @@ Payments (In Progress)
 - [x] Manage to redirect email auth to /emailconfirmed using `redirectTo=`
 - [x] Add Error message for password/tickbox/6 characters/email rate limit
 - [x] Verifys if email already exists, if does errors
-- [ ] Start showing the Logged In with username on all pages
+- [x] Start showing the Logged In with username on all pages
 
-# Learning Log (FrontEnd)
+# FrontEnd
 
 **=== Index Page ===**
 
