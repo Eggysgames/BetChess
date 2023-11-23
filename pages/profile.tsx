@@ -189,7 +189,7 @@ const Profile = () => {
             <div className="flex items-left shadow-lg rounded-3xl bg-slate-600 mt-7 ml-2 mr-2 lg:ml-0 lg:mr-0">
               <div className="mb-4 mt-4">
                 <Image
-                  className="inline-block ml-5 mr-4"
+                  className="inline-block lg:ml-5 lg:mr-4 ml-2"
                   src="/defaulticon.png"
                   alt="Logo"
                   width={40}
@@ -211,7 +211,7 @@ const Profile = () => {
             <div className="flex items-left shadow-lg rounded-3xl bg-slate-600 mt-4 ml-2 mr-2 lg:ml-0 lg:mr-0">
               <div className="mb-4 mt-4 ">
                 <Image
-                  className="inline-block ml-5 mr-4"
+                  className="inline-block lg:ml-5 lg:mr-4 ml-2"
                   src="/defaulticon.png"
                   alt="Logo"
                   width={40}
@@ -233,7 +233,7 @@ const Profile = () => {
             <div className="flex items-left shadow-lg rounded-3xl bg-slate-600 mt-4 ml-2 mr-2 lg:ml-0 lg:mr-0">
               <div className="mb-4 mt-4">
                 <Image
-                  className="inline-block ml-5 mr-4"
+                  className="inline-block lg:ml-5 lg:mr-4 ml-2"
                   src="/defaulticon.png"
                   alt="Logo"
                   width={40}
@@ -255,7 +255,7 @@ const Profile = () => {
             <div className="flex items-left shadow-lg rounded-3xl bg-slate-600 mt-4 ml-2 mr-2 lg:ml-0 lg:mr-0">
               <div className="mb-4 mt-4">
                 <Image
-                  className="inline-block ml-5 mr-4"
+                  className="inline-block lg:ml-5 lg:mr-4 ml-2"
                   src="/defaulticon.png"
                   alt="Logo"
                   width={40}
@@ -277,7 +277,7 @@ const Profile = () => {
             <div className="flex items-left shadow-lg rounded-3xl bg-slate-600 mt-4 ml-2 mr-2 lg:ml-0 lg:mr-0">
               <div className="mb-4 mt-4">
                 <Image
-                  className="inline-block ml-5 mr-4"
+                  className="inline-block lg:ml-5 lg:mr-4 ml-2"
                   src="/defaulticon.png"
                   alt="Logo"
                   width={40}

@@ -103,13 +103,13 @@ const Userprofile = () => {
   if (userID) {
     return (
       <div>
-        <div className="flex flex-col items-center shadow-lg rounded-3xl bg-slate-800 mb-5 h-[1150px] mt-32 w-3/5 px-5 mx-auto">
-          <div className="text-white text-2xl text-center mt-12 shadow-lg rounded-3xl bg-slate-700 px-16 flex">
+        <div className="lg:flex lg:flex-col lg:items-center shadow-lg rounded-3xl lg:bg-slate-800 lg:mb-5 lg:h-[1050px] mt-32 lg:w-[850px] px-5 mx-auto">
+          <div className="text-white text-2xl text-center mt-12 shadow-lg rounded-3xl bg-slate-700 lg:px-16 lg:flex">
             {profileImage ? (
-              <div className="relative">
+              <div className="lg:relative">
                 <div className="group inline-block relative">
                   <Image
-                    className="rounded-3xl mt-8 h-28 w-28 mr-8"
+                    className="rounded-3xl mt-8 h-28 w-28 lg:mr-8"
                     src={profileImage}
                     alt="Logo"
                     width={130}
@@ -131,10 +131,10 @@ const Userprofile = () => {
 
             <div className="text-white text-2xl mt-2 font-bold inline-block mt-16 mt-4">
               Profile of -{" "}
-              <span className="text-sky-300 text-left mr-16">
+              <span className="text-sky-300 text-left lg:mr-16">
                 {capitalizedSlug}
               </span>
-              <div className="text-[13px] mb-2 flex flex-col items-start ml-4 mt-4">
+              <div className="text-[13px] mb-2 flex flex-col items-start  lg:ml-4 mt-4 ml-16">
                 <div>
                   &gt; Elo - <span className="text-sky-300">1200</span>
                 </div>
@@ -154,12 +154,12 @@ const Userprofile = () => {
             </div>
           </div>
 
-          <div className="text-white text-2xl text-center mt-8 shadow-lg rounded-3xl bg-slate-700 px-16 h-[650px] w-[600px] font-bold">
+          <div className="text-white lg:text-2xl text-sm text-center mt-8 shadow-lg rounded-3xl bg-slate-700 lg:px-16 py-2 lg:h-[650px] lg:w-[600px] font-bold">
             <div className="mt-4"> Recent Games</div>
-            <div className="flex items-left shadow-lg rounded-3xl bg-slate-600 mt-7">
+            <div className="flex items-left shadow-lg rounded-3xl bg-slate-600 mt-4 ml-2 mr-2 lg:ml-0 lg:mr-0">
               <div className="mb-4 mt-4">
                 <Image
-                  className="inline-block ml-5 mr-4"
+                  className="inline-block lg:ml-5 lg:mr-4 ml-2"
                   src="/defaulticon.png"
                   alt="Logo"
                   width={40}
