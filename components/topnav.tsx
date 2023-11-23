@@ -74,7 +74,7 @@ const Topnav = () => {
   return (
     <div>
       <header className="bg-gray-700 text-white lg:p-1 fixed w-full top-0 z-10 opacity-100 shadow-md">
-        <div className="flex items-center justify-between mx-auto font-bold grid lg:grid-cols-3 ">
+        <div className="flex items-center justify-between mx-auto font-bold grid lg:grid-cols-3">
           <div className="flex">
             <Image
               className="items-left justify-center object-fill hidden lg:block ml-8"
@@ -88,9 +88,9 @@ const Topnav = () => {
           <div className="flex mx-auto">
             <Link href="/">
               <div className="hover:bg-gray-500 p-2 rounded-lg text-white">
-                <div className="inline-block p-0  lg:mr-2 text-sm lg:text-lg lg:p-2 ml-2 lg:ml-0">
+                <div className="inline-block p-0  lg:mr-2 text-sm lg:text-lg lg:p-2 ml-2 lg:ml-0 truncate lg:max-w-none">
                   <FontAwesomeIcon
-                    className="ml-1 w-8 mr-1 lg:ml-0"
+                    className="lg:ml-1 w-8 lg:mr-2 lg:ml-0"
                     icon={faChess}
                   />
                   Home
@@ -100,9 +100,9 @@ const Topnav = () => {
 
             <Link href="/cashgameselect">
               <div className="hover:bg-gray-500 p-2 rounded-lg text-white">
-                <div className="inline-block p-0 lg:mr-2 text-sm lg:text-lg lg:p-2 ml-2 lg:ml-0">
+                <div className="inline-block p-0 lg:mr-2 text-sm lg:text-lg lg:p-2 ml-2 lg:ml-0 truncate lg:max-w-none">
                   <FontAwesomeIcon
-                    className="ml-2 w-8 mr-1 lg:ml-0"
+                    className="lg:ml-2 w-8 lg:mr-1 lg:ml-0"
                     icon={faGamepad}
                   />
                   Play
@@ -112,9 +112,9 @@ const Topnav = () => {
 
             <Link href="/cheatingpolicy">
               <div className="hover:bg-gray-500 p-2 rounded-lg text-white">
-                <div className="inline-block p-0 lg:mr-2 text-sm lg:text-lg lg:p-2 ml-2 lg:ml-0">
+                <div className="inline-block p-0 lg:mr-2 text-sm lg:text-lg lg:p-2 ml-2 lg:ml-0 truncate lg:max-w-none">
                   <FontAwesomeIcon
-                    className="ml-2 w-8 mr-1 lg:ml-0"
+                    className="lg:ml-2 w-8 lg:mr-1 lg:ml-0"
                     icon={faBook}
                   />
                   Rules
@@ -124,9 +124,9 @@ const Topnav = () => {
 
             <Link href="/profile">
               <div className="hover:bg-gray-500 p-2 rounded-lg text-white">
-                <div className="inline-block p-0 lg:mr-2 text-sm lg:text-lg lg:p-2 ml-2 lg:ml-0">
+                <div className="inline-block p-0 lg:mr-2 text-sm lg:text-lg lg:p-2 ml-2 lg:ml-0 truncate lg:max-w-none">
                   <FontAwesomeIcon
-                    className="ml-1 w-8 mr-1 lg:ml-0"
+                    className="lg:ml-1 w-8 lg:mr-1 lg:ml-0"
                     icon={faUser}
                   />
                   Profile

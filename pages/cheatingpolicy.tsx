@@ -4,7 +4,7 @@ import BottomBar from "../components/BottomBar";
 const cheatingpolicy = () => {
   return (
     <div>
-      <div className="lg:my-10 ml-8 mr-8 lg:mx-auto lg:max-w-3xl lg:px-32 lg:py-8 bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 lg:text-left text-center lg:mt-32 mt-28">
+      <div className="lg:my-10 ml-8 mr-8 lg:mx-auto lg:max-w-3xl lg:px-32 lg:py-8 bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 lg:text-left text-center lg:mt-32 mt-36">
         <article className="prose prose-md text-white lg:max-w-none p-6 lg:p-0">
           <h1 className="text-white underline text-4xl">
             Betting and Cheating Policy

@@ -3,7 +3,7 @@ import Image from "next/image";
 const TopBar = () => {
   return (
     <div className="bg-transparent text-white p-3 lg:relative">
-      <div className="text-3xl font-bold text-center mt-20 lg:text-left lg:mt-0">
+      <div className="text-3xl font-bold text-center mt-24 lg:text-left lg:mt-0">
         <h1>betonchess.online</h1>
         <h2>betchess.online</h2>
       </div>
