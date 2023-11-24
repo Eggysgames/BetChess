@@ -32,26 +32,26 @@ const Fungameselect = () => {
     return (
       <div>
         <Topnav />
-        <div className="flex justify-center items-center h-screen">
-          <div className="grid grid-cols-2 gap-2">
+        <div className="lg:flex lg:justify-center lg:items-center lg:h-screen mt-32 lg:mt-0 mb-16 lg:mb-0">
+          <div className="lg:grid lg:grid-cols-2 gap-2">
             <div></div>
 
-            <div className="text-white px-32">
-              <p className="text-4xl underline text-center mb-4 ">
+            <div className="text-white lg:px-32">
+              <p className="text-4xl underline text-center mb-4 hidden lg:block">
                 Select Game Mode
               </p>
             </div>
 
             <div className="flex items-center justify-center ">
               <div className="text-white text-center">
-                <p className="text-6xl underline">Play For Fun</p>
+                <p className="lg:text-6xl text-4xl underline">Play For Fun</p>
                 <br></br>
-                <p className="text-xl">
+                <p className="lg:text-xl">
                   The following game mode uses no Elo or Betting.<br></br>
                   You will be paired with a random player.
                 </p>
                 <br></br>
-                <p className="text-xl">
+                <p className="lg:text-xl">
                   Have fun and treat each other with respect!
                 </p>
                 <br></br>
@@ -67,7 +67,7 @@ const Fungameselect = () => {
                 )}
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-2 col-start-2">
+            <div className="grid grid-cols-3 gap-2 col-start-2 mr-2 ml-2 mt-6">
               <GridButton
                 inserttext="Bullet"
                 inserttext2="1+0"
