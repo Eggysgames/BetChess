@@ -14,11 +14,14 @@ Payments (In Progress)
 
 # Latest Log
 
-- [x] New Nav Bar Added
+- [x] Nav Bar
+- [x] Logged in as ___
 - [x] Profiles Page
-- [x] Seperate profiles for each player in profiles/
+- [x] Custom Database
+- [x] Seperate Profile URL's
 - [x] Mobile Support
 - [x] Custom 404 Page
+- [x] Mobile Friendly
 
 # BackEnd
 
@@ -111,3 +114,4 @@ Payments (In Progress)
 # Play
 
 Open up localhost:3000
+Open up https://bet-chess.vercel.app
