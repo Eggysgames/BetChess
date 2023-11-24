@@ -2,7 +2,6 @@ import { SubmissionButton } from "../components/StyledButton";
 import { createClient, Session } from "@supabase/supabase-js";
 import React, { useState, useEffect } from "react";
 
-
 const supabase = createClient(
   "https://ttlaembyimpxjuovpmxk.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0bGFlbWJ5aW1weGp1b3ZwbXhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTI3NzA2NTcsImV4cCI6MjAwODM0NjY1N30.f6YXhReklfjQMe6sfVAqjyraiXgzjcH6W-2bOkCn_Sw",
@@ -121,12 +120,14 @@ const Register = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-full max-w-md text-center p-8">
+    <div className="lg:flex lg:justify-center lg:items-center lg:h-screen">
+      <div className="text-white text-2xl bg-slate-800 rounded-lg shadow drop-shadow-xl shadow-slate-900 mx-auto w-[300px] lg:w-full lg:max-w-md text-center p-4 lg:p-8 mt-36 lg:mt-0 mb-8">
         <p className="underline text-4xl">Registration</p>
 
         <div className="mx-auto my-10 max-w-md grid grid-cols-3 gap-3">
-          <span className="flex items-center justify-end">Username :</span>
+          <span className="flex items-center justify-end text-base lg:text-2xl">
+            Username :
+          </span>
           <div className="col-span-2">
             <input
               className="w-full px-4 py-2 border rounded text-black text-sm"
@@ -137,7 +138,9 @@ const Register = () => {
             />
           </div>
 
-          <span className="flex items-center justify-end">Email :</span>
+          <span className="flex items-center justify-end text-base lg:text-2xl">
+            Email :
+          </span>
           <div className="col-span-2">
             <input
               className="w-full px-4 py-2 border rounded text-black text-sm"
@@ -148,7 +151,9 @@ const Register = () => {
             />
           </div>
 
-          <span className="flex items-center justify-end">Password :</span>
+          <span className="flex items-center justify-end text-base lg:text-2xl">
+            Password :
+          </span>
           <div className="col-span-2">
             <input
               className="w-full px-4 py-2 border rounded text-black text-sm"
