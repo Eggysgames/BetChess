@@ -196,9 +196,9 @@ const Fungameselect = () => {
   if (!session) {
     return (
       <div>
-        <div className="text-white font-bold flex flex-col items-center shadow-lg rounded-3xl bg-slate-800 mb-5 h-[250px] mt-32 w-2/5 px-5 mx-auto">
-          <div className="mt-24 text-2xl">
-            You need to be logged in to play a game.
+        <div className="text-white font-bold  text-center lg:flex lg:flex-col items-center shadow-lg rounded-3xl bg-slate-800 lg:mb-5 lg:h-[250px] p-6  mt-32 lg:w-2/5 w-4/5 mx-auto">
+          <div className="lg:mt-24 text-2xl">
+            You need to be logged in to play a game
           </div>
         </div>
 

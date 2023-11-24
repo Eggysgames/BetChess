@@ -143,7 +143,7 @@ const Topnav = () => {
                     Logged in as :{" "}
                     {profileImage ? (
                       <Image
-                        className="inline-block ml-1 mr-1 rounded-3xl"
+                        className="inline-block ml-1 mr-1 rounded-3xl h-10 w-10"
                         src={profileImage}
                         alt="Logo"
                         width={40}

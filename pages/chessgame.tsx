@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Chess } from "chess.js";
 import { Chessboard } from "react-chessboard";
-import Topnav from "@/components/topnav";
 
 export default function PlayRandomMoveEngine() {
   const [game, setGame] = useState(new Chess());

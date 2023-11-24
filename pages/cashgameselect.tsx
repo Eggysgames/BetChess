@@ -33,32 +33,33 @@ const Gameselect = () => {
   if (session) {
     return (
       <div>
-        <div className="flex justify-center items-center h-screen mt-20">
-          <div className="grid grid-cols-2 gap-2">
+        <div className="lg:flex lg:justify-center lg:items-center lg:h-screen mt-20 p-6">
+          <div className="lg:grid lg:grid-cols-2 gap-2">
             <div className="flex items-center justify-center">
               <div className="text-white text-center">
-                <p className="text-6xl underline">Betting Guidelines</p>
+                <p className="lg:text-6xl text-3xl underline mt-4 lg:mt-0">
+                  Betting Guidelines
+                </p>
                 <br></br>
-                <p className="text-xl">
+                <p className="lg:text-xl">
                   Select Betting amount and then select game. <br></br>
                   Note : If you choose wife, she will be immediately kidnapped
                   until end of game.
                 </p>
-                <p className="text-xl">
+                <p className="lg:text-xl">
                   Once a game has begun after the 2nd move, bets are locked in.{" "}
                 </p>
-                <p className="text-xl">
+                <p className="lg:text-xl">
                   Make sure you choose carefully before pressing begin game
                 </p>
                 <br></br>
-                <p className="text-xl">We are not liable for angry wives.</p>
-                <br></br>
+
                 <br></br>
               </div>
             </div>
 
-            <div className="text-white px-32">
-              <p className="text-4xl underline text-center mb-4 ">
+            <div className="text-white lg:px-32">
+              <p className="lg:text-4xl underline text-center mb-4 ">
                 Select Bet and Game
               </p>
 
@@ -150,16 +151,18 @@ const Gameselect = () => {
             </div>
 
             <div className="text-white text-center">
-              <p className="text-6xl underline">ELO Max Bets</p>
+              <p className="lg:text-6xl text-3xl underline mt-4 lg:mt-0">
+                ELO Max Bets
+              </p>
               <br></br>
-              <p className="text-2xl">Under 1000 - Max Bet $5</p>
-              <p className="text-2xl">Under 1001 - 1200 - Max Bet $10</p>
-              <p className="text-2xl">Under 1201 - 1500 - Max Bet $15</p>
-              <p className="text-2xl">1501+ - Max Bet $20</p>
+              <p className="lg:text-2xl">Under 1000 - Max Bet $5</p>
+              <p className="lg:text-2xl">Under 1001 - 1200 - Max Bet $10</p>
+              <p className="lg:text-2xl">Under 1201 - 1500 - Max Bet $15</p>
+              <p className="lg:text-2xl">1501+ - Max Bet $20</p>
               <br></br>
               <br></br>
 
-              <div className="text-2xl">
+              <div className="lg:text-2xl">
                 Selected Bet -{" "}
                 <p className="text-blue-300 inline-block">{textholder}</p>
                 <br></br>
@@ -175,7 +178,7 @@ const Gameselect = () => {
               )}
             </div>
 
-            <div className="px-32 my-10 grid grid-cols-3 gap-2 col-start-2">
+            <div className="lg:px-32 my-10 grid grid-cols-3 gap-2 col-start-2">
               <GridButton
                 inserttext="Blitz"
                 inserttext2="3+2"

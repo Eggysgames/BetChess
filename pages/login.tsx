@@ -91,19 +91,6 @@ const Login = () => {
 
   if (session) {
     router.push("/");
-    return (
-      <div>
-        <p className="text-white text-4xl text-center mt-8">
-          Welcome, {session.user?.email}
-        </p>
-        <button
-          onClick={() => supabase.auth.signOut()}
-          className="text-sky-300 flex mx-auto text-3xl mt-8 hover:underline"
-        >
-          Sign Out
-        </button>
-      </div>
-    );
   }
 
   if (!session) {
