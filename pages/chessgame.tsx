@@ -1,11 +1,25 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Chess } from "chess.js";
 import { Chessboard } from "react-chessboard";
+import { createClient, Session } from "@supabase/supabase-js";
 
 export default function PlayRandomMoveEngine() {
   const [game, setGame] = useState(new Chess());
   const [inputText, setInputText] = useState("");
   const [conversation, setConversation] = useState<string[]>([]);
+  const [username, setUsername] = useState("Guest");
+
+  const conversationEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    if (conversationEndRef.current) {
+      conversationEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [conversation]);
 
   let mover = false;
 
@@ -78,6 +92,28 @@ export default function PlayRandomMoveEngine() {
     return true;
   }
 
+  const supabase = createClient(
+    "https://ttlaembyimpxjuovpmxk.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0bGFlbWJ5aW1weGp1b3ZwbXhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTI3NzA2NTcsImV4cCI6MjAwODM0NjY1N30.f6YXhReklfjQMe6sfVAqjyraiXgzjcH6W-2bOkCn_Sw",
+  );
+
+  const GrabUsername = async () => {
+    const userID = (await supabase.auth.getUser()).data.user?.id;
+    const { data } = await supabase
+      .from("user_profile")
+      .select("username")
+      .eq("id", userID);
+
+    if (data && data.length > 0 && data[0].username) {
+      const username = data[0].username;
+      setUsername(username);
+    }
+  };
+
+  useEffect(() => {
+    GrabUsername();
+  }, []);
+
   return (
     <div>
       <div className="flex justify-left items-center ml-[15%]">
@@ -92,10 +128,11 @@ export default function PlayRandomMoveEngine() {
         <div className="shadow-md drop-shadow-xl rounded-3xl bg-slate-800 mb-5 h-[650px] w-[550px] ml-16 mt-32 flex flex-col">
           <div className="m-4 flex-1 overflow-y-auto">
             {conversation.map((message, index) => (
-              <p key={index} className="text-white text-left">
-                {message}
+              <p key={index} className="text-white text-left p-1 mr-2">
+                <span className="text-yellow-500">{username} </span>: {message}
               </p>
             ))}
+            <div ref={conversationEndRef}></div>
           </div>
           <div className="flex flex-col items-center justify-between mt-4">
             <input
