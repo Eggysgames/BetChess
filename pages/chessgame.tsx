@@ -1,15 +1,40 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Chess } from "chess.js";
 import { Chessboard } from "react-chessboard";
-import { createClient, Session } from "@supabase/supabase-js";
+import { createClient } from "@supabase/supabase-js";
+import { io, Socket } from "socket.io-client";
 
 export default function PlayRandomMoveEngine() {
+  let mover = false;
   const [game, setGame] = useState(new Chess());
   const [inputText, setInputText] = useState("");
   const [conversation, setConversation] = useState<string[]>([]);
   const [username, setUsername] = useState("Guest");
-
   const conversationEndRef = useRef<HTMLDivElement>(null);
+  const [socket, setSocket] = useState<Socket | null>(null);
+  const [messages, setMessages] = useState([]);
+  const [inputMessage, setInputMessage] = useState("");
+
+  useEffect(() => {
+    const socket = io("http://localhost:4000", {
+      reconnectionDelay: 1000, // Delay between each reconnect attempt in milliseconds
+      reconnection: false, // Disable Socket.IO's automatic reconnection
+    });
+
+    socket.on("connect", () => {
+      console.log("Connected to server");
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Disconnected from server");
+    });
+
+    setSocket(socket);
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   const scrollToBottom = () => {
     if (conversationEndRef.current) {
@@ -21,18 +46,29 @@ export default function PlayRandomMoveEngine() {
     scrollToBottom();
   }, [conversation]);
 
-  let mover = false;
-
   const handleInputChange = (event: any) => {
     setInputText(event.target.value);
   };
 
   const handleEnterPress = (event: any) => {
     if (event.key === "Enter") {
-      setConversation([...conversation, inputText]);
+      if (socket) {
+        console.log("Emitting message:", inputText);
+        const messageWithUsername = `${username}: ${inputText}`; // Include username in the message
+        socket.emit("message", messageWithUsername); // Emit the message with username
+        setConversation([...conversation, messageWithUsername]); // Update conversation with the message and username
+        setInputText("");
+      }
       setInputText("");
     }
   };
+
+  if (socket) {
+    socket.on("message", (message) => {
+      console.log("Received message:", message);
+      setConversation([...conversation, message]); // Update conversation with the received message
+    });
+  }
 
   function makeAMove(move: any) {
     if (!game.isDraw()) {
@@ -97,7 +133,7 @@ export default function PlayRandomMoveEngine() {
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0bGFlbWJ5aW1weGp1b3ZwbXhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTI3NzA2NTcsImV4cCI6MjAwODM0NjY1N30.f6YXhReklfjQMe6sfVAqjyraiXgzjcH6W-2bOkCn_Sw",
   );
 
-  const GrabUsername = async () => {
+  const GrabUsername = useCallback(async () => {
     const userID = (await supabase.auth.getUser()).data.user?.id;
     const { data } = await supabase
       .from("user_profile")
@@ -108,11 +144,11 @@ export default function PlayRandomMoveEngine() {
       const username = data[0].username;
       setUsername(username);
     }
-  };
+  }, [supabase]);
 
   useEffect(() => {
     GrabUsername();
-  }, []);
+  }, [GrabUsername]);
 
   return (
     <div>
@@ -127,11 +163,25 @@ export default function PlayRandomMoveEngine() {
 
         <div className="shadow-md drop-shadow-xl rounded-3xl bg-slate-800 mb-5 h-[650px] w-[550px] ml-16 mt-32 flex flex-col">
           <div className="m-4 flex-1 overflow-y-auto">
-            {conversation.map((message, index) => (
-              <p key={index} className="text-white text-left p-1 mr-2">
-                <span className="text-yellow-500">{username} </span>: {message}
-              </p>
-            ))}
+            {conversation.map((message, index) => {
+              const parts = message.split(":");
+              const sender = parts[0].trim(); // Extract the sender's username
+              const content = parts.slice(1).join(":").trim(); // Message content after the first ':'
+
+              return (
+                <p key={index} className="text-white text-left p-1 mr-2">
+                  <span
+                    className={
+                      sender === username ? "text-sky-400" : "text-yellow-500"
+                    }
+                  >
+                    {sender}
+                  </span>
+                  : {content}
+                </p>
+              );
+            })}
+
             <div ref={conversationEndRef}></div>
           </div>
           <div className="flex flex-col items-center justify-between mt-4">
