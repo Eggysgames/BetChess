@@ -75,8 +75,16 @@ export default function PlayRandomMoveEngine() {
             areArrowsAllowed={true}
           />
         </div>
-        <div className="flex flex-col items-center shadow-lg rounded-3xl bg-slate-800 mb-5 h-[650px] w-[550px] ml-16 mt-8">
-          Chat here
+
+        <div className="flex flex-col items-center justify-between shadow-md drop-shadow-xl rounded-3xl bg-slate-800 mb-5 h-[650px] w-[550px] ml-16 mt-32">
+          <div className=""></div>
+          <div className="">
+            <input
+              className=" rounded-3xl bg-slate-600 p-2 mb-8 w-[500px]"
+              type="text"
+              placeholder="Aa"
+            />
+          </div>
         </div>
       </div>
     </div>
