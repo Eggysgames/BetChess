@@ -67,26 +67,10 @@ export default function PlayRandomMoveEngine() {
 
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        <div
-          style={{
-            width: "800px",
-            height: "800px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <div style={{ fontSize: "32px", fontWeight: "bold", margin: "auto" }}>
-            Play Game
-          </div>
+      <div className="flex justify-center items-center h-screen">
+        <div className="flex flex-col items-center w-2/5">
+          <div className="mt-16 text-white"></div>
+
           <Chessboard
             position={game.fen()}
             onPieceDrop={onDrop}
