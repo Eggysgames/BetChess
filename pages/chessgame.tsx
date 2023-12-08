@@ -67,15 +67,16 @@ export default function PlayRandomMoveEngine() {
 
   return (
     <div>
-      <div className="flex justify-center items-center h-screen">
-        <div className="flex flex-col items-center w-2/5">
-          <div className="mt-16 text-white"></div>
-
+      <div className="flex justify-left items-center ml-[15%]">
+        <div className="flex flex-col items-center w-[780px] mt-28">
           <Chessboard
             position={game.fen()}
             onPieceDrop={onDrop}
             areArrowsAllowed={true}
           />
+        </div>
+        <div className="flex flex-col items-center shadow-lg rounded-3xl bg-slate-800 mb-5 h-[650px] w-[550px] ml-16 mt-8">
+          Chat here
         </div>
       </div>
     </div>
