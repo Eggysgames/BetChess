@@ -6,9 +6,9 @@ Chess.js for the engine - https://github.com/jhlywa/chess.js
 
 Stockfish for the AI (In Progress) - https://github.com/nmrugg/stockfish.js
 
-Backend and Database - https://supabase.com/
+Database - https://supabase.com/
 
-Sockets (In Progress)
+Server/Sockets - https://heroku.com
 
 Payments (In Progress)
 
@@ -22,6 +22,8 @@ Payments (In Progress)
 - [x] Mobile Support
 - [x] Custom 404 Page
 - [x] Mobile Friendly
+- [x] Added Server on Hiroku
+- [x] Added Chat  
 
 # BackEnd
 
