@@ -16,7 +16,7 @@ export default function PlayRandomMoveEngine() {
   const [inputMessage, setInputMessage] = useState("");
 
   useEffect(() => {
-    const socket = io("https://betchess-ecc275519414.herokuapp.com/", {
+    const socket = io("https://betchess-ecc275519414.herokuapp.com", {
       reconnectionDelay: 1000, // Delay between each reconnect attempt in milliseconds
       reconnection: false, // Disable Socket.IO's automatic reconnection
     });
