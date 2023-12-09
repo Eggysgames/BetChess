@@ -1,10 +1,10 @@
 # BetChess
 
-React-Chessboard for the UI - https://www.npmjs.com/package/react-chessboard
+React-Chessboard UI - https://www.npmjs.com/package/react-chessboard
 
-Chess.js for the engine - https://github.com/jhlywa/chess.js
+Chess.js Engine - https://github.com/jhlywa/chess.js
 
-Stockfish for the AI (In Progress) - https://github.com/nmrugg/stockfish.js
+Stockfish AI - https://github.com/nmrugg/stockfish.js
 
 Database - https://supabase.com/
 
@@ -22,8 +22,8 @@ Payments (In Progress)
 - [x] Mobile Support
 - [x] Custom 404 Page
 - [x] Mobile Friendly
-- [x] Added Server on Hiroku
-- [x] Added Chat  
+- [x] Server
+- [x] Player Chat  
 
 # BackEnd
 
