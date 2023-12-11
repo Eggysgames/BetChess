@@ -54,7 +54,7 @@ export default function PlayRandomMoveEngine() {
         console.log("Emitting message:", inputText);
         const messageWithUsername = `${username}: ${inputText}`; // Include username in the message
         socket.emit("message", messageWithUsername); // Emit the message with username
-        setConversation([...conversation, messageWithUsername]); // Update conversation with the message and username
+        //setConversation([...conversation, messageWithUsername]); // Update conversation with the message and username
         setInputText("");
       }
       setInputText("");
@@ -64,7 +64,7 @@ export default function PlayRandomMoveEngine() {
   if (socket) {
     socket.on("message", (message) => {
       //console.log("Received message:", message);
-      //setConversation([...conversation, message]); // Update conversation with the received message
+      setConversation([...conversation, message]); // Update conversation with the received message
     });
   }
 
