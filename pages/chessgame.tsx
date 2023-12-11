@@ -12,13 +12,11 @@ export default function PlayRandomMoveEngine() {
   const [username, setUsername] = useState("Guest");
   const conversationEndRef = useRef<HTMLDivElement>(null);
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [messages, setMessages] = useState([]);
-  const [inputMessage, setInputMessage] = useState("");
 
   useEffect(() => {
     const socket = io("betchess-ecc275519414.herokuapp.com", {
-      reconnectionDelay: 1000, // Delay between each reconnect attempt in milliseconds
-      reconnection: false, // Disable Socket.IO's automatic reconnection
+      reconnectionDelay: 1000,
+      reconnection: false,
     });
 
     socket.on("connect", () => {
@@ -65,8 +63,8 @@ export default function PlayRandomMoveEngine() {
 
   if (socket) {
     socket.on("message", (message) => {
-      console.log("Received message:", message);
-      setConversation([...conversation, message]); // Update conversation with the received message
+      //console.log("Received message:", message);
+      //setConversation([...conversation, message]); // Update conversation with the received message
     });
   }
 
