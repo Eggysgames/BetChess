@@ -6,7 +6,9 @@ import Image from "next/image";
 export default function GlobalChat() {
   const [inputText, setInputText] = useState("");
   const [conversation, setConversation] = useState<string[]>([]);
-  const [username, setUsername] = useState("Guest");
+  const [username, setUsername] = useState(
+    "Guest" + Math.floor(Math.random() * 1000),
+  );
   const conversationEndRef = useRef<HTMLDivElement>(null);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [loading, setLoading] = useState(true);
@@ -107,7 +109,6 @@ export default function GlobalChat() {
             .map((msg) => `${msg.sender} : ${msg.content}`)
             .reverse();
           setConversation(messages);
-          setLoading(false);
 
           if (data.length >= 50) {
             const oldestMessages = data.slice(49).map((msg) => msg.timestamp);
@@ -118,68 +119,126 @@ export default function GlobalChat() {
           }
         }
       }
+
+      setLoading(false); // Set loading to false after updating conversation state
+
+      // Call scrollToBottom after fetching initial messages and updating state
     };
 
     fetchPreviousMessages();
+    scrollToBottom();
   }, []);
 
-  return (
-    <div>
-      <div className="text-white mt-28 flex justify-center mb-6">
-        Welcome to BetChess Chat!
-      </div>
-      <div className="flex justify-center items-center">
-        <div className="shadow-md drop-shadow-xl rounded-3xl bg-slate-800 lg:h-[650px] h-[550px] lg:w-[550px] w-[300px]  flex flex-col select-none">
-          <div className="m-4 flex-1 overflow-y-auto select-none">
-            {loading ? (
-              <div className="m-4 flex-1 flex justify-center items-center mt-16">
-                <Image
-                  className="inline-block mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin h-28 w-28 mr-8 flex justify-center"
-                  src="/loading.png"
-                  alt="Loading"
-                  width={130}
-                  height={130}
-                  unoptimized={true}
-                />
-              </div>
-            ) : (
-              <div className="m-4 flex-1 overflow-y-auto select-none">
-                {conversation.map((message, index) => {
-                  const parts = message.split(/:\s*(.+)/);
-                  const sender = parts[0].trim();
-                  const content = parts[1]?.trim() || "";
+  const [newUsername, setNewUsername] = useState(username);
+  const [isChoosingUsername, setIsChoosingUsername] = useState(false);
 
-                  return (
-                    <p key={index} className="text-white text-left p-1 mr-2">
-                      <span
-                        className={
-                          sender === username
-                            ? "text-sky-400"
-                            : "text-yellow-500"
-                        }
-                      >
-                        {sender}
-                      </span>
-                      : {content}
-                    </p>
-                  );
-                })}
-                <div ref={conversationEndRef}></div>
-              </div>
-            )}
+  const handleUsernameChange = (event: any) => {
+    setNewUsername(event.target.value);
+  };
+
+  const handleUsernameKeyPress = (event: any) => {
+    if (event.key === "Enter") {
+      setUsername(newUsername);
+      setIsChoosingUsername(false);
+    }
+  };
+
+  useEffect(() => {
+    if (username.startsWith("Guest")) {
+      setIsChoosingUsername(true);
+    } else {
+      setIsChoosingUsername(false);
+      scrollToBottom(); // Scroll to bottom after username selection
+    }
+  }, [username]);
+
+  useEffect(() => {
+    if (!isChoosingUsername) {
+      scrollToBottom();
+    }
+  }, [isChoosingUsername, conversation]);
+
+  if (isChoosingUsername) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="shadow-md drop-shadow-xl rounded-3xl bg-slate-800 lg:h-[650px] h-[450px] lg:w-[550px] w-[300px]  flex flex-col select-none">
+          <div className="text-white flex justify-center lg:mt-36 mt-44 lg:text-xl text-sm">
+            Choose a Username and Press Enter to Enter
           </div>
-          <div className="flex flex-col items-center justify-between mt-4">
-            <input
-              className="rounded-3xl bg-slate-600 p-2 mb-4 lg:w-[500px] w-[280px] text-white"
-              type="text"
-              placeholder="Aa"
-              value={inputText}
-              onChange={handleInputChange}
-              onKeyUp={handleEnterPress}
-            />
+          <div className="flex justify-center">
+            <div className="m-4 overflow-y-auto select-none p-4">
+              <input
+                className="rounded-3xl bg-slate-600 p-2 mb-4 lg:w-[200px] w-[200px] text-white text-center"
+                type="text"
+                placeholder="Choose a username"
+                value={newUsername}
+                onChange={handleUsernameChange}
+                onKeyPress={handleUsernameKeyPress}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div>
+        <div className="text-white mt-28 flex justify-center mb-6">
+          Welcome to BetChess Chat!
+        </div>
+        <div className="flex justify-center items-center">
+          <div className="shadow-md drop-shadow-xl rounded-3xl bg-slate-800 lg:h-[650px] h-[550px] lg:w-[550px] w-[300px]  flex flex-col select-none">
+            <div className="m-4 flex-1 overflow-y-auto select-none">
+              {loading ? (
+                <div className="m-4 flex-1 flex justify-center items-center mt-16">
+                  <Image
+                    className="inline-block mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin h-28 w-28 mr-8 flex justify-center"
+                    src="/loading.png"
+                    alt="Loading"
+                    width={130}
+                    height={130}
+                    unoptimized={true}
+                  />
+                </div>
+              ) : (
+                <div className="m-4 flex-1 overflow-y-auto select-none">
+                  {conversation.map((message, index) => {
+                    const parts = message.split(/:\s*(.+)/);
+                    const sender = parts[0].trim();
+                    const content = parts[1]?.trim() || "";
+
+                    return (
+                      <p key={index} className="text-white text-left p-1 mr-2">
+                        <span
+                          className={
+                            sender === username
+                              ? "text-sky-400"
+                              : "text-yellow-500"
+                          }
+                        >
+                          {sender}
+                        </span>
+                        : {content}
+                      </p>
+                    );
+                  })}
+                  <div ref={conversationEndRef}></div>
+                </div>
+              )}
+            </div>
+            <div className="flex flex-col items-center justify-between mt-4">
+              <input
+                className="rounded-3xl bg-slate-600 p-2 mb-4 lg:w-[500px] w-[280px] text-white"
+                type="text"
+                placeholder="Aa"
+                value={inputText}
+                onChange={handleInputChange}
+                onKeyUp={handleEnterPress}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
