@@ -1,13 +1,15 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { io, Socket } from "socket.io-client";
 import supabase from "@/components/SupabaseAPI";
+import Image from "next/image";
 
-export default function PlayRandomMoveEngine() {
+export default function GlobalChat() {
   const [inputText, setInputText] = useState("");
   const [conversation, setConversation] = useState<string[]>([]);
   const [username, setUsername] = useState("Guest");
   const conversationEndRef = useRef<HTMLDivElement>(null);
   const [socket, setSocket] = useState<Socket | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const socket = io("betchess-ecc275519414.herokuapp.com", {
@@ -90,24 +92,34 @@ export default function PlayRandomMoveEngine() {
   }, [GrabUsername]);
 
   useEffect(() => {
-    // Create a function to fetch previous messages from Supabase
     const fetchPreviousMessages = async () => {
       const { data, error } = await supabase
         .from("chat_messages")
         .select("*")
-        .order("timestamp");
+        .order("timestamp", { ascending: false })
+        .range(0, 49); // Fetches up to 50 most recent messages
 
       if (error) {
         console.error("Error fetching messages:", error);
       } else {
         if (data) {
-          const messages = data.map((msg) => `${msg.sender} : ${msg.content}`);
+          const messages = data
+            .map((msg) => `${msg.sender} : ${msg.content}`)
+            .reverse();
           setConversation(messages);
+          setLoading(false);
+
+          if (data.length >= 50) {
+            const oldestMessages = data.slice(49).map((msg) => msg.timestamp);
+            await supabase
+              .from("chat_messages")
+              .delete()
+              .lt("timestamp", oldestMessages[0]); // Delete messages older than the 50th message
+          }
         }
       }
     };
 
-    // Fetch previous messages when the component mounts
     fetchPreviousMessages();
   }, []);
 
@@ -119,26 +131,42 @@ export default function PlayRandomMoveEngine() {
       <div className="flex justify-center items-center">
         <div className="shadow-md drop-shadow-xl rounded-3xl bg-slate-800 lg:h-[650px] h-[550px] lg:w-[550px] w-[300px]  flex flex-col select-none">
           <div className="m-4 flex-1 overflow-y-auto select-none">
-            {conversation.map((message, index) => {
-              const parts = message.split(/:\s*(.+)/);
-              const sender = parts[0].trim();
-              const content = parts[1]?.trim() || "";
+            {loading ? (
+              <div className="m-4 flex-1 flex justify-center items-center mt-16">
+                <Image
+                  className="inline-block mr-3 hover:opacity-40 rounded-3xl mt-8 animate-spin h-28 w-28 mr-8 flex justify-center"
+                  src="/loading.png"
+                  alt="Loading"
+                  width={130}
+                  height={130}
+                  unoptimized={true}
+                />
+              </div>
+            ) : (
+              <div className="m-4 flex-1 overflow-y-auto select-none">
+                {conversation.map((message, index) => {
+                  const parts = message.split(/:\s*(.+)/);
+                  const sender = parts[0].trim();
+                  const content = parts[1]?.trim() || "";
 
-              return (
-                <p key={index} className="text-white text-left p-1 mr-2">
-                  <span
-                    className={
-                      sender === username ? "text-sky-400" : "text-yellow-500"
-                    }
-                  >
-                    {sender}
-                  </span>
-                  : {content}
-                </p>
-              );
-            })}
-
-            <div ref={conversationEndRef}></div>
+                  return (
+                    <p key={index} className="text-white text-left p-1 mr-2">
+                      <span
+                        className={
+                          sender === username
+                            ? "text-sky-400"
+                            : "text-yellow-500"
+                        }
+                      >
+                        {sender}
+                      </span>
+                      : {content}
+                    </p>
+                  );
+                })}
+                <div ref={conversationEndRef}></div>
+              </div>
+            )}
           </div>
           <div className="flex flex-col items-center justify-between mt-4">
             <input
