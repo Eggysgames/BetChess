@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 const TopBar = () => {
   return (
     <div className="bg-transparent text-white p-3 lg:relative">
