@@ -44,11 +44,22 @@ export default function PlayRandomMoveEngine() {
     setInputText(event.target.value);
   };
 
-  const handleEnterPress = (event: any) => {
+  const handleEnterPress = async (event: any) => {
     if (event.key === "Enter") {
       if (socket) {
         const messageWithUsername = `${username} : ${inputText}`;
+        const timestamp = new Date().toISOString();
+
+        const messageData = {
+          sender: username,
+          content: inputText,
+          timestamp: timestamp,
+        };
+
         socket.emit("message", messageWithUsername);
+
+        await supabase.from("chat_messages").insert([messageData]);
+
         setInputText("");
       }
       setInputText("");
@@ -77,6 +88,28 @@ export default function PlayRandomMoveEngine() {
   useEffect(() => {
     GrabUsername();
   }, [GrabUsername]);
+
+  useEffect(() => {
+    // Create a function to fetch previous messages from Supabase
+    const fetchPreviousMessages = async () => {
+      const { data, error } = await supabase
+        .from("chat_messages")
+        .select("*")
+        .order("timestamp");
+
+      if (error) {
+        console.error("Error fetching messages:", error);
+      } else {
+        if (data) {
+          const messages = data.map((msg) => `${msg.sender} : ${msg.content}`);
+          setConversation(messages);
+        }
+      }
+    };
+
+    // Fetch previous messages when the component mounts
+    fetchPreviousMessages();
+  }, []);
 
   return (
     <div>
