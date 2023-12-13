@@ -36,7 +36,11 @@ export default function GlobalChat() {
 
   const scrollToBottom = () => {
     if (conversationEndRef.current) {
-      conversationEndRef.current.scrollIntoView({ behavior: "smooth" });
+      conversationEndRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
     }
   };
 
