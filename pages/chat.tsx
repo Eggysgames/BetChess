@@ -174,15 +174,14 @@ export default function GlobalChat() {
       setIsChoosingUsername(true);
     } else {
       setIsChoosingUsername(false);
-      scrollToBottom(); // Scroll to bottom after username selection
     }
   }, [username]);
 
   useEffect(() => {
-    if (!isChoosingUsername) {
+    if (!loading && !isChoosingUsername) {
       scrollToBottom();
     }
-  }, [isChoosingUsername, conversation]);
+  }, [loading, isChoosingUsername]);
 
   if (isChoosingUsername) {
     return (
