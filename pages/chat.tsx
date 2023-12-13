@@ -62,7 +62,7 @@ export default function GlobalChat() {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputText = event.target.value;
 
-    const pattern = /^[a-zA-Z0-9 !@#$%^&*()<>.]+$/;
+    const pattern = /^[a-zA-Z0-9 !@#$%^?&*()<>.]+$/;
 
     if (!pattern.test(inputText)) {
       console.log("Input contains special/unwanted characters.");
