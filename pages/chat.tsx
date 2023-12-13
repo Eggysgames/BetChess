@@ -133,7 +133,16 @@ export default function GlobalChat() {
   const [isChoosingUsername, setIsChoosingUsername] = useState(false);
 
   const handleUsernameChange = (event: any) => {
-    setNewUsername(event.target.value);
+    const inputUsername = event.target.value;
+
+    // Regular expression pattern to allow only letters and numbers
+    const pattern = /^[a-zA-Z0-9]*$/;
+
+    // Check if the entered username matches the pattern
+    if (pattern.test(inputUsername)) {
+      setNewUsername(inputUsername); // Update the state or value of newUsername
+    }
+    // If the username doesn't match the pattern, handle it accordingly
   };
 
   const handleUsernameKeyPress = (event: any) => {
@@ -160,21 +169,30 @@ export default function GlobalChat() {
 
   if (isChoosingUsername) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="shadow-md drop-shadow-xl rounded-3xl bg-slate-800 lg:h-[650px] h-[450px] lg:w-[550px] w-[300px]  flex flex-col select-none">
-          <div className="text-white flex justify-center lg:mt-36 mt-44 lg:text-xl text-sm">
-            Choose a Username and Press Enter to Enter
-          </div>
-          <div className="flex justify-center">
-            <div className="m-4 overflow-y-auto select-none p-4">
-              <input
-                className="rounded-3xl bg-slate-600 p-2 mb-4 lg:w-[200px] w-[200px] text-white text-center"
-                type="text"
-                placeholder="Choose a username"
-                value={newUsername}
-                onChange={handleUsernameChange}
-                onKeyPress={handleUsernameKeyPress}
-              />
+      <div>
+        <div className="text-white mt-28 flex justify-center mb-6">
+          Welcome to BetChess Chat!
+        </div>
+        <div className="flex justify-center items-center">
+          <div className="shadow-md drop-shadow-xl rounded-3xl bg-slate-800 lg:h-[650px] h-[450px] lg:w-[550px] w-[300px]  flex flex-col select-none">
+            <div className="text-white flex justify-center lg:mt-36 mt-44 lg:text-xl text-sm">
+              Choose a Username and Press Enter
+            </div>
+            <div className="flex justify-center">
+              <div className="m-4 overflow-y-auto select-none p-4">
+                <input
+                  className="rounded-3xl bg-slate-600 p-2 lg:w-[200px] w-[200px] text-white text-center"
+                  type="text"
+                  placeholder="Choose a username"
+                  value={newUsername}
+                  onChange={handleUsernameChange}
+                  onKeyDown={handleUsernameKeyPress}
+                  maxLength={14}
+                />
+              </div>
+            </div>
+            <div className="text-white flex justify-center lg:text-md text-sm">
+              (Max 12 Characters)
             </div>
           </div>
         </div>
@@ -201,7 +219,7 @@ export default function GlobalChat() {
                   />
                 </div>
               ) : (
-                <div className="m-4 flex-1 overflow-y-auto select-none">
+                <div className="m-4 flex-1 overflow-y-auto select-none overflow-x-hidden">
                   {conversation.map((message, index) => {
                     const parts = message.split(/:\s*(.+)/);
                     const sender = parts[0].trim();
