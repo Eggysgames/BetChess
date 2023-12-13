@@ -234,7 +234,7 @@ export default function GlobalChat() {
           Welcome to BetChess Chat!
         </div>
         <div className="flex justify-center items-center">
-          <div className="shadow-md drop-shadow-xl rounded-3xl bg-slate-800 lg:h-[650px] h-[480px] lg:w-[550px] w-[300px]  flex flex-col select-none">
+          <div className="shadow-md drop-shadow-xl rounded-3xl bg-slate-800 lg:h-[650px] h-[480px] lg:w-[550px] w-[340px]  flex flex-col select-none">
             <div className="m-4 flex-1 overflow-y-auto select-none">
               {loading ? (
                 <div className="m-4 flex-1 flex justify-center items-center mt-16">
