@@ -14,6 +14,7 @@ export default function GlobalChat() {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [loading, setLoading] = useState(true);
   const [showEmojiPopup, setShowEmojiPopup] = useState(false);
+  const [usersList, setUsersList] = useState<string[]>([]);
 
   useEffect(() => {
     const socket = io("betchess-ecc275519414.herokuapp.com", {
@@ -22,11 +23,26 @@ export default function GlobalChat() {
     });
 
     socket.on("connect", () => {
-      console.log("Connected to server");
+      console.log(username + " Connected to server");
+      socket.emit("setUsername", username);
     });
 
-    socket.on("disconnect", () => {
-      console.log("Disconnected from server");
+    socket.on("userJoined", (username) => {
+      console.log("Socket Joined the Server");
+      setUsersList((prevUsers) => [...prevUsers, username]);
+    });
+
+    socket.on("userLeft", (username) => {
+      console.log("Socket Disconnected from server");
+      setUsersList((prevUsers) => prevUsers.filter((u) => u !== username));
+    });
+
+    socket.on("currentUsers", (users) => {
+      setUsersList(users);
+    });
+
+    socket.on("message", (message) => {
+      setConversation((prevMessages) => [...prevMessages, message]);
     });
 
     setSocket(socket);
@@ -34,7 +50,13 @@ export default function GlobalChat() {
     return () => {
       socket.disconnect();
     };
-  }, []);
+  }, [username]);
+
+  if (socket) {
+    socket.on("message", (message) => {
+      setConversation([...conversation, message]); // Update conversation with the received message
+    });
+  }
 
   const scrollToBottom = () => {
     if (conversationEndRef.current) {
@@ -99,12 +121,6 @@ export default function GlobalChat() {
       await sendMessage(); // Call sendMessage function when Enter is pressed
     }
   };
-
-  if (socket) {
-    socket.on("message", (message) => {
-      setConversation([...conversation, message]); // Update conversation with the received message
-    });
-  }
 
   const GrabUsername = useCallback(async () => {
     const userID = (await supabase.auth.getUser()).data.user?.id;
@@ -283,6 +299,7 @@ export default function GlobalChat() {
                 </div>
               )}
             </div>
+
             <div className="flex items-center justify-between mt-4">
               <input
                 className="rounded-3xl bg-slate-600 p-2 mb-4 ml-4 lg:w-[500px] w-[200px] text-white"
@@ -325,6 +342,14 @@ export default function GlobalChat() {
               )}
             </div>
           </div>
+        </div>
+        <div className="text-white flex flex-col items-center mt-4 mb-16">
+          <h2 className="text-sky-300">Users in Chat</h2>
+          <ul className="text-emerald-400 list-disc ml-4">
+            {usersList.map((user, index) => (
+              <li key={index}>{user}</li>
+            ))}
+          </ul>
         </div>
       </div>
     );
