@@ -288,7 +288,7 @@ export default function GlobalChat() {
                 alt="Send"
                 width="50"
                 height="50"
-                className="send-icon h-8 w-8 mr-4 mb-4 ml-4 cursor-pointer hover:opacity-40"
+                className="send-icon h-8 w-8 mr-4 mb-4 ml-4 cursor-pointer hover:opacity-40 invert"
                 onClick={sendMessage}
               />
               <button
