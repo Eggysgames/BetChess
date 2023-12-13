@@ -306,7 +306,11 @@ export default function GlobalChat() {
 
               {showEmojiPopup && (
                 <div className="absolute z-40 bg-white max-h-80 mb-8 lg:right-4 bottom-40">
-                  <EmojiPicker onEmojiClick={handleEmojiClick} width={300} />
+                  <EmojiPicker
+                    onEmojiClick={handleEmojiClick}
+                    width={300}
+                    autoFocusSearch={false}
+                  />
                 </div>
               )}
             </div>
