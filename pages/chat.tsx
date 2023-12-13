@@ -60,25 +60,28 @@ export default function GlobalChat() {
     }
   };
 
+  const sendMessage = async () => {
+    if (socket && inputText.trim() !== "") {
+      const messageWithUsername = `${username} : ${inputText}`;
+      const timestamp = new Date().toISOString();
+
+      const messageData = {
+        sender: username,
+        content: inputText,
+        timestamp: timestamp,
+      };
+
+      socket.emit("message", messageWithUsername);
+
+      await supabase.from("chat_messages").insert([messageData]);
+
+      setInputText("");
+    }
+  };
+
   const handleEnterPress = async (event: any) => {
     if (event.key === "Enter") {
-      if (socket) {
-        const messageWithUsername = `${username} : ${inputText}`;
-        const timestamp = new Date().toISOString();
-
-        const messageData = {
-          sender: username,
-          content: inputText,
-          timestamp: timestamp,
-        };
-
-        socket.emit("message", messageWithUsername);
-
-        await supabase.from("chat_messages").insert([messageData]);
-
-        setInputText("");
-      }
-      setInputText("");
+      await sendMessage(); // Call sendMessage function when Enter is pressed
     }
   };
 
@@ -258,15 +261,23 @@ export default function GlobalChat() {
                 </div>
               )}
             </div>
-            <div className="flex flex-col items-center justify-between mt-4">
+            <div className="flex items-center justify-between mt-4">
               <input
-                className="rounded-3xl bg-slate-600 p-2 mb-4 lg:w-[500px] w-[280px] text-white"
+                className="rounded-3xl bg-slate-600 p-2 mb-4 ml-4 lg:w-[500px] w-[280px] text-white"
                 type="text"
                 placeholder="Aa"
                 value={inputText}
                 onChange={handleInputChange}
                 onKeyUp={handleEnterPress}
                 maxLength={50}
+              />
+              <Image
+                src="/send.png"
+                alt="Send"
+                width="50"
+                height="50"
+                className="send-icon h-8 w-8 mr-4 mb-4 ml-4 cursor-pointer hover:opacity-40"
+                onClick={sendMessage}
               />
             </div>
           </div>
