@@ -196,6 +196,12 @@ export default function GlobalChat() {
     }
   }, [loading, isChoosingUsername]);
 
+  useEffect(() => {
+    if (!isChoosingUsername) {
+      scrollToBottom();
+    }
+  }, [isChoosingUsername]);
+
   if (isChoosingUsername) {
     return (
       <div>
