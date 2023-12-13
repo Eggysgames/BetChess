@@ -198,7 +198,11 @@ export default function GlobalChat() {
 
   useEffect(() => {
     if (!isChoosingUsername) {
-      scrollToBottom();
+      const timer = setTimeout(() => {
+        scrollToBottom();
+      }, 1000); // 1000 milliseconds (1 second)
+
+      return () => clearTimeout(timer); // Clear the timeout when component unmounts or when isChoosingUsername changes
     }
   }, [isChoosingUsername]);
 
