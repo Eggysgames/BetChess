@@ -44,8 +44,20 @@ export default function GlobalChat() {
     scrollToBottom();
   }, [conversation]);
 
-  const handleInputChange = (event: any) => {
-    setInputText(event.target.value);
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputText = event.target.value;
+
+    const pattern = /^[a-zA-Z0-9 !@#$%^&*()<>.]+$/;
+
+    if (!pattern.test(inputText)) {
+      // If the input contains unwanted characters
+      // You can choose to handle this as per your requirement
+      // For instance, you might not set the input or display an error message
+      console.log("Input contains special/unwanted characters.");
+    } else {
+      // Input is clean and allowed, setting the input text
+      setInputText(inputText);
+    }
   };
 
   const handleEnterPress = async (event: any) => {
