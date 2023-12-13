@@ -121,8 +121,6 @@ export default function GlobalChat() {
       }
 
       setLoading(false); // Set loading to false after updating conversation state
-
-      // Call scrollToBottom after fetching initial messages and updating state
     };
 
     fetchPreviousMessages();
@@ -142,7 +140,6 @@ export default function GlobalChat() {
     if (pattern.test(inputUsername)) {
       setNewUsername(inputUsername); // Update the state or value of newUsername
     }
-    // If the username doesn't match the pattern, handle it accordingly
   };
 
   const handleUsernameKeyPress = (event: any) => {
@@ -252,6 +249,7 @@ export default function GlobalChat() {
                 value={inputText}
                 onChange={handleInputChange}
                 onKeyUp={handleEnterPress}
+                maxLength={60}
               />
             </div>
           </div>
