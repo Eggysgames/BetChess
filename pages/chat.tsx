@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { io, Socket } from "socket.io-client";
 import supabase from "@/components/SupabaseAPI";
 import Image from "next/image";
+import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 
 export default function GlobalChat() {
   const [inputText, setInputText] = useState("");
@@ -12,6 +13,7 @@ export default function GlobalChat() {
   const conversationEndRef = useRef<HTMLDivElement>(null);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showEmojiPopup, setShowEmojiPopup] = useState(false);
 
   useEffect(() => {
     const socket = io("betchess-ecc275519414.herokuapp.com", {
@@ -44,9 +46,18 @@ export default function GlobalChat() {
     }
   };
 
+  const toggleEmojiPopup = () => {
+    setShowEmojiPopup(!showEmojiPopup);
+  };
+
   useEffect(() => {
     scrollToBottom();
   }, [conversation]);
+
+  const handleEmojiClick = (emoji: EmojiClickData, event: MouseEvent) => {
+    const emojiUnicode = emoji.emoji;
+    setInputText((prevInputText) => prevInputText + emojiUnicode);
+  };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputText = event.target.value;
@@ -139,7 +150,7 @@ export default function GlobalChat() {
         }
       }
 
-      setLoading(false); // Set loading to false after updating conversation state
+      setLoading(false);
     };
 
     fetchPreviousMessages();
@@ -152,12 +163,10 @@ export default function GlobalChat() {
   const handleUsernameChange = (event: any) => {
     const inputUsername = event.target.value;
 
-    // Regular expression pattern to allow only letters and numbers
     const pattern = /^[a-zA-Z0-9]*$/;
 
-    // Check if the entered username matches the pattern
     if (pattern.test(inputUsername)) {
-      setNewUsername(inputUsername); // Update the state or value of newUsername
+      setNewUsername(inputUsername);
     }
   };
 
@@ -282,6 +291,24 @@ export default function GlobalChat() {
                 className="send-icon h-8 w-8 mr-4 mb-4 ml-4 cursor-pointer hover:opacity-40"
                 onClick={sendMessage}
               />
+              <button
+                className="h-15 w-15 mr-4 mb-4 cursor-pointer hover:opacity-40"
+                onClick={toggleEmojiPopup}
+              >
+                <Image
+                  src="/emoji.png"
+                  alt="Send"
+                  width="40"
+                  height="40"
+                  className="mb-2"
+                />
+              </button>
+
+              {showEmojiPopup && (
+                <div className="absolute z-40 bg-white max-h-80 mb-8 right-4 bottom-40">
+                  <EmojiPicker onEmojiClick={handleEmojiClick} />
+                </div>
+              )}
             </div>
           </div>
         </div>
