@@ -234,7 +234,7 @@ export default function GlobalChat() {
           Welcome to BetChess Chat!
         </div>
         <div className="flex justify-center items-center">
-          <div className="shadow-md drop-shadow-xl rounded-3xl bg-slate-800 lg:h-[650px] h-[550px] lg:w-[550px] w-[324px]  flex flex-col select-none">
+          <div className="shadow-md drop-shadow-xl rounded-3xl bg-slate-800 lg:h-[650px] h-[480px] lg:w-[550px] w-[300px]  flex flex-col select-none">
             <div className="m-4 flex-1 overflow-y-auto select-none">
               {loading ? (
                 <div className="m-4 flex-1 flex justify-center items-center mt-16">
@@ -275,7 +275,7 @@ export default function GlobalChat() {
             </div>
             <div className="flex items-center justify-between mt-4">
               <input
-                className="rounded-3xl bg-slate-600 p-2 mb-4 ml-4 lg:w-[500px] w-[280px] text-white"
+                className="rounded-3xl bg-slate-600 p-2 mb-4 ml-4 lg:w-[500px] w-[150px] text-white"
                 type="text"
                 placeholder="Aa"
                 value={inputText}
