@@ -55,7 +55,6 @@ export default function GlobalChat() {
       setInputText(inputText);
     }
 
-    // Ensure that if the input text is empty, it gets updated properly
     if (inputText.trim() === "") {
       setInputText("");
     }
@@ -155,10 +154,15 @@ export default function GlobalChat() {
     }
   };
 
-  const handleUsernameKeyPress = (event: any) => {
+  const handleUsernameKeyPress = (
+    event: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
     if (event.key === "Enter") {
-      setUsername(newUsername);
-      setIsChoosingUsername(false);
+      // Check if newUsername contains at least one letter
+      if (newUsername.match(/[a-zA-Z]/)) {
+        setUsername(newUsername);
+        setIsChoosingUsername(false);
+      }
     }
   };
 
