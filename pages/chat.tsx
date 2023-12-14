@@ -5,16 +5,16 @@ import Image from "next/image";
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 
 export default function GlobalChat() {
+  const conversationEndRef = useRef<HTMLDivElement>(null);
   const [inputText, setInputText] = useState("");
   const [conversation, setConversation] = useState<string[]>([]);
-  const [username, setUsername] = useState(
-    "Guest" + Math.floor(Math.random() * 1000),
-  );
-  const conversationEndRef = useRef<HTMLDivElement>(null);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [loading, setLoading] = useState(true);
   const [showEmojiPopup, setShowEmojiPopup] = useState(false);
   const [usersList, setUsersList] = useState<string[]>([]);
+  const [username, setUsername] = useState(
+    "Guest" + Math.floor(Math.random() * 1000),
+  );
 
   useEffect(() => {
     const socket = io("betchess-ecc275519414.herokuapp.com", {

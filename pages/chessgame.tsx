@@ -38,6 +38,12 @@ export default function PlayRandomMoveEngine() {
     };
   }, []);
 
+  if (socket) {
+    socket.on("message", (message) => {
+      setConversation([...conversation, message]); // Update conversation with the received message
+    });
+  }
+
   const scrollToBottom = () => {
     if (conversationEndRef.current) {
       conversationEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -73,80 +79,9 @@ export default function PlayRandomMoveEngine() {
 
   const handleEnterPress = async (event: any) => {
     if (event.key === "Enter") {
-      await sendMessage(); // Call sendMessage function when Enter is pressed
+      await sendMessage();
     }
   };
-
-  if (socket) {
-    socket.on("message", (message) => {
-      setConversation([...conversation, message]); // Update conversation with the received message
-    });
-  }
-
-  function makeAMove(move: any) {
-    if (!game.isDraw()) {
-      try {
-        game.move(move);
-        if (mover == false) {
-          setTimeout(makeRandomMove, 200);
-          mover = true;
-        }
-      } catch {
-        console.log("Invalid Move");
-      }
-
-      const newGame = new Chess(game.fen());
-      setGame(newGame);
-    }
-
-    if (game.isCheckmate()) {
-      setTimeout(() => {
-        window.alert("Checkmate");
-      }, 200);
-    }
-
-    if (game.isDraw()) {
-      setTimeout(() => {
-        window.alert("Draw");
-      }, 200);
-    }
-  }
-
-  function makeRandomMove(move: any) {
-    const possibleMoves = game.moves();
-    if (game.isCheckmate() || game.isDraw() || possibleMoves.length === 0) {
-      console.log(game.isCheckmate());
-      console.log(game.isDraw());
-      return; // exit if the game is over
-    }
-
-    const randomIndex = Math.floor(Math.random() * possibleMoves.length);
-    makeAMove(possibleMoves[randomIndex]);
-  }
-
-  const toggleEmojiPopup = () => {
-    setShowEmojiPopup(!showEmojiPopup);
-  };
-
-  const handleEmojiClick = (emoji: EmojiClickData, event: MouseEvent) => {
-    const emojiUnicode = emoji.emoji;
-    setInputText((prevInputText) => prevInputText + emojiUnicode);
-  };
-
-  function onDrop(sourceSquare: string, targetSquare: string) {
-    const move = makeAMove({
-      from: sourceSquare,
-      to: targetSquare,
-      promotion: "q", // always promote to a queen for simplicity
-    });
-
-    // illegal move
-    if (move === null) {
-      return false;
-    }
-
-    return true;
-  }
 
   const GrabUsername = useCallback(async () => {
     const userID = (await supabase.auth.getUser()).data.user?.id;
@@ -198,6 +133,74 @@ export default function PlayRandomMoveEngine() {
     fetchPreviousMessages();
     scrollToBottom();
   }, []);
+
+  
+  const toggleEmojiPopup = () => {
+    setShowEmojiPopup(!showEmojiPopup);
+  };
+
+  const handleEmojiClick = (emoji: EmojiClickData, event: MouseEvent) => {
+    const emojiUnicode = emoji.emoji;
+    setInputText((prevInputText) => prevInputText + emojiUnicode);
+  };
+
+
+  ////Chess Code
+  function makeAMove(move: any) {
+    if (!game.isDraw()) {
+      try {
+        game.move(move);
+        if (mover == false) {
+          setTimeout(makeRandomMove, 200);
+          mover = true;
+        }
+      } catch {
+        console.log("Invalid Move");
+      }
+
+      const newGame = new Chess(game.fen());
+      setGame(newGame);
+    }
+
+    if (game.isCheckmate()) {
+      setTimeout(() => {
+        window.alert("Checkmate");
+      }, 200);
+    }
+
+    if (game.isDraw()) {
+      setTimeout(() => {
+        window.alert("Draw");
+      }, 200);
+    }
+  }
+
+  function makeRandomMove(move: any) {
+    const possibleMoves = game.moves();
+    if (game.isCheckmate() || game.isDraw() || possibleMoves.length === 0) {
+      console.log(game.isCheckmate());
+      console.log(game.isDraw());
+      return; // exit if the game is over
+    }
+
+    const randomIndex = Math.floor(Math.random() * possibleMoves.length);
+    makeAMove(possibleMoves[randomIndex]);
+  }
+
+  function onDrop(sourceSquare: string, targetSquare: string) {
+    const move = makeAMove({
+      from: sourceSquare,
+      to: targetSquare,
+      promotion: "q", // always promote to a queen for simplicity
+    });
+
+    // illegal move
+    if (move === null) {
+      return false;
+    }
+
+    return true;
+  }
 
   return (
     <div>
