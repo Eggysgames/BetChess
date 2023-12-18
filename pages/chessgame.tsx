@@ -16,6 +16,8 @@ export default function PlayRandomMoveEngine() {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [loading, setLoading] = useState(true);
   const [showEmojiPopup, setShowEmojiPopup] = useState(false);
+  const [player1, setPlayer1] = useState("?????");
+  const [player2, setPlayer2] = useState("?????");
 
   useEffect(() => {
     const socket = io("betchess-ecc275519414.herokuapp.com", {
@@ -24,8 +26,10 @@ export default function PlayRandomMoveEngine() {
     });
 
     socket.on("connect", () => {
-      console.log("Connected to server");
+      socket.emit("requestRoleAssignment");
     });
+
+    socket.on("assignedRole", (role) => {});
 
     socket.on("disconnect", () => {
       console.log("Disconnected from server");
@@ -134,7 +138,6 @@ export default function PlayRandomMoveEngine() {
     scrollToBottom();
   }, []);
 
-  
   const toggleEmojiPopup = () => {
     setShowEmojiPopup(!showEmojiPopup);
   };
@@ -144,47 +147,64 @@ export default function PlayRandomMoveEngine() {
     setInputText((prevInputText) => prevInputText + emojiUnicode);
   };
 
-
-  ////Chess Code
-  function makeAMove(move: any) {
-    if (!game.isDraw()) {
-      try {
-        game.move(move);
-        if (mover == false) {
-          setTimeout(makeRandomMove, 200);
-          mover = true;
+  useEffect(() => {
+    if (socket) {
+      socket.on("connectedPlayersCount", (count: any) => {
+        //console.log(count);
+        if (count == 1) {
+          setPlayer1("Player 1");
+          setPlayer2("??????");
         }
-      } catch {
-        console.log("Invalid Move");
-      }
-
-      const newGame = new Chess(game.fen());
-      setGame(newGame);
+        if (count == 2) {
+          setPlayer1("Player 1");
+          setPlayer2("Player 2");
+        }
+      });
     }
+  }, [socket]);
 
-    if (game.isCheckmate()) {
-      setTimeout(() => {
-        window.alert("Checkmate");
-      }, 200);
+  /////////////
+  ////Chesss
+  //////////////
+  useEffect(() => {
+    const handleUserMove = (move: any) => {
+      makeAMove(move);
+    };
+
+    if (socket) {
+      socket.on("userMove", handleUserMove);
     }
+  });
 
-    if (game.isDraw()) {
-      setTimeout(() => {
-        window.alert("Draw");
-      }, 200);
+  function sendMoveToOpponent(move: any) {
+    if (socket) {
+      socket.emit("userMove", move);
     }
   }
 
-  function makeRandomMove(move: any) {
-    const possibleMoves = game.moves();
-    if (game.isCheckmate() || game.isDraw() || possibleMoves.length === 0) {
-      console.log(game.isCheckmate());
-      console.log(game.isDraw());
-      return; // exit if the game is over
-    }
+  let isLocalPlayerTurn = true; // Initially, it's the local player's turn
 
-    const randomIndex = Math.floor(Math.random() * possibleMoves.length);
-    makeAMove(possibleMoves[randomIndex]);
+  function makeAMove(move: any) {
+    try {
+      const newGame = new Chess(game.fen());
+
+      if (newGame !== null) {
+        // Null check before using newGame
+        const moveResult = newGame.move(move);
+
+        if (moveResult !== null) {
+          if (socket && isLocalPlayerTurn) {
+            setGame(newGame);
+            socket.emit("userMove", move);
+            isLocalPlayerTurn = false;
+          }
+
+          
+        }
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
   }
 
   function onDrop(sourceSquare: string, targetSquare: string) {
@@ -199,18 +219,28 @@ export default function PlayRandomMoveEngine() {
       return false;
     }
 
+    sendMoveToOpponent(move);
+
     return true;
   }
+
+  /////////////
 
   return (
     <div>
       <div className="flex justify-left items-center ml-[15%]">
-        <div className="flex flex-col items-center w-[740px] mt-32">
+        <div className="items-center w-[740px] mt-32">
+          <div className="text-white text-xl flex justify-left items-left">
+            {player2} (800)
+          </div>
           <Chessboard
             position={game.fen()}
             onPieceDrop={onDrop}
             areArrowsAllowed={true}
           />
+          <div className="text-white text-xl flex justify-left items-left mb-8">
+            {player1} (800)
+          </div>
         </div>
 
         <div className="shadow-md drop-shadow-xl rounded-3xl bg-slate-800 lg:h-[650px] h-[480px] lg:w-[550px] w-[340px]  flex flex-col select-none ml-16 mt-16">
