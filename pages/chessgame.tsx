@@ -167,8 +167,12 @@ export default function PlayRandomMoveEngine() {
   ////Chesss
   //////////////
   useEffect(() => {
+    let runonce = true;
     const handleUserMove = (move: any) => {
-      makeAMove(move);
+      if (runonce) {
+        makeAMove(move);
+        runonce = false;
+      }
     };
 
     if (socket) {
@@ -192,18 +196,19 @@ export default function PlayRandomMoveEngine() {
         // Null check before using newGame
         const moveResult = newGame.move(move);
 
+        console.log(isLocalPlayerTurn);
+
         if (moveResult !== null) {
           if (socket && isLocalPlayerTurn) {
             setGame(newGame);
             socket.emit("userMove", move);
             isLocalPlayerTurn = false;
+            console.log(isLocalPlayerTurn);
           }
-
-          
         }
       }
     } catch (error) {
-      console.log("Error:", error);
+      console.log("Catch in MakeaMove because -", error);
     }
   }
 
