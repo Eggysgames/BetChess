@@ -18,6 +18,7 @@ export default function PlayRandomMoveEngine() {
   const [showEmojiPopup, setShowEmojiPopup] = useState(false);
   const [player1, setPlayer1] = useState("?????");
   const [player2, setPlayer2] = useState("?????");
+  const [board, setboard] = useState("white");
 
   useEffect(() => {
     const socket = io("betchess-ecc275519414.herokuapp.com", {
@@ -147,31 +148,37 @@ export default function PlayRandomMoveEngine() {
     setInputText((prevInputText) => prevInputText + emojiUnicode);
   };
 
+  let [playerturn, setplayerturn] = useState(true);
+
   useEffect(() => {
     if (socket) {
-      socket.on("connectedPlayersCount", (count: any) => {
+      socket.once("connectedPlayersCount", (count: any) => {
         //console.log(count);
         if (count == 1) {
           setPlayer1("Player 1");
           setPlayer2("??????");
+          setplayerturn(true);
         }
         if (count == 2) {
           setPlayer1("Player 1");
           setPlayer2("Player 2");
+          setboard("black");
+          setplayerturn(false);
         }
       });
     }
   }, [socket]);
 
   /////////////
-  ////Chesss
-  //////////////
+  ////Chess
+  /////////////
   useEffect(() => {
     let runonce = true;
     const handleUserMove = (move: any) => {
       if (runonce) {
         makeAMove(move);
         runonce = false;
+        setplayerturn(true);
       }
     };
 
@@ -186,8 +193,6 @@ export default function PlayRandomMoveEngine() {
     }
   }
 
-  let isLocalPlayerTurn = true; // Initially, it's the local player's turn
-
   function makeAMove(move: any) {
     try {
       const newGame = new Chess(game.fen());
@@ -196,14 +201,17 @@ export default function PlayRandomMoveEngine() {
         // Null check before using newGame
         const moveResult = newGame.move(move);
 
-        console.log(isLocalPlayerTurn);
+        console.log("Turn =" + playerturn);
+
+        if (!playerturn) {
+          console.log("Not your turn");
+        }
 
         if (moveResult !== null) {
-          if (socket && isLocalPlayerTurn) {
+          if (socket && playerturn) {
             setGame(newGame);
             socket.emit("userMove", move);
-            isLocalPlayerTurn = false;
-            console.log(isLocalPlayerTurn);
+            setplayerturn(false);
           }
         }
       }
@@ -242,6 +250,7 @@ export default function PlayRandomMoveEngine() {
             position={game.fen()}
             onPieceDrop={onDrop}
             areArrowsAllowed={true}
+            boardOrientation={player2 === "Player 2" ? "black" : "white"}
           />
           <div className="text-white text-xl flex justify-left items-left mb-8">
             {player1} (800)
