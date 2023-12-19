@@ -1,16 +1,16 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Chess } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import { io, Socket } from "socket.io-client";
 
 export default function ChessGamePage() {
   const [game, setGame] = useState(new Chess());
-  const [conversation, setConversation] = useState<string[]>([]);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [player1, setPlayer1] = useState("?????");
   const [player2, setPlayer2] = useState("?????");
   const [board, setboard] = useState("white");
   const [player, setPlayer] = useState("1");
+  let [playerturn, setplayerturn] = useState(true);
 
   useEffect(() => {
     const socket = io("betchess-ecc275519414.herokuapp.com", {
@@ -28,18 +28,18 @@ export default function ChessGamePage() {
 
     setSocket(socket);
 
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
+    if (socket) {
+      socket.emit("switchplayer");
+    }
 
+    if (socket) {
+      socket.on("playerTurn", (playerTurn: any) => {
+        console.log("Turn is " + playerTurn);
+      });
+    }
 
-  let [playerturn, setplayerturn] = useState(true);
-
-  useEffect(() => {
     if (socket) {
       socket.once("connectedPlayersCount", (count: any) => {
-        //console.log(count);
         if (count == 1) {
           setPlayer1("Player 1");
           setPlayer2("??????");
@@ -55,21 +55,10 @@ export default function ChessGamePage() {
         }
       });
     }
-  }, [socket]);
 
-  if (socket) {
-    socket.emit("switchplayer");
-  }
-  useEffect(() => {
-    if (socket) {
-      socket.on("playerTurn", (playerTurn: any) => {
-        console.log("Turn is " + playerTurn);
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    console.log("Once");
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   /////////////
