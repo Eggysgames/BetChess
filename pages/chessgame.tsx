@@ -7,7 +7,6 @@ import Image from "next/image";
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 
 export default function PlayRandomMoveEngine() {
-  let mover = false;
   const [game, setGame] = useState(new Chess());
   const [inputText, setInputText] = useState("");
   const [conversation, setConversation] = useState<string[]>([]);
@@ -19,6 +18,7 @@ export default function PlayRandomMoveEngine() {
   const [player1, setPlayer1] = useState("?????");
   const [player2, setPlayer2] = useState("?????");
   const [board, setboard] = useState("white");
+  const [player, setPlayer] = useState("1");
 
   useEffect(() => {
     const socket = io("betchess-ecc275519414.herokuapp.com", {
@@ -102,7 +102,7 @@ export default function PlayRandomMoveEngine() {
   }, []);
 
   useEffect(() => {
-    GrabUsername();
+    //GrabUsername();
   }, [GrabUsername]);
 
   useEffect(() => {
@@ -158,16 +158,31 @@ export default function PlayRandomMoveEngine() {
           setPlayer1("Player 1");
           setPlayer2("??????");
           setplayerturn(true);
+          setPlayer("1");
         }
         if (count == 2) {
           setPlayer1("Player 1");
           setPlayer2("Player 2");
           setboard("black");
           setplayerturn(false);
+          setPlayer("2");
         }
       });
     }
   }, [socket]);
+
+  if (socket) {
+    socket.emit("switchplayer");
+  }
+  useEffect(() => {
+    if (socket) {
+      socket.on("playerTurn", (playerTurn: any) => {
+        console.log("Turn is " + playerTurn);
+      });
+    }
+  });
+
+  console.log("S");
 
   /////////////
   ////Chess
