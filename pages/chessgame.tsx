@@ -13,7 +13,7 @@ export default function ChessGamePage() {
   let [playerturn, setplayerturn] = useState(true);
 
   useEffect(() => {
-    const socket = io("http://localhost:4000", {
+    const socket = io("https://betchess-ecc275519414.herokuapp.com/", {
       reconnectionDelay: 1000,
       reconnection: false,
     });
@@ -70,9 +70,6 @@ export default function ChessGamePage() {
         const newGame = new Chess();
         newGame.load(fenString); // Load the extracted FEN string
         setGame(newGame);
-      } else {
-        console.log("Received invalid game state:", updatedBoard);
-        // Handle the invalid game state received from the server
       }
     });
   }
