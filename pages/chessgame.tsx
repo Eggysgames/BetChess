@@ -29,16 +29,6 @@ export default function ChessGamePage() {
     setSocket(socket);
 
     if (socket) {
-      socket.emit("switchplayer");
-    }
-
-    if (socket) {
-      socket.on("playerTurn", (playerTurn: any) => {
-        console.log("Turn is " + playerTurn);
-      });
-    }
-
-    if (socket) {
       socket.once("connectedPlayersCount", (count: any) => {
         if (count == 1) {
           setPlayer1("Player 1");
@@ -75,7 +65,7 @@ export default function ChessGamePage() {
     };
 
     if (socket) {
-      socket.on("userMove", handleUserMove);
+      socket.once("userMove", handleUserMove);
     }
   });
 
@@ -85,25 +75,30 @@ export default function ChessGamePage() {
     }
   }
 
+  let quickstop = true;
+
+  if (socket) {
+    socket.once("playerTurn", (playerTurn: any) => {
+      setplayerturn(playerTurn);
+      console.log(playerturn);
+    });
+  }
+
   function makeAMove(move: any) {
     try {
       const newGame = new Chess(game.fen());
 
       if (newGame !== null) {
-        // Null check before using newGame
         const moveResult = newGame.move(move);
 
-        console.log("Turn =" + playerturn);
-
-        if (!playerturn) {
-          console.log("Not your turn");
-        }
-
-        if (moveResult !== null) {
-          if (socket && playerturn) {
-            setGame(newGame);
-            socket.emit("userMove", move);
-            setplayerturn(false);
+        if (moveResult !== null && quickstop) {
+          if (playerturn == true && player == "1") {
+            if (socket) {
+              setGame(newGame);
+              socket.emit("userMove", move);
+              quickstop = false;
+              socket.emit("switchplayer");
+            }
           }
         }
       }
