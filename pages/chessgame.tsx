@@ -13,7 +13,7 @@ export default function ChessGamePage() {
   let [playerturn, setplayerturn] = useState(true);
 
   useEffect(() => {
-    const socket = io("betchess-ecc275519414.herokuapp.com", {
+    const socket = io("http://localhost:4000", {
       reconnectionDelay: 1000,
       reconnection: false,
     });
@@ -54,20 +54,28 @@ export default function ChessGamePage() {
   /////////////
   ////Chess
   /////////////
-  useEffect(() => {
-    let runonce = true;
-    const handleUserMove = (move: any) => {
-      if (runonce) {
-        makeAMove(move);
-        runonce = false;
-        setplayerturn(true);
-      }
-    };
 
-    if (socket) {
-      socket.once("userMove", handleUserMove);
-    }
-  });
+  // Inside your useEffect or where socket connection is established
+  if (socket) {
+    socket.on("gameState", (updatedBoard) => {
+      let fenString = "";
+
+      if (typeof updatedBoard === "string" && updatedBoard.trim() !== "") {
+        fenString = updatedBoard; // If the updatedBoard is a FEN string
+      } else if (updatedBoard && typeof updatedBoard === "object") {
+        fenString = updatedBoard.after; // Extract FEN string from the object
+      }
+
+      if (fenString.trim() !== "") {
+        const newGame = new Chess();
+        newGame.load(fenString); // Load the extracted FEN string
+        setGame(newGame);
+      } else {
+        console.log("Received invalid game state:", updatedBoard);
+        // Handle the invalid game state received from the server
+      }
+    });
+  }
 
   function sendMoveToOpponent(move: any) {
     if (socket) {
@@ -78,7 +86,7 @@ export default function ChessGamePage() {
   let quickstop = true;
 
   if (socket) {
-    socket.once("playerTurn", (playerTurn: any) => {
+    socket.on("playerTurn", (playerTurn: any) => {
       setplayerturn(playerTurn);
       console.log(playerturn);
     });
@@ -91,13 +99,13 @@ export default function ChessGamePage() {
       if (newGame !== null) {
         const moveResult = newGame.move(move);
 
-        if (moveResult !== null && quickstop) {
-          if (playerturn == true && player == "1") {
-            if (socket) {
+        if (moveResult !== null) {
+          if (player === "1") {
+            if (socket && quickstop) {
               setGame(newGame);
-              socket.emit("userMove", move);
-              quickstop = false;
+              socket.emit("userMove", moveResult); // Sending the FEN after the move
               socket.emit("switchplayer");
+              quickstop = false;
             }
           }
         }
@@ -123,8 +131,6 @@ export default function ChessGamePage() {
 
     return true;
   }
-
-  /////////////
 
   return (
     <div>
