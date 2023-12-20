@@ -12,6 +12,12 @@ export default function ChessGamePage() {
   const [player, setPlayer] = useState("1");
   const [gamestart, setGamestart] = useState(false);
   let [playerturn, setplayerturn] = useState(true);
+  const [lastMoveSource, setLastMoveSource] = useState<string | null>(null);
+  const [lastMoveTarget, setLastMoveTarget] = useState<string | null>(null);
+  const [highlightedSquare, setHighlightedSquare] = useState<string | null>(
+    null,
+  );
+  let quickstop = true;
 
   useEffect(() => {
     const socket = io("https://betchess-ecc275519414.herokuapp.com", {
@@ -69,18 +75,16 @@ export default function ChessGamePage() {
   /////////////
   if (socket) {
     socket.on("gameState", (updatedBoard) => {
-      let fenString = "";
-
-      if (typeof updatedBoard === "string" && updatedBoard.trim() !== "") {
-        fenString = updatedBoard; // If the updatedBoard is a FEN string
-      } else if (updatedBoard && typeof updatedBoard === "object") {
-        fenString = updatedBoard.after; // Extract FEN string from the object
-      }
-
-      if (fenString.trim() !== "") {
+      if (updatedBoard && updatedBoard.after) {
+        const fenString = updatedBoard.after;
         const newGame = new Chess();
         newGame.load(fenString); // Load the extracted FEN string
         setGame(newGame);
+      }
+
+      if (updatedBoard && updatedBoard.to) {
+        const { to } = updatedBoard;
+        setHighlightedSquare(to); // Set the 'to' square as highlighted
       }
     });
   }
@@ -90,8 +94,6 @@ export default function ChessGamePage() {
       socket.emit("userMove", move);
     }
   }
-
-  let quickstop = true;
 
   if (socket) {
     socket.on("playerTurn", (playerTurn: any) => {
@@ -115,6 +117,8 @@ export default function ChessGamePage() {
               socket.emit("userMove", moveResult); // Sending the FEN after the move
               socket.emit("switchplayer");
               quickstop = false;
+              setLastMoveSource(move.from);
+              setLastMoveTarget(move.to);
             }
           }
           // Check if it's Player 2's turn and the piece moved is black
@@ -124,6 +128,8 @@ export default function ChessGamePage() {
               socket.emit("userMove", moveResult); // Sending the FEN after the move
               socket.emit("switchplayer");
               quickstop = false;
+              setLastMoveSource(move.from);
+              setLastMoveTarget(move.to);
             }
           }
         }
@@ -150,6 +156,24 @@ export default function ChessGamePage() {
     return true;
   }
 
+  useEffect(() => {
+    if (lastMoveSource && lastMoveTarget) {
+      setHighlightedSquare(lastMoveTarget);
+    }
+  }, [lastMoveSource, lastMoveTarget]);
+
+  const generateCustomSquareStyles = () => {
+    const customStyles: { [key: string]: React.CSSProperties } = {};
+
+    if (highlightedSquare) {
+      customStyles[highlightedSquare] = {
+        background: "rgba(255, 255, 40, 0.2)",
+      };
+    }
+
+    return customStyles;
+  };
+
   return (
     <div>
       <div className="flex justify-left items-center ml-[15%]">
@@ -163,6 +187,7 @@ export default function ChessGamePage() {
               onPieceDrop={onDrop}
               areArrowsAllowed={true}
               boardOrientation={player2 === "Player 2" ? "black" : "white"}
+              customSquareStyles={generateCustomSquareStyles()}
             />
           </div>
           <div className="text-white text-xl flex justify-left items-left mb-8">
