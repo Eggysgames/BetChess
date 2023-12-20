@@ -10,10 +10,11 @@ export default function ChessGamePage() {
   const [player2, setPlayer2] = useState("?????");
   const [board, setboard] = useState("white");
   const [player, setPlayer] = useState("1");
+  const [gamestart, setGamestart] = useState(false);
   let [playerturn, setplayerturn] = useState(true);
 
   useEffect(() => {
-    const socket = io("https://betchess-ecc275519414.herokuapp.com/", {
+    const socket = io("https://betchess-ecc275519414.herokuapp.com", {
       reconnectionDelay: 1000,
       reconnection: false,
     });
@@ -42,6 +43,7 @@ export default function ChessGamePage() {
           setboard("black");
           setplayerturn(false);
           setPlayer("2");
+          setGamestart(true);
         }
       });
     }
@@ -51,11 +53,20 @@ export default function ChessGamePage() {
     };
   }, []);
 
+  ///Always On
+  useEffect(() => {
+    if (socket) {
+      socket.on("connectedPlayersCount", (count: any) => {
+        if (count == 2) {
+          setGamestart(true);
+        }
+      });
+    }
+  }, [socket]);
+
   /////////////
   ////Chess
   /////////////
-
-  // Inside your useEffect or where socket connection is established
   if (socket) {
     socket.on("gameState", (updatedBoard) => {
       let fenString = "";
@@ -97,7 +108,17 @@ export default function ChessGamePage() {
         const moveResult = newGame.move(move);
 
         if (moveResult !== null) {
-          if (player === "1") {
+          // Check if it's Player 1's turn and the piece moved is white
+          if (player === "1" && moveResult.color === "w") {
+            if (socket && quickstop) {
+              setGame(newGame);
+              socket.emit("userMove", moveResult); // Sending the FEN after the move
+              socket.emit("switchplayer");
+              quickstop = false;
+            }
+          }
+          // Check if it's Player 2's turn and the piece moved is black
+          else if (player === "2" && moveResult.color === "b") {
             if (socket && quickstop) {
               setGame(newGame);
               socket.emit("userMove", moveResult); // Sending the FEN after the move
@@ -136,15 +157,23 @@ export default function ChessGamePage() {
           <div className="text-white text-xl flex justify-left items-left">
             {player2} (800)
           </div>
-          <Chessboard
-            position={game.fen()}
-            onPieceDrop={onDrop}
-            areArrowsAllowed={true}
-            boardOrientation={player2 === "Player 2" ? "black" : "white"}
-          />
+          <div className={gamestart ? "" : "opacity-60"}>
+            <Chessboard
+              position={game.fen()}
+              onPieceDrop={onDrop}
+              areArrowsAllowed={true}
+              boardOrientation={player2 === "Player 2" ? "black" : "white"}
+            />
+          </div>
           <div className="text-white text-xl flex justify-left items-left mb-8">
             {player1} (800)
           </div>
+
+          {gamestart === false && (
+            <div className="text-black text-5xl font-bold animate-pulse animate-bounce absolute top-1/2 -translate-y-1/2 ml-36">
+              Waiting for Opponent...
+            </div>
+          )}
         </div>
       </div>
     </div>
