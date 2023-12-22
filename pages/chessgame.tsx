@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Chess } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import { io, Socket } from "socket.io-client";
+import supabase from "@/components/SupabaseAPI";
 
 export default function ChessGamePage() {
   const [game, setGame] = useState(new Chess());
@@ -20,12 +21,9 @@ export default function ChessGamePage() {
   );
   let [playerturn, setplayerturn] = useState(true);
   let quickstop = true;
-
-  const [username, setUsername] = useState("");
-
+  const [username, setUsername] = useState("Guest");
   const [usernameP1, setUsernameP1] = useState("");
   const [usernameP2, setUsernameP2] = useState("");
-  const [socketcount, setSocketCount] = useState(0);
   const [gameaborted, setGameaborted] = useState(false);
   const [spectating, setSpectating] = useState(false);
 
@@ -46,7 +44,7 @@ export default function ChessGamePage() {
     setSocket(socket);
 
     if (socket) {
-      socket.once("connectedPlayersCount", (count: any) => {
+      socket.once("connectedPlayersCount", async (count: any) => {
         if (count == 1) {
           setPlayer1("Player 1");
           setPlayer2("??????");
@@ -77,17 +75,49 @@ export default function ChessGamePage() {
     };
   }, []);
 
+  useEffect(() => {
+    if (username) {
+      setPlayer1(username); // Update Player 1's username
+    }
+  }, [username]);
+
+  useEffect(() => {
+    if (username) {
+      setPlayer2(username); // Update Player 2's username
+    }
+  }, [username]);
+
+  const GrabUsername = useCallback(async () => {
+    const userID = (await supabase.auth.getUser()).data.user?.id;
+    const { data } = await supabase
+      .from("user_profile")
+      .select("username")
+      .eq("id", userID);
+
+    if (data && data.length > 0 && data[0].username) {
+      const username = data[0].username;
+      setUsername(username);
+      if (socket) {
+        socket.emit("p1usernameupdate", username);
+      }
+    }
+  }, [socket]);
+
+  GrabUsername();
+
   ///Always On
   useEffect(() => {
     if (socket) {
       socket.on("connectedPlayersCount", (count: any) => {
-        //setSocketCount(count);
-        console.log(count);
         if (count == 2) {
           setGamestart(true);
         } else if (count <= 2 && gamestart) {
           setGameaborted(true);
         }
+      });
+
+      socket.on("p1usernameupdateClient", (username) => {
+        setUsernameP1(username);
       });
 
       socket.on("player1", (username) => {
@@ -97,7 +127,7 @@ export default function ChessGamePage() {
         setUsernameP2(username);
       });
     }
-  }, [socket, gamestart]);
+  }, [socket, gamestart, usernameP1, usernameP2, username]);
 
   //Highlighting
   useEffect(() => {
@@ -226,7 +256,7 @@ export default function ChessGamePage() {
               position={game.fen()}
               onPieceDrop={onDrop}
               areArrowsAllowed={true}
-              boardOrientation={player2 === "Player 2" ? "black" : "white"}
+              boardOrientation={player === "2" ? "black" : "white"}
               customSquareStyles={generateCustomSquareStyles()}
             />
           </div>
