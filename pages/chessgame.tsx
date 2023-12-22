@@ -25,6 +25,9 @@ export default function ChessGamePage() {
 
   const [usernameP1, setUsernameP1] = useState("");
   const [usernameP2, setUsernameP2] = useState("");
+  const [socketcount, setSocketCount] = useState(0);
+  const [gameaborted, setGameaborted] = useState(false);
+  const [spectating, setSpectating] = useState(false);
 
   useEffect(() => {
     const socket = io("https://betchess-ecc275519414.herokuapp.com", {
@@ -50,7 +53,7 @@ export default function ChessGamePage() {
           setplayerturn(true);
           setPlayer("1");
 
-          socket.emit("setUsername", "Eggy_P1");
+          socket.emit("setUsername", "Player 1 Guest");
         }
         if (count == 2) {
           setPlayer1("Player 1");
@@ -60,7 +63,10 @@ export default function ChessGamePage() {
           setPlayer("2");
           setGamestart(true);
 
-          socket.emit("setUsername", "Eggy_P2");
+          socket.emit("setUsername", "Player 2 Guest");
+        }
+        if (count >= 3) {
+          setSpectating(true);
         }
         console.log(count);
       });
@@ -75,20 +81,23 @@ export default function ChessGamePage() {
   useEffect(() => {
     if (socket) {
       socket.on("connectedPlayersCount", (count: any) => {
+        //setSocketCount(count);
+        console.log(count);
         if (count == 2) {
           setGamestart(true);
+        } else if (count <= 2 && gamestart) {
+          setGameaborted(true);
         }
       });
-      socket.on("userJoined", (userData: any) => {
-        const { username, player } = userData;
-        if (player === 1) {
-          setUsernameP1(username);
-        } else if (player === 2) {
-          setUsernameP2(username);
-        }
+
+      socket.on("player1", (username) => {
+        setUsernameP1(username);
+      });
+      socket.on("player2", (username) => {
+        setUsernameP2(username);
       });
     }
-  }, [socket]);
+  }, [socket, gamestart]);
 
   //Highlighting
   useEffect(() => {
@@ -155,7 +164,7 @@ export default function ChessGamePage() {
     try {
       const newGame = new Chess(game.fen());
 
-      if (newGame !== null && gamestart == true) {
+      if (newGame !== null && gamestart == true && gameaborted == false) {
         const moveResult = newGame.move(move);
 
         if (moveResult !== null) {
@@ -210,7 +219,7 @@ export default function ChessGamePage() {
       <div className="flex justify-left items-center ml-[15%]">
         <div className="items-center w-[740px] mt-28">
           <div className="text-white text-xl flex justify-left items-left">
-            {usernameP2} (800)
+            {board === "white" ? `${usernameP2} (800)` : `${usernameP1} (800)`}
           </div>
           <div className={gamestart ? "" : "opacity-60"}>
             <Chessboard
@@ -222,12 +231,17 @@ export default function ChessGamePage() {
             />
           </div>
           <div className="text-white text-xl flex justify-left items-left mb-8">
-            {usernameP1} (800)
+            {board === "white" ? `${usernameP1} (800)` : `${usernameP2} (800)`}
           </div>
 
-          {gamestart === false && (
+          {gamestart === false && spectating == false && (
             <div className="text-black text-5xl font-bold animate-pulse animate-bounce absolute top-1/2 -translate-y-1/2 ml-36">
               Waiting for Opponent...
+            </div>
+          )}
+          {spectating === true && (
+            <div className="text-black text-5xl font-bold animate-pulse animate-bounce absolute top-1/2 -translate-y-1/2 ml-36">
+              You are spectating!
             </div>
           )}
           {checkmate === true && (
@@ -239,6 +253,15 @@ export default function ChessGamePage() {
           {draw === true && (
             <div className="z-10 bg-slate-800 text-white w-[400px] h-[400px] text-5xl font-bold absolute top-1/2 -translate-y-1/2 ml-48 rounded-lg shadow drop-shadow-xl">
               <div className="text-center mt-8">Draw!</div>
+            </div>
+          )}
+          {gamestart === true && gameaborted === true && (
+            <div className="z-10 bg-slate-800 text-white w-[400px] h-[400px] text-5xl font-bold absolute top-1/2 -translate-y-1/2 ml-48 rounded-lg shadow drop-shadow-xl">
+              <div className="text-center mt-8">Game Aborted</div>
+              <div className="text-center mt-8">A player has left!</div>
+              <div className="text-center mt-8">
+                Refresh to start a new game
+              </div>
             </div>
           )}
         </div>
