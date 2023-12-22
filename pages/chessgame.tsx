@@ -11,13 +11,20 @@ export default function ChessGamePage() {
   const [board, setboard] = useState("white");
   const [player, setPlayer] = useState("1");
   const [gamestart, setGamestart] = useState(false);
-  let [playerturn, setplayerturn] = useState(true);
+  const [checkmate, setCheckmate] = useState(false);
+  const [draw, setDraw] = useState(false);
   const [lastMoveSource, setLastMoveSource] = useState<string | null>(null);
   const [lastMoveTarget, setLastMoveTarget] = useState<string | null>(null);
   const [highlightedSquare, setHighlightedSquare] = useState<string | null>(
     null,
   );
+  let [playerturn, setplayerturn] = useState(true);
   let quickstop = true;
+
+  const [username, setUsername] = useState("");
+
+  const [usernameP1, setUsernameP1] = useState("");
+  const [usernameP2, setUsernameP2] = useState("");
 
   useEffect(() => {
     const socket = io("https://betchess-ecc275519414.herokuapp.com", {
@@ -42,6 +49,8 @@ export default function ChessGamePage() {
           setPlayer2("??????");
           setplayerturn(true);
           setPlayer("1");
+
+          socket.emit("setUsername", "Eggy_P1");
         }
         if (count == 2) {
           setPlayer1("Player 1");
@@ -50,7 +59,10 @@ export default function ChessGamePage() {
           setplayerturn(false);
           setPlayer("2");
           setGamestart(true);
+
+          socket.emit("setUsername", "Eggy_P2");
         }
+        console.log(count);
       });
     }
 
@@ -67,11 +79,39 @@ export default function ChessGamePage() {
           setGamestart(true);
         }
       });
+      socket.on("userJoined", (userData: any) => {
+        const { username, player } = userData;
+        if (player === 1) {
+          setUsernameP1(username);
+        } else if (player === 2) {
+          setUsernameP2(username);
+        }
+      });
     }
   }, [socket]);
 
+  //Highlighting
+  useEffect(() => {
+    if (lastMoveSource && lastMoveTarget) {
+      setHighlightedSquare(lastMoveTarget);
+    }
+  }, [lastMoveSource, lastMoveTarget]);
+
+  ///Change move square colour to yellow
+  const generateCustomSquareStyles = () => {
+    const customStyles: { [key: string]: React.CSSProperties } = {};
+
+    if (highlightedSquare) {
+      customStyles[highlightedSquare] = {
+        background: "rgba(255, 255, 200, 1)",
+      };
+    }
+
+    return customStyles;
+  };
+
   /////////////
-  ////Chess
+  ////Chess////
   /////////////
   if (socket) {
     socket.on("gameState", (updatedBoard) => {
@@ -79,12 +119,21 @@ export default function ChessGamePage() {
         const fenString = updatedBoard.after;
         const newGame = new Chess();
         newGame.load(fenString); // Load the extracted FEN string
-        setGame(newGame);
-      }
+        setGame(newGame); // Update the game state
 
-      if (updatedBoard && updatedBoard.to) {
-        const { to } = updatedBoard;
-        setHighlightedSquare(to); // Set the 'to' square as highlighted
+        // Highlight Square
+        if (updatedBoard.to) {
+          const { to } = updatedBoard;
+          setHighlightedSquare(to); // Set the 'to' square as highlighted
+        }
+
+        //Check for win and draw
+        if (newGame.isCheckmate()) {
+          setCheckmate(true);
+        }
+        if (newGame.isDraw()) {
+          setDraw(true);
+        }
       }
     });
   }
@@ -106,7 +155,7 @@ export default function ChessGamePage() {
     try {
       const newGame = new Chess(game.fen());
 
-      if (newGame !== null) {
+      if (newGame !== null && gamestart == true) {
         const moveResult = newGame.move(move);
 
         if (moveResult !== null) {
@@ -156,30 +205,12 @@ export default function ChessGamePage() {
     return true;
   }
 
-  useEffect(() => {
-    if (lastMoveSource && lastMoveTarget) {
-      setHighlightedSquare(lastMoveTarget);
-    }
-  }, [lastMoveSource, lastMoveTarget]);
-
-  const generateCustomSquareStyles = () => {
-    const customStyles: { [key: string]: React.CSSProperties } = {};
-
-    if (highlightedSquare) {
-      customStyles[highlightedSquare] = {
-        background: "rgba(255, 255, 40, 0.2)",
-      };
-    }
-
-    return customStyles;
-  };
-
   return (
     <div>
       <div className="flex justify-left items-center ml-[15%]">
-        <div className="items-center w-[740px] mt-32">
+        <div className="items-center w-[740px] mt-28">
           <div className="text-white text-xl flex justify-left items-left">
-            {player2} (800)
+            {usernameP2} (800)
           </div>
           <div className={gamestart ? "" : "opacity-60"}>
             <Chessboard
@@ -191,12 +222,23 @@ export default function ChessGamePage() {
             />
           </div>
           <div className="text-white text-xl flex justify-left items-left mb-8">
-            {player1} (800)
+            {usernameP1} (800)
           </div>
 
           {gamestart === false && (
             <div className="text-black text-5xl font-bold animate-pulse animate-bounce absolute top-1/2 -translate-y-1/2 ml-36">
               Waiting for Opponent...
+            </div>
+          )}
+          {checkmate === true && (
+            <div className="z-10 bg-slate-800 text-white w-[400px] h-[400px] text-5xl font-bold absolute top-1/2 -translate-y-1/2 ml-48 rounded-lg shadow drop-shadow-xl">
+              <div className="text-center mt-8">Checkmate!</div>
+              <div className="text-center mt-16">Player ? Wins</div>
+            </div>
+          )}
+          {draw === true && (
+            <div className="z-10 bg-slate-800 text-white w-[400px] h-[400px] text-5xl font-bold absolute top-1/2 -translate-y-1/2 ml-48 rounded-lg shadow drop-shadow-xl">
+              <div className="text-center mt-8">Draw!</div>
             </div>
           )}
         </div>
