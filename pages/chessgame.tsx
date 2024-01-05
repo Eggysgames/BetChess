@@ -105,11 +105,17 @@ export default function ChessGamePage() {
 
   GrabUsername();
 
+
+  ///Send Game Data to Chess Games
+  ///Stop multiple Entries
+  ///Seperate ID for each game
+  ///Get Fen.history to store
+  ///Store Usernames
   const SendGameToDatabase = async () => {
     try {
       await supabase.from("chess_games").upsert([
         {
-          id: "bobssss",
+          id: "bobsssss",
           created_at: "2023-12-11 08:04:14.849812+00",
           movehistory: "F2s2",
           winner: "white",
