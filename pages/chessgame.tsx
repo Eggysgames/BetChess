@@ -105,6 +105,27 @@ export default function ChessGamePage() {
 
   GrabUsername();
 
+  const SendGameToDatabase = async () => {
+    try {
+      await supabase.from("chess_games").upsert([
+        {
+          id: "bobssss",
+          created_at: "2023-12-11 08:04:14.849812+00",
+          movehistory: "F2s2",
+          winner: "white",
+        },
+      ]);
+
+      console.log("Data successfully sent to the database");
+    } catch (error) {
+      console.error("Error sending data to the database:", error);
+    }
+  };
+
+  useEffect(() => {
+    SendGameToDatabase();
+  }, []);
+
   ///Always On
   useEffect(() => {
     if (socket) {
