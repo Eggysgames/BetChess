@@ -1,8 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Chess } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import { io, Socket } from "socket.io-client";
 import supabase from "@/components/SupabaseAPI";
+import { v4 as uuidv4 } from "uuid";
 
 export default function ChessGamePage() {
   const [game, setGame] = useState(new Chess());
@@ -28,7 +29,7 @@ export default function ChessGamePage() {
   const [spectating, setSpectating] = useState(false);
 
   useEffect(() => {
-    const socket = io("https://betchess-ecc275519414.herokuapp.com", {
+    const socket = io("http://localhost:4000", {
       reconnectionDelay: 1000,
       reconnection: false,
     });
@@ -105,30 +106,36 @@ export default function ChessGamePage() {
 
   GrabUsername();
 
-
   ///Send Game Data to Chess Games
   ///Stop multiple Entries
   ///Seperate ID for each game
   ///Get Fen.history to store
   ///Store Usernames
-  const SendGameToDatabase = async () => {
-    try {
-      await supabase.from("chess_games").upsert([
-        {
-          id: "bobsssss",
-          created_at: "2023-12-11 08:04:14.849812+00",
-          movehistory: "F2s2",
-          winner: "white",
-        },
-      ]);
 
-      console.log("Data successfully sent to the database");
-    } catch (error) {
-      console.error("Error sending data to the database:", error);
-    }
-  };
+  const gameId = useRef(uuidv4()); // Initialize gameId using useRef
 
   useEffect(() => {
+    let myonce = false;
+
+    const SendGameToDatabase = async () => {
+      if (myonce === false && gameId.current) {
+        try {
+          await supabase.from("chess_games").upsert([
+            {
+              id: gameId.current, // Use gameId.current
+              created_at: "2023-12-11 08:04:14.849812+00",
+              movehistory: "F2s232sSSSssASASDSSASDD",
+              winner: "white",
+            },
+          ]);
+          myonce = true;
+          console.log("Data successfully sent to the database");
+        } catch (error) {
+          console.error("Error sending data to the database:", error);
+        }
+      }
+    };
+
     SendGameToDatabase();
   }, []);
 
