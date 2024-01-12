@@ -4,6 +4,8 @@ import { Chessboard } from "react-chessboard";
 import { io, Socket } from "socket.io-client";
 import supabase from "@/components/SupabaseAPI";
 import { v4 as uuidv4 } from "uuid";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function ChessGamePage() {
   const [game, setGame] = useState(new Chess());
@@ -15,59 +17,33 @@ export default function ChessGamePage() {
   const [gamestart, setGamestart] = useState(false);
   const [checkmate, setCheckmate] = useState(false);
   const [draw, setDraw] = useState(false);
-  const [lastMoveSource, setLastMoveSource] = useState<string | null>(null);
-  const [lastMoveTarget, setLastMoveTarget] = useState<string | null>(null);
-  const [highlightedSquare, setHighlightedSquare] = useState<string | null>(
-    null,
-  );
-  let [playerturn, setplayerturn] = useState(true);
-  let quickstop = true;
   const [username, setUsername] = useState("Guest");
   const [usernameP1, setUsernameP1] = useState("");
   const [usernameP2, setUsernameP2] = useState("");
   const [gameaborted, setGameaborted] = useState(false);
   const [spectating, setSpectating] = useState(false);
+  const [gameRoom, setgameRoom] = useState("?????");
+
+  const router = useRouter();
 
   useEffect(() => {
-    const socket = io("http://localhost:4000", {
+    const socket = io("https://betchess-ecc275519414.herokuapp.com", {
       reconnectionDelay: 1000,
       reconnection: false,
     });
 
     socket.on("connect", () => {
       console.log("Connected To Server");
+      socket.emit("joinLobby");
     });
 
     socket.on("disconnect", () => {
       console.log("Disconnected from server");
     });
 
-    setSocket(socket);
-
     if (socket) {
-      socket.once("connectedPlayersCount", async (count: any) => {
-        if (count == 1) {
-          setPlayer1("Player 1");
-          setPlayer2("??????");
-          setplayerturn(true);
-          setPlayer("1");
-
-          socket.emit("setUsername", "Player 1 Guest");
-        }
-        if (count == 2) {
-          setPlayer1("Player 1");
-          setPlayer2("Player 2");
-          setboard("black");
-          setplayerturn(false);
-          setPlayer("2");
-          setGamestart(true);
-
-          socket.emit("setUsername", "Player 2 Guest");
-        }
-        if (count >= 3) {
-          setSpectating(true);
-        }
-        console.log(count);
+      socket.on("gamestart", (gameRoom) => {
+        router.push(`/game/${gameRoom}`);
       });
     }
 
@@ -106,178 +82,6 @@ export default function ChessGamePage() {
 
   GrabUsername();
 
-  ///Send Game Data to Chess Games
-  ///Stop multiple Entries
-  ///Seperate ID for each game
-  ///Get Fen.history to store
-  ///Store Usernames
-
-  const gameId = useRef(uuidv4()); // Initialize gameId using useRef
-
-  useEffect(() => {
-    let myonce = false;
-
-    const SendGameToDatabase = async () => {
-      if (myonce === false && gameId.current) {
-        try {
-          await supabase.from("chess_games").upsert([
-            {
-              id: gameId.current, // Use gameId.current
-              created_at: "2023-12-11 08:04:14.849812+00",
-              movehistory: "F2s232sSSSssASASDSSASDD",
-              winner: "white",
-            },
-          ]);
-          myonce = true;
-          console.log("Data successfully sent to the database");
-        } catch (error) {
-          console.error("Error sending data to the database:", error);
-        }
-      }
-    };
-
-    SendGameToDatabase();
-  }, []);
-
-  ///Always On
-  useEffect(() => {
-    if (socket) {
-      socket.on("connectedPlayersCount", (count: any) => {
-        if (count == 2) {
-          setGamestart(true);
-        } else if (count <= 2 && gamestart) {
-          setGameaborted(true);
-        }
-      });
-
-      socket.on("p1usernameupdateClient", (username) => {
-        setUsernameP1(username);
-      });
-
-      socket.on("player1", (username) => {
-        setUsernameP1(username);
-      });
-      socket.on("player2", (username) => {
-        setUsernameP2(username);
-      });
-    }
-  }, [socket, gamestart, usernameP1, usernameP2, username]);
-
-  //Highlighting
-  useEffect(() => {
-    if (lastMoveSource && lastMoveTarget) {
-      setHighlightedSquare(lastMoveTarget);
-    }
-  }, [lastMoveSource, lastMoveTarget]);
-
-  ///Change move square colour to yellow
-  const generateCustomSquareStyles = () => {
-    const customStyles: { [key: string]: React.CSSProperties } = {};
-
-    if (highlightedSquare) {
-      customStyles[highlightedSquare] = {
-        background: "rgba(255, 255, 200, 1)",
-      };
-    }
-
-    return customStyles;
-  };
-
-  /////////////
-  ////Chess////
-  /////////////
-  if (socket) {
-    socket.on("gameState", (updatedBoard) => {
-      if (updatedBoard && updatedBoard.after) {
-        const fenString = updatedBoard.after;
-        const newGame = new Chess();
-        newGame.load(fenString); // Load the extracted FEN string
-        setGame(newGame); // Update the game state
-
-        // Highlight Square
-        if (updatedBoard.to) {
-          const { to } = updatedBoard;
-          setHighlightedSquare(to); // Set the 'to' square as highlighted
-        }
-
-        //Check for win and draw
-        if (newGame.isCheckmate()) {
-          setCheckmate(true);
-        }
-        if (newGame.isDraw()) {
-          setDraw(true);
-        }
-      }
-    });
-  }
-
-  function sendMoveToOpponent(move: any) {
-    if (socket) {
-      socket.emit("userMove", move);
-    }
-  }
-
-  if (socket) {
-    socket.on("playerTurn", (playerTurn: any) => {
-      setplayerturn(playerTurn);
-      console.log(playerturn);
-    });
-  }
-
-  function makeAMove(move: any) {
-    try {
-      const newGame = new Chess(game.fen());
-
-      if (newGame !== null && gamestart == true && gameaborted == false) {
-        const moveResult = newGame.move(move);
-
-        if (moveResult !== null) {
-          // Check if it's Player 1's turn and the piece moved is white
-          if (player === "1" && moveResult.color === "w") {
-            if (socket && quickstop) {
-              setGame(newGame);
-              socket.emit("userMove", moveResult); // Sending the FEN after the move
-              socket.emit("switchplayer");
-              quickstop = false;
-              setLastMoveSource(move.from);
-              setLastMoveTarget(move.to);
-            }
-          }
-          // Check if it's Player 2's turn and the piece moved is black
-          else if (player === "2" && moveResult.color === "b") {
-            if (socket && quickstop) {
-              setGame(newGame);
-              socket.emit("userMove", moveResult); // Sending the FEN after the move
-              socket.emit("switchplayer");
-              quickstop = false;
-              setLastMoveSource(move.from);
-              setLastMoveTarget(move.to);
-            }
-          }
-        }
-      }
-    } catch (error) {
-      console.log("Catch in MakeaMove because -", error);
-    }
-  }
-
-  function onDrop(sourceSquare: string, targetSquare: string) {
-    const move = makeAMove({
-      from: sourceSquare,
-      to: targetSquare,
-      promotion: "q", // always promote to a queen for simplicity
-    });
-
-    // illegal move
-    if (move === null) {
-      return false;
-    }
-
-    sendMoveToOpponent(move);
-
-    return true;
-  }
-
   return (
     <div>
       <div className="flex justify-left items-center ml-[15%]">
@@ -288,10 +92,8 @@ export default function ChessGamePage() {
           <div className={gamestart ? "" : "opacity-60"}>
             <Chessboard
               position={game.fen()}
-              onPieceDrop={onDrop}
               areArrowsAllowed={true}
               boardOrientation={player === "2" ? "black" : "white"}
-              customSquareStyles={generateCustomSquareStyles()}
             />
           </div>
           <div className="text-white text-xl flex justify-left items-left mb-8">
