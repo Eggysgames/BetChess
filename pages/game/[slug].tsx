@@ -149,6 +149,8 @@ export default function ChessGamePage() {
           created_at: currentDateTime,
           movehistory: moveHistory,
           winner: winner,
+          player1: usernameP1,
+          player2: usernameP2,
         },
       ]);
 
