@@ -66,7 +66,7 @@ export default function ChessGamePage() {
           setPlayer(1);
 
           socket.emit("setUsername", "Player 1 Guest");
-          //await GrabUsername();
+          await GrabUsername();
         }
         if (count == 2) {
           setPlayer1("Player 1");
@@ -77,7 +77,7 @@ export default function ChessGamePage() {
           setGamestart(true);
 
           socket.emit("setUsername", "Player 2 Guest");
-          //await GrabUsername();
+          await GrabUsername();
         }
         if (count >= 3) {
           setSpectating(true);
@@ -117,12 +117,12 @@ export default function ChessGamePage() {
       if (socket) {
         if (player === 1) {
           //console.log("going 1");
-          //socket.emit("p1usernameupdate", username);
+          socket.emit("p1usernameupdate", username);
         }
       }
       if (socket) {
         if (player === 2) {
-          //socket.emit("p2usernameupdate", username);
+          socket.emit("p2usernameupdate", "username");
         }
       }
     }
