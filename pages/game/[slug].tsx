@@ -3,19 +3,13 @@ import { Chess } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import { io, Socket } from "socket.io-client";
 import supabase from "@/components/SupabaseAPI";
-import { v4 as uuidv4 } from "uuid";
-import { useRouter } from "next/router";
-import { useParams } from "react-router-dom";
 
 export default function ChessGamePage() {
-  const router = useRouter();
-  const { slug } = router.query;
-  const [game, setGame] = useState(new Chess());
   const [socket, setSocket] = useState<Socket | null>(null);
   const [player1, setPlayer1] = useState("?????");
   const [player2, setPlayer2] = useState("?????");
   const [board, setboard] = useState("white");
-  const [player, setPlayer] = useState("1");
+  const [player, setPlayer] = useState(1);
   const [gamestart, setGamestart] = useState(true);
   const [checkmate, setCheckmate] = useState(false);
   const [draw, setDraw] = useState(false);
@@ -34,6 +28,11 @@ export default function ChessGamePage() {
   const [spectating, setSpectating] = useState(false);
   const [gameRoom, setgameRoom] = useState("?????");
   const [playerCount, setplayerCount] = useState(0);
+  /////////////////////////
+  const [game, setGame] = useState(new Chess());
+  const newGame = new Chess(game.fen());
+  const [moveHistory, setMoveHistory] = useState<string[]>([]);
+  const lastMoveRef = useRef<string | null>(null);
 
   useEffect(() => {
     const socket = io("https://betchess-ecc275519414.herokuapp.com", {
@@ -43,7 +42,7 @@ export default function ChessGamePage() {
 
     socket.on("connect", () => {
       console.log("Connected to server");
-      socket.emit("joinGame");
+      socket.emit("joinGame", username);
     });
 
     socket.on("disconnect", () => {
@@ -64,19 +63,21 @@ export default function ChessGamePage() {
           setPlayer1("Player 1");
           setPlayer2("??????");
           setplayerturn(true);
-          setPlayer("1");
+          setPlayer(1);
 
           socket.emit("setUsername", "Player 1 Guest");
+          await GrabUsername();
         }
         if (count == 2) {
           setPlayer1("Player 1");
           setPlayer2("Player 2");
           setboard("black");
           setplayerturn(false);
-          setPlayer("2");
+          setPlayer(2);
           setGamestart(true);
 
           socket.emit("setUsername", "Player 2 Guest");
+          await GrabUsername();
         }
         if (count >= 3) {
           setSpectating(true);
@@ -85,24 +86,22 @@ export default function ChessGamePage() {
       });
     }
 
-    //console.log(gameRoom);
-
     return () => {
       socket.disconnect();
     };
   }, []);
 
-  useEffect(() => {
-    if (username) {
-      setPlayer1(username);
-    }
-  }, [username]);
+  if (socket) {
+    socket.on("p1usernameupdateClient", (username) => {
+      setUsernameP1(username);
+    });
+  }
 
-  useEffect(() => {
-    if (username) {
-      setPlayer2(username);
-    }
-  }, [username]);
+  if (socket) {
+    socket.on("p2usernameupdateClient", (username) => {
+      setUsernameP2(username);
+    });
+  }
 
   const GrabUsername = useCallback(async () => {
     const userID = (await supabase.auth.getUser()).data.user?.id;
@@ -114,13 +113,55 @@ export default function ChessGamePage() {
     if (data && data.length > 0 && data[0].username) {
       const username = data[0].username;
       setUsername(username);
+      console.log(username);
       if (socket) {
-        socket.emit("p1usernameupdate", username);
+        if (player === 1) {
+          console.log("going 1");
+          socket.emit("p1usernameupdate", username);
+        }
+      }
+      if (socket) {
+        if (player === 2) {
+          socket.emit("p2usernameupdate", username);
+        }
       }
     }
-  }, [socket]);
+  }, [socket, player]);
 
   GrabUsername();
+
+  const SendGameToDatabase = async () => {
+    const currentDateTime = new Date().toISOString();
+
+    let winner = "white";
+
+    if (newGame.isCheckmate()) {
+      if (newGame.turn() === "w") {
+        winner = "Black";
+      } else {
+        winner = "White";
+      }
+    }
+
+    try {
+      await supabase.from("chess_games").upsert([
+        {
+          id: gameRoom,
+          created_at: currentDateTime,
+          movehistory: moveHistory,
+          winner: winner,
+        },
+      ]);
+
+      console.log("Data successfully sent to the database");
+    } catch (error) {
+      console.error("Error sending data to the database:", error);
+    }
+  };
+
+  if (checkmate || gameaborted || draw) {
+    SendGameToDatabase();
+  }
 
   ///Always On
   useEffect(() => {
@@ -167,17 +208,24 @@ export default function ChessGamePage() {
   /////////////
   if (socket) {
     socket.on("gameState", (updatedBoard) => {
-      //console.log(updatedBoard);
       if (updatedBoard && updatedBoard.after) {
         const fenString = updatedBoard.after;
-        const newGame = new Chess();
-        newGame.load(fenString); // Load the extracted FEN string
-        setGame(newGame); // Update the game state
+        newGame.load(fenString);
+        setGame(newGame);
+
+        const newMove = updatedBoard.san;
+
+        // Check if the move is not the same as the last move and not in the history before adding
+        if (newMove !== lastMoveRef.current && !moveHistory.includes(newMove)) {
+          setMoveHistory((prevMoveHistory) => [...prevMoveHistory, newMove]);
+          // Update the last move using the ref
+          lastMoveRef.current = newMove;
+        }
 
         // Highlight Square
         if (updatedBoard.to) {
           const { to } = updatedBoard;
-          setHighlightedSquare(to); // Set the 'to' square as highlighted
+          setHighlightedSquare(to);
         }
 
         //Check for win and draw
@@ -200,22 +248,21 @@ export default function ChessGamePage() {
 
   function makeAMove(move: any) {
     try {
-      const newGame = new Chess(game.fen());
-
       if (
         newGame !== null &&
-        gamestart == true &&
-        gameaborted == false &&
-        spectating == false
+        gamestart === true &&
+        gameaborted === false &&
+        spectating === false
       ) {
-        const moveResult = newGame.move(move);
+        const updatedGame = new Chess(newGame.fen()); // Create a new instance to prevent modifying the current game state
+
+        const moveResult = updatedGame.move(move); // Perform the move on the new instance
 
         if (moveResult !== null) {
           // Check if it's Player 1's turn and the piece moved is white
-          if (player === "1" && moveResult.color === "w") {
+          if (player === 1 && moveResult.color === "w") {
             if (socket && quickstop) {
-              setGame(newGame);
-              console.log(gameRoom);
+              setGame(updatedGame); // Update the state with the new instance
               setFirstMove(true);
               socket.emit("userMove", { moveResult, gameRoom });
               socket.emit("switchplayer");
@@ -225,18 +272,19 @@ export default function ChessGamePage() {
             }
           }
           // Check if it's Player 2's turn and the piece moved is black
-          else if (player === "2" && moveResult.color === "b") {
+          else if (player === 2 && moveResult.color === "b") {
             if (socket && quickstop) {
-              setGame(newGame);
-              console.log("Client Game Room" + gameRoom);
+              setGame(updatedGame); // Update the state with the new instance
               setFirstMove(true);
-              socket.emit("userMove", { moveResult, gameRoom }); // Sending the FEN after the move
+              socket.emit("userMove", { moveResult, gameRoom });
               socket.emit("switchplayer");
               quickstop = false;
               setLastMoveSource(move.from);
               setLastMoveTarget(move.to);
             }
           }
+
+          // Update move history
         }
       }
     } catch (error) {
@@ -271,7 +319,7 @@ export default function ChessGamePage() {
               position={game.fen()}
               onPieceDrop={onDrop}
               areArrowsAllowed={true}
-              boardOrientation={player === "2" ? "black" : "white"}
+              boardOrientation={player === 2 ? "black" : "white"}
               customSquareStyles={generateCustomSquareStyles()}
             />
           </div>

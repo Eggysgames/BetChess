@@ -19,7 +19,7 @@ export default function ChessGamePage() {
   const [draw, setDraw] = useState(false);
   const [username, setUsername] = useState("Guest");
   const [usernameP1, setUsernameP1] = useState("");
-  const [usernameP2, setUsernameP2] = useState("");
+  const [usernameP2, setUsernameP2] = useState("Opponent");
   const [gameaborted, setGameaborted] = useState(false);
   const [spectating, setSpectating] = useState(false);
   const [gameRoom, setgameRoom] = useState("?????");
@@ -52,6 +52,13 @@ export default function ChessGamePage() {
     };
   }, []);
 
+  if (socket) {
+    socket.on("p1usernameupdateClient", () => {
+      console.log("info");
+      setPlayer1(username);
+    });
+  }
+
   useEffect(() => {
     if (username) {
       setPlayer1(username); // Update Player 1's username
@@ -74,11 +81,14 @@ export default function ChessGamePage() {
     if (data && data.length > 0 && data[0].username) {
       const username = data[0].username;
       setUsername(username);
+      setUsernameP1(username);
       if (socket) {
         socket.emit("p1usernameupdate", username);
       }
     }
   }, [socket]);
+
+  console.log(username);
 
   GrabUsername();
 
