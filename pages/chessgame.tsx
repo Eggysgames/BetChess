@@ -18,7 +18,7 @@ export default function ChessGamePage() {
   const [checkmate, setCheckmate] = useState(false);
   const [draw, setDraw] = useState(false);
   const [username, setUsername] = useState("Guest");
-  const [usernameP1, setUsernameP1] = useState("");
+  const [usernameP1, setUsernameP1] = useState("You");
   const [usernameP2, setUsernameP2] = useState("Opponent");
   const [gameaborted, setGameaborted] = useState(false);
   const [spectating, setSpectating] = useState(false);
