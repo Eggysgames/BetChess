@@ -52,46 +52,6 @@ export default function ChessGamePage() {
     };
   }, []);
 
-  if (socket) {
-    socket.on("p1usernameupdateClient", () => {
-      console.log("info");
-      setPlayer1(username);
-    });
-  }
-
-  useEffect(() => {
-    if (username) {
-      setPlayer1(username); // Update Player 1's username
-    }
-  }, [username]);
-
-  useEffect(() => {
-    if (username) {
-      setPlayer2(username); // Update Player 2's username
-    }
-  }, [username]);
-
-  const GrabUsername = useCallback(async () => {
-    const userID = (await supabase.auth.getUser()).data.user?.id;
-    const { data } = await supabase
-      .from("user_profile")
-      .select("username")
-      .eq("id", userID);
-
-    if (data && data.length > 0 && data[0].username) {
-      const username = data[0].username;
-      setUsername(username);
-      setUsernameP1(username);
-      if (socket) {
-        socket.emit("p1usernameupdate", username);
-      }
-    }
-  }, [socket]);
-
-  console.log(username);
-
-  GrabUsername();
-
   return (
     <div>
       <div className="flex justify-left items-center ml-[15%]">

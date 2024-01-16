@@ -116,13 +116,12 @@ export default function ChessGamePage() {
       console.log(username);
       if (socket) {
         if (player === 1) {
-          //console.log("going 1");
           socket.emit("p1usernameupdate", username);
         }
       }
       if (socket) {
         if (player === 2) {
-          socket.emit("p2usernameupdate", "username");
+          socket.emit("p2usernameupdate", username);
         }
       }
     }
