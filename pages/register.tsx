@@ -1,10 +1,45 @@
 import { SubmissionButton } from "../components/StyledButton";
-import { createClient, Session } from "@supabase/supabase-js";
+import {
+  createClient,
+  Session,
+  SupabaseClientOptions,
+} from "@supabase/supabase-js";
 import React, { useState, useEffect } from "react";
+
+interface SupabaseClientOptionsWithSMTP
+  extends SupabaseClientOptions<"public"> {
+  smtp?: {
+    host: string;
+    port: number;
+    secure: boolean;
+    auth: {
+      user: string;
+      pass: string;
+    };
+  };
+}
 
 const supabase = createClient(
   "https://ttlaembyimpxjuovpmxk.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0bGFlbWJ5aW1weGp1b3ZwbXhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTI3NzA2NTcsImV4cCI6MjAwODM0NjY1N30.f6YXhReklfjQMe6sfVAqjyraiXgzjcH6W-2bOkCn_Sw",
+);
+
+const elasticEmailConfig = {
+  host: "smtp.elasticemail.com",
+  port: 2525, // Use the appropriate port for Elastic Email
+  secure: false, // Set to true if using SSL/TLS
+  auth: {
+    user: "eggy55555@gmail.com",
+    pass: "C428143238D994749E2216B0D85E090229D5",
+  },
+};
+
+const supabaseWithSMTP = createClient(
+  "https://ttlaembyimpxjuovpmxk.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0bGFlbWJ5aW1weGp1b3ZwbXhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTI3NzA2NTcsImV4cCI6MjAwODM0NjY1N30.f6YXhReklfjQMe6sfVAqjyraiXgzjcH6W-2bOkCn_Sw",
+  {
+    smtp: elasticEmailConfig,
+  } as SupabaseClientOptionsWithSMTP, // Cast to the extended type
 );
 
 const Register = () => {
@@ -32,7 +67,7 @@ const Register = () => {
 
     if (isChecked) {
       try {
-        const { data, error } = await supabase.auth.signUp({
+        const { data, error } = await supabaseWithSMTP.auth.signUp({
           email: email,
           password: password,
           options: {
