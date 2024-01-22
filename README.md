@@ -6,9 +6,11 @@ Chess.js Engine - https://github.com/jhlywa/chess.js
 
 Stockfish AI - https://github.com/nmrugg/stockfish.js
 
-Database - https://supabase.com/
+Database - https://supabase.com
 
 Server/Sockets - https://heroku.com
+
+SMTP Email - https://elasticemail.com
 
 Payments (In Progress)
 
