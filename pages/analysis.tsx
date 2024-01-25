@@ -74,7 +74,9 @@ export default function ChessGamePage() {
     <div key={index} className={`flex mt-2 items-center`}>
       <div
         className={`mr-2 ${
-          index * 2 === moveIndex ? "font-bold text-yellow-500" : "text-white"
+          index * 2 === moveIndex - 1
+            ? "font-bold text-yellow-500"
+            : "text-white"
         }`}
       >
         {pair[0]}
@@ -82,7 +84,7 @@ export default function ChessGamePage() {
       {pair[1] && (
         <div
           className={`ml-2 ${
-            index * 2 + 1 === moveIndex
+            index * 2 + 1 === moveIndex - 1
               ? "font-bold text-yellow-500"
               : "text-white"
           }`}
@@ -105,6 +107,7 @@ export default function ChessGamePage() {
               position={game.fen()}
               areArrowsAllowed={true}
               boardOrientation={"white"}
+              arePiecesDraggable={false}
             />
           </div>
           <div className="text-white text-xl flex justify-left items-left mb-8">
