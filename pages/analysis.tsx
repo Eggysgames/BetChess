@@ -65,6 +65,34 @@ export default function ChessGamePage() {
     }
   }
 
+  const movePairs = [];
+  for (let i = 0; i < movesArray.length; i += 2) {
+    movePairs.push([movesArray[i], movesArray[i + 1]]);
+  }
+
+  const moveHistory = movePairs.map((pair, index) => (
+    <div key={index} className={`flex mt-2 items-center`}>
+      <div
+        className={`mr-2 ${
+          index * 2 === moveIndex ? "font-bold text-yellow-500" : "text-white"
+        }`}
+      >
+        {pair[0]}
+      </div>
+      {pair[1] && (
+        <div
+          className={`ml-2 ${
+            index * 2 + 1 === moveIndex
+              ? "font-bold text-yellow-500"
+              : "text-white"
+          }`}
+        >
+          {pair[1]}
+        </div>
+      )}
+    </div>
+  ));
+
   return (
     <div>
       <div className="flex justify-left items-center ml-[15%]">
@@ -85,11 +113,11 @@ export default function ChessGamePage() {
         </div>
 
         <div className="flex flex-col items-center">
-          <div className="w-[500px] h-[320px] ml-32 mb-8 text-white shadow-lg rounded-3xl bg-slate-800 p-8 overflow-auto whitespace-pre-wrap">
+          <div className="w-[500px] h-[500px] ml-32 mb-8 text-white shadow-lg rounded-3xl bg-slate-800 p-8 overflow-auto whitespace-pre-wrap">
             <div className="flex justify-center text-3xl font-bold">
               Move History
             </div>
-            <div className="mt-6">{JSON.parse(moves).join(" ")}</div>
+            <div>{moveHistory}</div>
           </div>
 
           <div className="flex ml-24">
