@@ -10,11 +10,58 @@ export default function ChessGamePage() {
   const [usernameP2, setUsernameP2] = useState("Opponent");
   const [moveIndex, setMoveIndex] = useState(0);
   const router = useRouter();
-
   const moves =
     '["e4","e5","Nf3","d5","exd5","c6","Bb5","cxb5","O-O","Bc5","Re1","Nf6","Rxe5+","Kd7","Qe2","Nc6","d6","Re8","Nd4","Re7","Nxc6","Kxc6","Qe4+","Kxd6","c4","h5","Qd5+","Kc7","Qxc5+","Kb8","Rxe7","Qh8","Qc7#"]';
-
   const movesArray = JSON.parse(moves);
+
+  const [bestMove, setBestMove] = useState<string | null>(null);
+  const [bestMove1, setBestMovePos1] = useState<string | null>(null);
+  const [bestMove2, setBestMovePos2] = useState<string | null>(null);
+
+  useEffect(() => {
+    const engine = new Worker("/stockfish/stockfish.js");
+
+    engine.postMessage("uci");
+
+    // Define event listener for messages from Stockfish
+    engine.onmessage = function (event) {
+      console.log("Message from Stockfish:", event.data);
+    };
+
+    // Clean up function to terminate Stockfish engine
+    return () => {
+      engine.terminate();
+    };
+  }, []);
+
+  useEffect(() => {
+    const engine = new Worker("/stockfish/stockfish.js");
+
+    // Send current FEN position to Stockfish
+    engine.postMessage("position fen " + game.fen());
+
+    // Request Stockfish to calculate the best move
+    engine.postMessage("go depth 10"); // Adjust the depth as needed
+
+    // Listen for the best move response
+    engine.onmessage = function (event) {
+      const message = event.data;
+
+      // Check if the message contains the best move
+      if (message.startsWith("bestmove")) {
+        const bestMove = message.split(" ")[1];
+        const pos1 = bestMove.slice(0, 2);
+        const pos2 = bestMove.slice(2);
+        setBestMovePos1(pos1);
+        setBestMovePos2(pos2);
+        console.log("Best move:", bestMove);
+      }
+    };
+    // Clean up function to terminate Stockfish engine
+    return () => {
+      engine.terminate();
+    };
+  }, [game]);
 
   const handleNextMove = () => {
     // Check if there are more moves to make
@@ -106,6 +153,7 @@ export default function ChessGamePage() {
             <Chessboard
               position={game.fen()}
               areArrowsAllowed={true}
+              customArrows={[[bestMove1 || "", bestMove2 || ""]]}
               boardOrientation={"white"}
               arePiecesDraggable={false}
             />
