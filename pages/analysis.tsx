@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Chess } from "chess.js";
+import { Chess, Square } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import { useRouter } from "next/router";
 
@@ -15,8 +15,8 @@ export default function ChessGamePage() {
   const movesArray = JSON.parse(moves);
 
   const [bestMove, setBestMove] = useState<string | null>(null);
-  const [bestMove1, setBestMovePos1] = useState<string | null>(null);
-  const [bestMove2, setBestMovePos2] = useState<string | null>(null);
+  const [bestMove1, setBestMovePos1] = useState<Square>("e4");
+  const [bestMove2, setBestMovePos2] = useState<Square>("e5");
 
   useEffect(() => {
     const engine = new Worker("/stockfish/stockfish.js");
@@ -152,8 +152,8 @@ export default function ChessGamePage() {
           <div className="">
             <Chessboard
               position={game.fen()}
-              areArrowsAllowed={true}
-              customArrows={[[bestMove1 || "", bestMove2 || ""]]}
+              areArrowsAllowed={false}
+              customArrows={[[bestMove1, bestMove2]]}
               boardOrientation={"white"}
               arePiecesDraggable={false}
             />
