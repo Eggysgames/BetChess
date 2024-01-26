@@ -19,7 +19,7 @@ export default function ChessGamePage() {
   const [bestMove2, setBestMovePos2] = useState<Square>("e5");
 
   useEffect(() => {
-    const engine = new Worker("/stockfish/stockfish.asm.js");
+    const engine = new Worker("/stockfish/stockfish.js");
 
     engine.postMessage("uci");
 
@@ -35,7 +35,7 @@ export default function ChessGamePage() {
   }, []);
 
   useEffect(() => {
-    const engine = new Worker("/stockfish/stockfish.asm.js");
+    const engine = new Worker("/stockfish/stockfish.js");
 
     // Send current FEN position to Stockfish
     engine.postMessage("position fen " + game.fen());
