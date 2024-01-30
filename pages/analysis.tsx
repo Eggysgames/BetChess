@@ -15,64 +15,44 @@ export default function ChessGamePage() {
   const movesArray = JSON.parse(moves);
 
   const [bestMove, setBestMove] = useState<string | null>(null);
-  const [bestMove1, setBestMovePos1] = useState<Square>("e4");
-  const [bestMove2, setBestMovePos2] = useState<Square>("e5");
+  const [bestMove1, setBestMovePos1] = useState<Square>("e1");
+  const [bestMove2, setBestMovePos2] = useState<Square>("e1");
 
-  useEffect(() => {
-    const engine = new Worker("/stockfish/stockfish.js");
-
-    engine.postMessage("uci");
-
-    // Define event listener for messages from Stockfish
-    engine.onmessage = function (event) {
-      console.log("Message from Stockfish:", event.data);
-    };
-
-    // Clean up function to terminate Stockfish engine
-    return () => {
-      engine.terminate();
-    };
-  }, []);
-
-  useEffect(() => {
-    const engine = new Worker("/stockfish/stockfish.js");
-
-    // Send current FEN position to Stockfish
-    engine.postMessage("position fen " + game.fen());
-
-    // Request Stockfish to calculate the best move
-    engine.postMessage("go depth 10"); // Adjust the depth as needed
-
-    // Listen for the best move response
-    engine.onmessage = function (event) {
-      const message = event.data;
-
-      // Check if the message contains the best move
-      if (message.startsWith("bestmove")) {
-        const bestMove = message.split(" ")[1];
-        const pos1 = bestMove.slice(0, 2);
-        const pos2 = bestMove.slice(2);
-        setBestMovePos1(pos1);
-        setBestMovePos2(pos2);
-        console.log("Best move:", bestMove);
-      }
-    };
-    // Clean up function to terminate Stockfish engine
-    return () => {
-      engine.terminate();
-    };
-  }, [game]);
-
-  const handleNextMove = () => {
+  const handleNextMove = async () => {
     // Check if there are more moves to make
     if (moveIndex < movesArray.length) {
       const currentMove = movesArray[moveIndex];
-      makeAMove(currentMove);
+      const updatedGame = makeAMove(currentMove);
+      setGame(updatedGame); // Update the game state with the returned value
+
+      // Fetch the best move
+      try {
+        const response = await fetch(
+          `https://stockfish.online/api/stockfish.php?fen=${encodeURIComponent(
+            updatedGame.fen(),
+          )}&depth=10&mode=bestmove`,
+        );
+        const data = await response.json();
+
+        console.log(data);
+        if (data.success) {
+          const moveParts = data.data.split(" ");
+          const bestMove = moveParts[1];
+          const bestMove1 = bestMove.substring(0, 2); // Extract location of piece
+          const bestMove2 = bestMove.substring(2, 4); // Extract destination
+          setBestMovePos1(bestMove1);
+          setBestMovePos2(bestMove2);
+        } else {
+          console.error("Stockfish API error:", data.error);
+        }
+      } catch (error) {
+        console.error("Error fetching best move:", error);
+      }
+
       setMoveIndex((prevIndex) => prevIndex + 1);
     }
   };
-
-  const handlePrevMove = () => {
+  const handlePrevMove = async () => {
     // Check if there are previous moves to undo
     if (moveIndex > 0) {
       // Decrement moveIndex first
@@ -86,29 +66,51 @@ export default function ChessGamePage() {
 
       // Update the game state
       setGame(updatedGame);
+
+      // Fetch the best move for the previous state
+      try {
+        const response = await fetch(
+          `https://stockfish.online/api/stockfish.php?fen=${encodeURIComponent(
+            updatedGame.fen(),
+          )}&depth=10&mode=bestmove`,
+        );
+        const data = await response.json();
+
+        console.log(data);
+        if (data.success) {
+          const moveParts = data.data.split(" ");
+          const bestMove = moveParts[1];
+          const bestMove1 = bestMove.substring(0, 2); // Extract location of piece
+          const bestMove2 = bestMove.substring(2, 4); // Extract destination
+          setBestMovePos1(bestMove1);
+          setBestMovePos2(bestMove2);
+        } else {
+          console.error("Stockfish API error:", data.error);
+        }
+      } catch (error) {
+        console.error("Error fetching best move:", error);
+      }
     }
   };
 
   function makeAMove(move: any) {
     try {
       const updatedGame = new Chess(game.fen());
-      const legalMoves = updatedGame.moves();
-
-      console.log("Legal moves:", legalMoves);
-
       const moveResult = updatedGame.move(move);
 
       if (moveResult !== null) {
         // Perform any additional logic if needed
         // Update move history or any other state
-        setGame(updatedGame); // Update the game state
         console.log("Move details:", move);
         console.log("Current game state:", updatedGame.fen());
+        return updatedGame; // Return the updated game state
       } else {
         console.error("Invalid move:", move);
+        return game; // Return the current game state if the move is invalid
       }
     } catch (error) {
       console.error("Error making move:", error);
+      return game; // Return the current game state in case of error
     }
   }
 
