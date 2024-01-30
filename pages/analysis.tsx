@@ -9,18 +9,22 @@ export default function ChessGamePage() {
   const [usernameP1, setUsernameP1] = useState("You");
   const [usernameP2, setUsernameP2] = useState("Opponent");
   const [moveIndex, setMoveIndex] = useState(0);
-  const router = useRouter();
+
   const moves =
     '["e4","e5","Nf3","d5","exd5","c6","Bb5","cxb5","O-O","Bc5","Re1","Nf6","Rxe5+","Kd7","Qe2","Nc6","d6","Re8","Nd4","Re7","Nxc6","Kxc6","Qe4+","Kxd6","c4","h5","Qd5+","Kc7","Qxc5+","Kb8","Rxe7","Qh8","Qc7#"]';
   const movesArray = JSON.parse(moves);
 
   const [bestMove, setBestMove] = useState<string | null>(null);
-  const [bestMove1, setBestMovePos1] = useState<Square>("e1");
-  const [bestMove2, setBestMovePos2] = useState<Square>("e1");
+  const [bestMove1, setBestMovePos1] = useState<Square | null>(null);
+  const [bestMove2, setBestMovePos2] = useState<Square | null>(null);
+
+  const [isFetchingMove, setIsFetchingMove] = useState(false);
 
   const handleNextMove = async () => {
-    // Check if there are more moves to make
-    if (moveIndex < movesArray.length) {
+    // Check if there are more moves to make and if another move is not currently being fetched
+    if (moveIndex < movesArray.length && !isFetchingMove) {
+      setIsFetchingMove(true); // Set flag to indicate that a move is being fetched
+
       const currentMove = movesArray[moveIndex];
       const updatedGame = makeAMove(currentMove);
       setGame(updatedGame); // Update the game state with the returned value
@@ -36,25 +40,37 @@ export default function ChessGamePage() {
 
         console.log(data);
         if (data.success) {
-          const moveParts = data.data.split(" ");
-          const bestMove = moveParts[1];
-          const bestMove1 = bestMove.substring(0, 2); // Extract location of piece
-          const bestMove2 = bestMove.substring(2, 4); // Extract destination
-          setBestMovePos1(bestMove1);
-          setBestMovePos2(bestMove2);
+          if (data.data === "Game over in position.") {
+            // Game over, set bestMove1 and bestMove2 to null
+            setBestMovePos1(null);
+            setBestMovePos2(null);
+          } else {
+            // Extract best move data
+            const moveParts = data.data.split(" ");
+            const bestMove = moveParts[1];
+            const bestMove1 = bestMove.substring(0, 2); // Extract location of piece
+            const bestMove2 = bestMove.substring(2, 4); // Extract destination
+            setBestMovePos1(bestMove1);
+            setBestMovePos2(bestMove2);
+          }
         } else {
           console.error("Stockfish API error:", data.error);
         }
       } catch (error) {
         console.error("Error fetching best move:", error);
+      } finally {
+        setIsFetchingMove(false); // Reset the flag after the move has been fetched
       }
 
       setMoveIndex((prevIndex) => prevIndex + 1);
     }
   };
+
   const handlePrevMove = async () => {
-    // Check if there are previous moves to undo
-    if (moveIndex > 0) {
+    // Check if there are previous moves to undo and if another move is not currently being fetched
+    if (moveIndex > 0 && !isFetchingMove) {
+      setIsFetchingMove(true); // Set flag to indicate that a move is being fetched
+
       // Decrement moveIndex first
       setMoveIndex((prevIndex) => prevIndex - 1);
 
@@ -89,6 +105,8 @@ export default function ChessGamePage() {
         }
       } catch (error) {
         console.error("Error fetching best move:", error);
+      } finally {
+        setIsFetchingMove(false); // Reset the flag after the move has been fetched
       }
     }
   };
@@ -155,7 +173,9 @@ export default function ChessGamePage() {
             <Chessboard
               position={game.fen()}
               areArrowsAllowed={false}
-              customArrows={[[bestMove1, bestMove2]]}
+              customArrows={
+                bestMove1 && bestMove2 ? [[bestMove1, bestMove2]] : []
+              }
               boardOrientation={"white"}
               arePiecesDraggable={false}
             />
