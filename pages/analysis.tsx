@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Chess, Square } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import { useRouter } from "next/router";
+import supabase from "@/components/SupabaseAPI";
 
 export default function ChessGamePage() {
   const [game, setGame] = useState(new Chess());
@@ -10,16 +11,81 @@ export default function ChessGamePage() {
   const [usernameP2, setUsernameP2] = useState("Opponent");
   const [moveIndex, setMoveIndex] = useState(0);
   const [gameid, setGameID] = useState("15ff12f2-665f-4b97-bf2b-8be3526b6c0e");
-
-  const moves =
-    '["e4","e5","Nf3","d5","exd5","c6","Bb5","cxb5","O-O","Bc5","Re1","Nf6","Rxe5+","Kd7","Qe2","Nc6","d6","Re8","Nd4","Re7","Nxc6","Kxc6","Qe4+","Kxd6","c4","h5","Qd5+","Kc7","Qxc5+","Kb8","Rxe7","Qh8","Qc7#"]';
-  const movesArray = JSON.parse(moves);
+  const movePairs = [];
+  let [moves, setMoves] = useState("[]");
+  //let moves = "[]";
+  let movesArray = JSON.parse(moves);
 
   const [bestMove, setBestMove] = useState<string | null>(null);
   const [bestMove1, setBestMovePos1] = useState<Square | null>(null);
   const [bestMove2, setBestMovePos2] = useState<Square | null>(null);
 
   const [isFetchingMove, setIsFetchingMove] = useState(false);
+  const [moveHistory, setMoveHistory] = useState<JSX.Element[]>([]);
+
+  const setGameIDDB = async () => {
+    try {
+      // Fetch move history data from Supabase using the new gameid
+      const { data, error } = await supabase
+        .from("chess_games")
+        .select("movehistory")
+        .eq("id", gameid)
+        .single();
+
+      if (error) {
+        console.error("Error fetching move history:", error.message);
+        return;
+      }
+
+      // Update moves state with the fetched data
+      if (data) {
+        // Update moves state with the fetched data
+        setMoves(data.movehistory);
+        movesArray = JSON.parse(data.movehistory);
+
+        console.log(moves);
+        const movePairs = [];
+        for (let i = 0; i < movesArray.length; i += 2) {
+          movePairs.push([movesArray[i], movesArray[i + 1]]);
+        }
+
+        setMoveIndex(0);
+
+        const moveHistory = movePairs.map((pair, index) => (
+          <div key={index} className={`flex mt-2 items-center`}>
+            <div
+              className={`mr-2 ${
+                index * 2 === moveIndex - 1
+                  ? "font-bold text-yellow-500"
+                  : "text-white"
+              }`}
+            >
+              {pair[0]}
+            </div>
+            {pair[1] && (
+              <div
+                className={`ml-2 ${
+                  index * 2 + 1 === moveIndex - 1
+                    ? "font-bold text-yellow-500"
+                    : "text-white"
+                }`}
+              >
+                {pair[1]}
+              </div>
+            )}
+          </div>
+        ));
+        setMoveHistory(moveHistory);
+      } else {
+        console.log("No move history found for the provided gameid");
+      }
+
+      // Update the gameid state after fetching move history
+      setGameID(gameid);
+    } catch (error) {
+      console.error("Error setting game ID:", error);
+    }
+  };
 
   const handleNextMove = async () => {
     // Check if there are more moves to make and if another move is not currently being fetched
@@ -133,36 +199,6 @@ export default function ChessGamePage() {
     }
   }
 
-  const movePairs = [];
-  for (let i = 0; i < movesArray.length; i += 2) {
-    movePairs.push([movesArray[i], movesArray[i + 1]]);
-  }
-
-  const moveHistory = movePairs.map((pair, index) => (
-    <div key={index} className={`flex mt-2 items-center`}>
-      <div
-        className={`mr-2 ${
-          index * 2 === moveIndex - 1
-            ? "font-bold text-yellow-500"
-            : "text-white"
-        }`}
-      >
-        {pair[0]}
-      </div>
-      {pair[1] && (
-        <div
-          className={`ml-2 ${
-            index * 2 + 1 === moveIndex - 1
-              ? "font-bold text-yellow-500"
-              : "text-white"
-          }`}
-        >
-          {pair[1]}
-        </div>
-      )}
-    </div>
-  ));
-
   return (
     <div>
       <div className="flex justify-left items-center ml-[15%]">
@@ -202,7 +238,7 @@ export default function ChessGamePage() {
 
             <button
               className="text-white shadow-lg rounded-3xl bg-slate-800 p-4 hover:bg-slate-700 mb-4"
-              onClick={handleNextMove}
+              onClick={setGameIDDB}
             >
               Load Game
             </button>
