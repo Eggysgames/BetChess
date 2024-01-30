@@ -9,6 +9,7 @@ export default function ChessGamePage() {
   const [usernameP1, setUsernameP1] = useState("You");
   const [usernameP2, setUsernameP2] = useState("Opponent");
   const [moveIndex, setMoveIndex] = useState(0);
+  const [gameid, setGameID] = useState("15ff12f2-665f-4b97-bf2b-8be3526b6c0e");
 
   const moves =
     '["e4","e5","Nf3","d5","exd5","c6","Bb5","cxb5","O-O","Bc5","Re1","Nf6","Rxe5+","Kd7","Qe2","Nc6","d6","Re8","Nd4","Re7","Nxc6","Kxc6","Qe4+","Kxd6","c4","h5","Qd5+","Kc7","Qxc5+","Kb8","Rxe7","Qh8","Qc7#"]';
@@ -186,6 +187,27 @@ export default function ChessGamePage() {
         </div>
 
         <div className="flex flex-col items-center">
+          <div className="flex flex-col ml-32 mt-16">
+            <div className="w-[500px] h-[80px] mb-4 text-white shadow-lg rounded-3xl bg-slate-800 p-2 overflow-auto whitespace-pre-wrap">
+              <div className="flex justify-center text-xl font-bold">
+                Game ID
+              </div>
+              <input
+                type="text"
+                className="text-center mt-2 bg-transparent border-none focus:outline-none w-full"
+                value={gameid}
+                onChange={(e) => setGameID(e.target.value)}
+              />
+            </div>
+
+            <button
+              className="text-white shadow-lg rounded-3xl bg-slate-800 p-4 hover:bg-slate-700 mb-4"
+              onClick={handleNextMove}
+            >
+              Load Game
+            </button>
+          </div>
+
           <div className="w-[500px] h-[500px] ml-32 mb-8 text-white shadow-lg rounded-3xl bg-slate-800 p-8 overflow-auto whitespace-pre-wrap">
             <div className="flex justify-center text-3xl font-bold">
               Move History
