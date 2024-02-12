@@ -94,6 +94,12 @@ export default function ChessGamePage() {
     }
   };
 
+  useEffect(() => {
+    if (gameid) {
+      setGameIDDB();
+    }
+  }, [gameid]);
+
   const handleNextMove = async () => {
     // Check if there are more moves to make and if another move is not currently being fetched
     if (moveIndex < movesArray.length && !isFetchingMove) {
