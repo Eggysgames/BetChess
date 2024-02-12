@@ -10,11 +10,12 @@ export default function ChessGamePage() {
   const [usernameP1, setUsernameP1] = useState("You");
   const [usernameP2, setUsernameP2] = useState("Opponent");
   const [moveIndex, setMoveIndex] = useState(0);
-  const [gameid, setGameID] = useState("15ff12f2-665f-4b97-bf2b-8be3526b6c0e");
+  const [gameid, setGameID] = useState("");
   const movePairs = [];
   let [moves, setMoves] = useState("[]");
   //let moves = "[]";
   let movesArray = JSON.parse(moves);
+  const router = useRouter();
 
   const [bestMove, setBestMove] = useState<string | null>(null);
   const [bestMove1, setBestMovePos1] = useState<Square | null>(null);
@@ -22,6 +23,12 @@ export default function ChessGamePage() {
 
   const [isFetchingMove, setIsFetchingMove] = useState(false);
   const [moveHistory, setMoveHistory] = useState<JSX.Element[]>([]);
+
+  useEffect(() => {
+    if (router.query.gameId) {
+      setGameID(router.query.gameId.toString());
+    }
+  }, [router.query.gameId]);
 
   const setGameIDDB = async () => {
     try {

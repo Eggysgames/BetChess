@@ -3,6 +3,7 @@ import { Chess } from "chess.js";
 import { Chessboard } from "react-chessboard";
 import supabase from "@/components/SupabaseAPI";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/router";
 
 export default function PlayRandomMoveEngine() {
   const [game, setGame] = useState(new Chess());
@@ -11,7 +12,7 @@ export default function PlayRandomMoveEngine() {
   const [moveHistory, setMoveHistory] = useState<string[]>([]);
   const lastMoveRef = useRef<string | null>(null);
   const [gameId, setGameId] = useState("");
-
+  const router = useRouter();
   let mover = false;
   let sendonce = false;
 
@@ -120,6 +121,13 @@ export default function PlayRandomMoveEngine() {
     return true;
   }
 
+  const handleAnalyzeClick = () => {
+    router.push({
+      pathname: '/analysis',
+      query: { gameId: gameId }
+    });
+  };
+
   return (
     <div className="flex justify-left items-center ml-[15%]">
       <div className="items-center w-[740px] mt-28">
@@ -133,6 +141,9 @@ export default function PlayRandomMoveEngine() {
             <div className="z-10 bg-slate-800 text-white w-[400px] h-[400px] text-5xl font-bold absolute top-1/2 -translate-y-1/2 ml-48 rounded-lg shadow drop-shadow-xl">
               <div className="text-center mt-8">Checkmate!</div>
               <div className="text-center mt-16">Player ? Wins</div>
+              <div className="text-center mt-16">
+                <button onClick={handleAnalyzeClick}>analysis</button>
+              </div>
             </div>
           )}
           {draw === true && (
