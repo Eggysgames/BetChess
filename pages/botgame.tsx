@@ -10,14 +10,18 @@ export default function PlayRandomMoveEngine() {
   const [draw, setDraw] = useState(false);
   const [moveHistory, setMoveHistory] = useState<string[]>([]);
   const lastMoveRef = useRef<string | null>(null);
+  const [gameId, setGameId] = useState("");
 
   let mover = false;
   let sendonce = false;
 
+  useEffect(() => {
+    const gameId = uuidv4();
+    setGameId(gameId);
+  }, []);
+
   const SendGameToDatabase = async () => {
     const currentDateTime = new Date().toISOString();
-
-    const gameId = uuidv4(); // Generate a UUID
 
     let winner = "white";
 
@@ -118,7 +122,7 @@ export default function PlayRandomMoveEngine() {
 
   return (
     <div className="flex justify-left items-center ml-[15%]">
-      <div className="items-center w-[740px] mt-28 flex">
+      <div className="items-center w-[740px] mt-28">
         <div className="">
           <Chessboard
             position={game.fen()}
@@ -137,16 +141,11 @@ export default function PlayRandomMoveEngine() {
             </div>
           )}
         </div>
+      </div>
 
-        <div className="flex flex-col items-center ml-8">
-          <div className="flex flex-col mt-16">
-            <div className="w-[500px] h-[80px] mb-4 text-white shadow-lg rounded-3xl bg-slate-800 p-2 overflow-auto whitespace-pre-wrap">
-              <div className="flex justify-center text-xl font-bold">
-                Game ID
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="w-[500px] h-[80px] mb-4 text-white shadow-lg rounded-3xl bg-slate-800 p-2 overflow-auto whitespace-pre-wrap ml-8">
+        <div className="flex justify-center text-xl font-bold">Game ID</div>
+        <div className="text-center">{gameId}</div>
       </div>
     </div>
   );
