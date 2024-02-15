@@ -63,7 +63,7 @@ const Fungameselect = () => {
                 <br></br>
                 <br></br>
                 {highlightedButton !== "" && (
-                  <DefaultButton inserttext="Begin Game" link="/chessgame" />
+                  <DefaultButton inserttext="Begin Game" link="/botgame" />
                 )}
               </div>
             </div>
