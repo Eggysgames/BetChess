@@ -20,23 +20,23 @@ interface SupabaseClientOptionsWithSMTP
 }
 
 const supabase = createClient(
-  "https://ttlaembyimpxjuovpmxk.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0bGFlbWJ5aW1weGp1b3ZwbXhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTI3NzA2NTcsImV4cCI6MjAwODM0NjY1N30.f6YXhReklfjQMe6sfVAqjyraiXgzjcH6W-2bOkCn_Sw",
+  "xxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxx",
 );
 
 const elasticEmailConfig = {
-  host: "smtp.elasticemail.com",
-  port: 2525, // Use the appropriate port for Elastic Email
+  host: "xxxxxxxxxxxxxxxxx",
+  port: xxxxxxxxxxxx, // Use the appropriate port for Elastic Email
   secure: false, // Set to true if using SSL/TLS
   auth: {
-    user: "eggy55555@gmail.com",
-    pass: "C428143238D994749E2216B0D85E090229D5",
+    user: "xxxxxxxxxxxxxxxxxxx",
+    pass: "xxxxxxxxxxxxxxxxxxxxxxxx",
   },
 };
 
 const supabaseWithSMTP = createClient(
-  "https://ttlaembyimpxjuovpmxk.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0bGFlbWJ5aW1weGp1b3ZwbXhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTI3NzA2NTcsImV4cCI6MjAwODM0NjY1N30.f6YXhReklfjQMe6sfVAqjyraiXgzjcH6W-2bOkCn_Sw",
+  "xxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxxxxxxxx",
   {
     smtp: elasticEmailConfig,
   } as SupabaseClientOptionsWithSMTP, // Cast to the extended type
